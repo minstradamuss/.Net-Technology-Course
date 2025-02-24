@@ -1,1 +1,1 @@
-# .Net-Technology--ourse
+# .Net-Technology-Course
