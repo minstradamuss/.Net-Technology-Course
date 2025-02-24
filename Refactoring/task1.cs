@@ -1,6 +1,9 @@
 class DataOrg
 {
     private string name;
+
+    // замен€ем публичные пол€ на свойства с соответствующими 
+    // геттерами и сеттерами
     public string Name
     {
         get { return name; }
@@ -21,29 +24,31 @@ class DataOrg
 
     int nameLength;
 
-    //убрали магические константы 
-    const int nameLenghtCoefficient = 4, minNameLength = 3;
-    const int minAge = 18, maxAge = 65;
+    // константы вместо магических чисел
+    const int nameLengthCoefficient = 4;
+    const int minNameLength = 3;
+    const int minAge = 18ж
+    const int maxAge = 65;
 
-    //сделали отдельные новые классы, каждый со своей функциональностью
     public class Row
     {
         public string Name { get; set; }
         public string Age { get; set; }
         public string Time { get; set; }
 
-        //убрали магические константы 
-        const double koeff = 0.83;
+        // константы вместо магических чисел
+        const double coefficient = 0.83;
 
         public Row(string name, int age)
         {
             Name = name;
-            Age = $"{age * koeff}";
+            Age = $"{age * coefficient}";
             Time = DateTime.Now.ToString();
         }
     }
 
-    public Row? GetRow()
+    // ћетод получени€ строки данных
+    public Row GetRow()
     {
         if (name == null)
             throw new ArgumentNullException("name");
@@ -51,7 +56,7 @@ class DataOrg
         return row;
     }
 
-    //выносим проверки специальных случаев в отдельное условие 
+    // отдельные методы дл€ обработки данных
     private bool IsCorrectData()
     {
         if (name.Length < minNameLength)
@@ -63,15 +68,15 @@ class DataOrg
         return true;
     }
 
-    //теперь название метода раскрывает то, что он делает
     public void CalculateNameLength()
     {
         if (name == null)
             throw new ArgumentNullException("name");
         if (IsCorrectData())
-            nameLength = name.Length * nameLenghtCoefficient;
+            nameLength = name.Length * nameLengthCoefficient;
     }
 
+    // отдельный метод дл€ установки значений
     public void SetValue(string name, int value)
     {
         if (name.Equals("age"))
@@ -80,7 +85,7 @@ class DataOrg
             SetScore(value);
     }
 
-    //дл€ полей создаем геттер и сеттер и пользуемс€ далее только ими
+    // принцип инкапсул€ции
     private void SetAge(int value)
     {
         age = value;

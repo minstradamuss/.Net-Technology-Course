@@ -1,43 +1,43 @@
-class fighter
+using System;
+
+class Fighter
 {
     private int iDamage;
-    public string sName;
 
-    public int fighterHealth
-    { get; set; }
+    public int FighterHealth { get; set; }
+    public int FighterDamage { get; set; }
+    public int WeaponStatus { get; set; }
 
-    public int fighterDamage
-    { get; set; }
-
-    public int Weapon_Status
-    { get; set; }
-
-    void logStatus(string name, int age, int health, int damage, int weaponStatus)
+    private void LogStatus(string name, int age, int health, int damage, int weaponStatus)
     {
-        Console.WriteLine($"name:{name}, age:{age}, health:{health}, damage:{damage}, 
-        weaponStatus:{ weaponStatus}"); 
+        // вынесем в отдельную переменную
+        var log = $"name:{name}, age:{age}, health:{health}, damage:{damage}, weaponStatus:{weaponStatus}";
+        Console.WriteLine(log);
     }
+
     public int GetDamage()
     {
         // Weapon_Status * 5 
         // Console.WriteLine($"Get Damage {iDamage}"); 
         return iDamage;
     }
-    void atck()
+
+    private void PerformAttack()
     {
         Console.WriteLine("Go Attack!");
-        // TO DO: implement attack 
+        // TO DO: implement attack
     }
+
     public void Attack()
     {
         try
         {
-            atck();
+            PerformAttack();
         }
+        // просто логируем ошибку
         catch (Exception e)
         {
-            Console.WriteLine($"Go Attack Exception: {e}");
-            throw e;
+            Console.WriteLine($"Go Attack Exception: {e.Message}");
         }
     }
 }
