@@ -2,8 +2,8 @@ class DataOrg
 {
     private string name;
 
-    // заменяем публичные поля на свойства с соответствующими 
-    // геттерами и сеттерами
+    // Г§Г Г¬ГҐГ­ГїГҐГ¬ ГЇГіГЎГ«ГЁГ·Г­Г»ГҐ ГЇГ®Г«Гї Г­Г  Г±ГўГ®Г©Г±ГІГўГ  Г± Г±Г®Г®ГІГўГҐГІГ±ГІГўГіГѕГ№ГЁГ¬ГЁ 
+    // ГЈГҐГІГІГҐГ°Г Г¬ГЁ ГЁ Г±ГҐГІГІГҐГ°Г Г¬ГЁ
     public string Name
     {
         get { return name; }
@@ -24,10 +24,10 @@ class DataOrg
 
     int nameLength;
 
-    // константы вместо магических чисел
+    // ГЄГ®Г­Г±ГІГ Г­ГІГ» ГўГ¬ГҐГ±ГІГ® Г¬Г ГЈГЁГ·ГҐГ±ГЄГЁГµ Г·ГЁГ±ГҐГ«
     const int nameLengthCoefficient = 4;
     const int minNameLength = 3;
-    const int minAge = 18ж
+    const int minAge = 18;
     const int maxAge = 65;
 
     public class Row
@@ -36,7 +36,7 @@ class DataOrg
         public string Age { get; set; }
         public string Time { get; set; }
 
-        // константы вместо магических чисел
+        // ГЄГ®Г­Г±ГІГ Г­ГІГ» ГўГ¬ГҐГ±ГІГ® Г¬Г ГЈГЁГ·ГҐГ±ГЄГЁГµ Г·ГЁГ±ГҐГ«
         const double coefficient = 0.83;
 
         public Row(string name, int age)
@@ -47,7 +47,7 @@ class DataOrg
         }
     }
 
-    // Метод получения строки данных
+    // ГЊГҐГІГ®Г¤ ГЇГ®Г«ГіГ·ГҐГ­ГЁГї Г±ГІГ°Г®ГЄГЁ Г¤Г Г­Г­Г»Гµ
     public Row GetRow()
     {
         if (name == null)
@@ -56,7 +56,7 @@ class DataOrg
         return row;
     }
 
-    // отдельные методы для обработки данных
+    // Г®ГІГ¤ГҐГ«ГјГ­Г»ГҐ Г¬ГҐГІГ®Г¤Г» Г¤Г«Гї Г®ГЎГ°Г ГЎГ®ГІГЄГЁ Г¤Г Г­Г­Г»Гµ
     private bool IsCorrectData()
     {
         if (name.Length < minNameLength)
@@ -76,7 +76,7 @@ class DataOrg
             nameLength = name.Length * nameLengthCoefficient;
     }
 
-    // отдельный метод для установки значений
+    // Г®ГІГ¤ГҐГ«ГјГ­Г»Г© Г¬ГҐГІГ®Г¤ Г¤Г«Гї ГіГ±ГІГ Г­Г®ГўГЄГЁ Г§Г­Г Г·ГҐГ­ГЁГ©
     public void SetValue(string name, int value)
     {
         if (name.Equals("age"))
@@ -85,7 +85,7 @@ class DataOrg
             SetScore(value);
     }
 
-    // принцип инкапсуляции
+    // ГЇГ°ГЁГ­Г¶ГЁГЇ ГЁГ­ГЄГ ГЇГ±ГіГ«ГїГ¶ГЁГЁ
     private void SetAge(int value)
     {
         age = value;
