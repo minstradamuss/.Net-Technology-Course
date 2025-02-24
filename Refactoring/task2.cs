@@ -7,18 +7,18 @@ public class gMethods
     private int amount;
     private string platform;
 
-    // константы вместо магических чисел
-    private const float amountCoefficient = 0.956f;
+    // ГЄГ®Г­Г±ГІГ Г­ГІГ» ГўГ¬ГҐГ±ГІГ® Г¬Г ГЈГЁГ·ГҐГ±ГЄГЁГµ Г·ГЁГ±ГҐГ«
+    private const float amountCoefficient = 0.956;
     private const double coefficient = 0.8;
 
-    // через методы
+    // Г·ГҐГ°ГҐГ§ Г¬ГҐГІГ®Г¤Г»
     public void PrintPack()
     {
         this.PrintBanner();
         this.PrintDetails();
     }
 
-    // выносим это в отдельный метод
+    // ГўГ»Г­Г®Г±ГЁГ¬ ГЅГІГ® Гў Г®ГІГ¤ГҐГ«ГјГ­Г»Г© Г¬ГҐГІГ®Г¤
     private void PrintDetails()
     {
         Console.WriteLine("name: " + this.Name);
@@ -27,7 +27,7 @@ public class gMethods
         Console.WriteLine("platform: " + platform);
     }
 
-    // проверка условий отдельным методом
+    // ГЇГ°Г®ГўГҐГ°ГЄГ  ГіГ±Г«Г®ГўГЁГ© Г®ГІГ¤ГҐГ«ГјГ­Г»Г¬ Г¬ГҐГІГ®Г¤Г®Г¬
     private bool IsPlatformAndNameValid()
     {
         return platform.ToUpper().Contains("PC") &&
@@ -44,11 +44,11 @@ public class gMethods
         return -1;
     }
 
-    // Метод для логирования вычислений цены
+    // ГЊГҐГІГ®Г¤ Г¤Г«Гї Г«Г®ГЈГЁГ°Г®ГўГ Г­ГЁГї ГўГ»Г·ГЁГ±Г«ГҐГ­ГЁГ© Г¶ГҐГ­Г»
     private void LogPriceCalculations()
     {
-        // разные переменные для разных значений
-        // каждая переменная отвечает только за одну определённую вещь
+        // Г°Г Г§Г­Г»ГҐ ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г»ГҐ Г¤Г«Гї Г°Г Г§Г­Г»Гµ Г§Г­Г Г·ГҐГ­ГЁГ©
+        // ГЄГ Г¦Г¤Г Гї ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г Гї Г®ГІГўГҐГ·Г ГҐГІ ГІГ®Г«ГјГЄГ® Г§Г  Г®Г¤Г­Гі Г®ГЇГ°ГҐГ¤ГҐГ«ВёГ­Г­ГіГѕ ГўГҐГ№Гј
         double finalPrice = amount * price;
         Console.WriteLine(finalPrice);
 
