@@ -61,6 +61,9 @@ public static class NotificationService {
 }
 ```
 
+![image](https://github.com/user-attachments/assets/4b5c3ad1-9877-4ee3-8682-b2645e4cdfda)
+
+
 ##### Таблицы в БД:
 1) Users - Id, Nickname, PasswordHash, FirstName, LastName, Avatar, PhoneNumber
 2) Books - Id, Title, Author
