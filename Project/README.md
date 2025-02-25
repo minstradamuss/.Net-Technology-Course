@@ -3,8 +3,6 @@
 ## Проект: "ChatBook"
 Разработка мессенджера для участников читального клуба с возможностью общения, обмена отзывами на книги, написания собственных оценок и отзывов на прочитанные книги и добавления друзей.
 
-## Архитектура
-
 ### Функционал и основные сущности
 
 #### Основные функции:
@@ -61,15 +59,15 @@ public static class NotificationService {
 }
 ```
 
-![image](https://github.com/user-attachments/assets/4b5c3ad1-9877-4ee3-8682-b2645e4cdfda)
-
-
 ##### Таблицы в БД:
 1) Users - Id, Nickname, PasswordHash, FirstName, LastName, Avatar, PhoneNumber
 2) Books - Id, Title, Author
 3) Reviews - Id, UserId, BookId, Content, Rating
 4) Friendships - Id, User1Id, User2Id, IsAccepted
 5) Messages - Id, SenderId, ReceiverId, Content, Timestamp
+
+#### Архитектура
+![image](https://github.com/user-attachments/assets/4b5c3ad1-9877-4ee3-8682-b2645e4cdfda)
 
 #### Паттерны
 1) Абстрактная фабрика – AuthService, BookService, ChatService обрабатывают сущности в системе
