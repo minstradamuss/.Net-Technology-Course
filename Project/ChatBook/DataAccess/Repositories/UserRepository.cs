@@ -1,22 +1,28 @@
-﻿using ChatBook.Domain.Interfaces;
+﻿using System;
+using System.IO;
 using ChatBook.Domain.Models;
-using System.Collections.Generic;
 
-namespace ChatBook.DataAccess.Repositories
+namespace ChatBook.Data
 {
-    public class UserRepository : IUserService
+    public class UserRepository
     {
-        private readonly List<User> _users = new List<User>();
-
-
-        public void Register(string nickname, string password)
+        public User LoadUser(string username)
         {
-            _users.Add(new User { Id = _users.Count + 1, Nickname = nickname, Password = password });
+            // Здесь должен быть код для загрузки пользователя, например, из БД или JSON-файла.
+            return new User
+            {
+                Nickname = username,
+                FirstName = "Имя",
+                LastName = "Фамилия",
+                Phone = "123456789",
+                AvatarPath = "default_avatar.jpg"
+            };
         }
 
-        public User Login(string nickname, string password)
+        public void SaveUser(User user)
         {
-            return _users.Find(user => user.Nickname == nickname && user.Password == password);
+            // Здесь должен быть код для сохранения пользователя, например, в БД.
+            Console.WriteLine($"Пользователь {user.Nickname} сохранен.");
         }
     }
 }

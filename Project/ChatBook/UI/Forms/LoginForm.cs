@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace ChatBook.UI.Forms
@@ -19,10 +18,9 @@ namespace ChatBook.UI.Forms
 
             if (users.ContainsKey(nickname) && users[nickname] == password)
             {
-                //MessageBox.Show("Вход выполнен!");
-                MainForm mainForm = new MainForm(nickname); // 🔹 Передаем ник в MainForm
+                MainForm mainForm = new MainForm(nickname);
                 mainForm.Show();
-                this.Hide();
+                Hide();
             }
             else
             {
@@ -43,7 +41,7 @@ namespace ChatBook.UI.Forms
             }
             else
             {
-                users[nickname] = password; // 🔹 Добавляем в словарь
+                users[nickname] = password;
                 MessageBox.Show("Регистрация успешна!");
             }
         }

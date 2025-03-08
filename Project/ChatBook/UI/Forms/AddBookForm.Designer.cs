@@ -113,6 +113,7 @@ namespace ChatBook.UI.Forms
             // 
             // pictureBoxCover
             // 
+            this.pictureBoxCover.BackColor = System.Drawing.Color.Snow;
             this.pictureBoxCover.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBoxCover.Location = new System.Drawing.Point(20, 230);
             this.pictureBoxCover.Name = "pictureBoxCover";
@@ -123,11 +124,13 @@ namespace ChatBook.UI.Forms
             // 
             // btnUploadCover
             // 
+            this.btnUploadCover.BackColor = System.Drawing.Color.Snow;
             this.btnUploadCover.Location = new System.Drawing.Point(140, 230);
             this.btnUploadCover.Name = "btnUploadCover";
             this.btnUploadCover.Size = new System.Drawing.Size(140, 30);
             this.btnUploadCover.TabIndex = 6;
             this.btnUploadCover.Text = "Загрузить обложку";
+            this.btnUploadCover.UseVisualStyleBackColor = false;
             this.btnUploadCover.Click += new System.EventHandler(this.btnUploadCover_Click);
             // 
             // txtCoverImagePath
@@ -141,7 +144,8 @@ namespace ChatBook.UI.Forms
             // 
             // AddBookForm
             // 
-            this.ClientSize = new System.Drawing.Size(300, 450);
+            this.BackColor = System.Drawing.Color.PeachPuff;
+            this.ClientSize = new System.Drawing.Size(298, 450);
             this.Controls.Add(this.txtCoverImagePath);
             this.Controls.Add(this.txtBookTitle);
             this.Controls.Add(this.cmbStatus);
@@ -151,7 +155,13 @@ namespace ChatBook.UI.Forms
             this.Controls.Add(this.btnUploadCover);
             this.Controls.Add(this.btnSaveBook);
             this.Controls.Add(this.btnCancel);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(316, 497);
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(316, 497);
             this.Name = "AddBookForm";
+            this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Добавление книги";
             ((System.ComponentModel.ISupportInitialize)(this.numRating)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCover)).EndInit();

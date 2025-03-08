@@ -4,6 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using ChatBook.Domain.Models;
+using ChatBook.Services;
 
 namespace ChatBook.UI.Forms
 {
@@ -12,7 +13,6 @@ namespace ChatBook.UI.Forms
         private User _currentUser;
         private Dictionary<Book, Panel> _userBooks = new Dictionary<Book, Panel>();
         private FlowLayoutPanel flowLayoutPanelBooks;
-        //private Button btnAddBook;
 
         public MainForm(string username)
         {
@@ -27,14 +27,15 @@ namespace ChatBook.UI.Forms
         {
             flowLayoutPanelBooks = new FlowLayoutPanel
             {
-                AutoSize = true,
-                FlowDirection = FlowDirection.LeftToRight,
-                WrapContents = true,
-                Location = new System.Drawing.Point(20, 200),
-                Size = new System.Drawing.Size(500, 200)
+                AutoScroll = true, // Добавляем прокрутку
+                FlowDirection = FlowDirection.LeftToRight, // Книги идут слева направо
+                WrapContents = true, // Перенос на новую строку
+                Location = new Point(20, 200),
+                Size = new Size(650, 300) // Фиксированная ширина (5 книг по 120px + отступы)
             };
             Controls.Add(flowLayoutPanelBooks);
         }
+
 
         private void InitializeAddBookButton()
         {
@@ -46,29 +47,35 @@ namespace ChatBook.UI.Forms
         {
             EditProfileForm editProfileForm = new EditProfileForm(_currentUser);
 
-            editProfileForm.ProfileUpdated += (firstName, lastName, phone, avatarPath) =>
-            {
-                _currentUser.FirstName = firstName;
-                _currentUser.LastName = lastName;
-                _currentUser.Phone = phone;
-                _currentUser.AvatarPath = avatarPath;
-
-                lblFullName.Text = $"{firstName} {lastName}";
-                if (!string.IsNullOrEmpty(avatarPath) && File.Exists(avatarPath))
-                {
-                    pictureBoxAvatar.Image = Image.FromFile(avatarPath);
-                }
-            };
+            // Подписываемся на событие ProfileUpdated
+            editProfileForm.ProfileUpdated += UpdateProfileInfo;
 
             editProfileForm.ShowDialog();
         }
 
+        private void UpdateProfileInfo(User updatedUser)
+        {
+            _currentUser = updatedUser; // Обновляем объект пользователя
+
+            lblFullName.Text = $"{_currentUser.FirstName} {_currentUser.LastName}";
+
+            if (!string.IsNullOrEmpty(_currentUser.AvatarPath) && File.Exists(_currentUser.AvatarPath))
+            {
+                pictureBoxAvatar.Image = Image.FromFile(_currentUser.AvatarPath);
+            }
+            else
+            {
+                pictureBoxAvatar.Image = null; // Если аватара нет
+            }
+        }
+
+
 
         private void btnLogout_Click(object sender, EventArgs e)
         {
-            this.Close(); // Закрываем MainForm
+            this.Close();
             LoginForm loginForm = new LoginForm();
-            loginForm.Show(); // Открываем форму входа
+            loginForm.Show();
         }
 
         private void btnAddBook_Click(object sender, EventArgs e)
@@ -82,16 +89,17 @@ namespace ChatBook.UI.Forms
         {
             Panel bookPanel = new Panel
             {
-                Size = new System.Drawing.Size(120, 180),
-                BorderStyle = BorderStyle.FixedSingle
+                Size = new Size(120, 180),
+                BorderStyle = BorderStyle.FixedSingle,
+                Margin = new Padding(10) // Отступы между книгами
             };
 
             PictureBox bookCover = new PictureBox
             {
-                Size = new System.Drawing.Size(100, 140),
+                Size = new Size(100, 140),
                 BorderStyle = BorderStyle.FixedSingle,
                 SizeMode = PictureBoxSizeMode.Zoom,
-                Location = new System.Drawing.Point(10, 10),
+                Location = new Point(10, 10),
                 Tag = newBook
             };
 
@@ -134,12 +142,13 @@ namespace ChatBook.UI.Forms
         }
 
 
+
         private void BookCover_Click(object sender, EventArgs e)
         {
             if (sender is PictureBox bookCover && bookCover.Tag is Book book)
             {
                 AddBookForm editBookForm = new AddBookForm(book);
-                editBookForm.ToggleSaveButton(true); // <-- Добавлено!
+                editBookForm.ToggleSaveButton(true);
 
                 editBookForm.BookUpdated += (updatedBook) =>
                 {

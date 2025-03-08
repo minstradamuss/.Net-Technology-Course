@@ -11,7 +11,7 @@ namespace ChatBook.UI.Forms
         public event Action<Book> BookAdded;
         public event Action<Book> BookUpdated;
         private Book _currentBook;
-        private bool isEditMode = false; // Флаг режима редактирования
+        private bool isEditMode = false;
 
         public AddBookForm()
         {
@@ -22,7 +22,7 @@ namespace ChatBook.UI.Forms
         public AddBookForm(Book book) : this()
         {
             _currentBook = book;
-            isEditMode = true; // Устанавливаем флаг редактирования
+            isEditMode = true;
             txtBookTitle.Text = book.Title;
             cmbStatus.SelectedItem = book.Status;
             numRating.Value = book.Rating;
@@ -37,7 +37,7 @@ namespace ChatBook.UI.Forms
                 txtCoverImagePath.Text = book.CoverImagePath;
             }
 
-            ToggleSaveButton(true); // Переключаем кнопки в режим "Сохранить"
+            ToggleSaveButton(true);
         }
 
         private void btnSaveBook_Click(object sender, EventArgs e)

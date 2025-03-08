@@ -30,6 +30,7 @@ namespace ChatBook.UI.Forms
 
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.pictureBoxAvatar = new System.Windows.Forms.PictureBox();
             this.lblNickname = new System.Windows.Forms.Label();
             this.lblFullName = new System.Windows.Forms.Label();
@@ -156,7 +157,9 @@ namespace ChatBook.UI.Forms
             // 
             // MainForm
             // 
-            this.ClientSize = new System.Drawing.Size(782, 439);
+            this.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.ClientSize = new System.Drawing.Size(782, 553);
             this.Controls.Add(this.btnAddBook);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -165,9 +168,13 @@ namespace ChatBook.UI.Forms
             this.Controls.Add(this.lblFullName);
             this.Controls.Add(this.btnEditProfile);
             this.Controls.Add(this.btnSearchBooks);
-            this.MaximumSize = new System.Drawing.Size(800, 486);
-            this.MinimumSize = new System.Drawing.Size(800, 486);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(800, 600);
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "MainForm";
+            this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Профиль пользователя";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAvatar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericRating)).EndInit();

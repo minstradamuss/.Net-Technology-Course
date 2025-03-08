@@ -149,6 +149,7 @@
     <Compile Include="Domain\Models\User.cs" />
     <Compile Include="Domain\Services\BookService.cs" />
     <Compile Include="Domain\Services\IBookService.cs" />
+    <Compile Include="Domain\Services\ImageService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\AddBookFormTests.cs" />

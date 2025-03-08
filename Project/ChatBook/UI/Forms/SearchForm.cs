@@ -19,7 +19,6 @@ namespace ChatBook.UI.Forms
                 return;
             }
 
-            // Заглушка для поиска (можно заменить на реальный поиск по данным)
             listBoxResults.Items.Clear();
             listBoxResults.Items.Add($"Результат 1 для \"{searchQuery}\"");
             listBoxResults.Items.Add($"Результат 2 для \"{searchQuery}\"");
