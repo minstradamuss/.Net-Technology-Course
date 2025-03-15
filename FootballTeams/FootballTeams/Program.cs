@@ -1,4 +1,3 @@
-﻿// See https://aka.ms/new-console-template for more information
 using FootballTeams;
 
 string connectionString = "Data Source=C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\FootballTeams\\FootballTeams\\Football.db;";
