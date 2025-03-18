@@ -138,6 +138,7 @@ namespace ChatBook.UI.Forms
             this.button1.Size = new System.Drawing.Size(120, 30);
             this.button1.TabIndex = 7;
             this.button1.Text = "Чаты";
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -146,6 +147,7 @@ namespace ChatBook.UI.Forms
             this.button2.Size = new System.Drawing.Size(120, 30);
             this.button2.TabIndex = 8;
             this.button2.Text = "Друзья";
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // btnAddBook
             // 

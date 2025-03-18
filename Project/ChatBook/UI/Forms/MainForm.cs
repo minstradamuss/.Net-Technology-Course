@@ -69,8 +69,6 @@ namespace ChatBook.UI.Forms
             }
         }
 
-
-
         private void btnLogout_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -169,5 +167,27 @@ namespace ChatBook.UI.Forms
             SearchForm searchForm = new SearchForm();
             searchForm.Show();
         }
+
+        private ChatForm _chatForm; 
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (_chatForm == null || _chatForm.IsDisposed)
+            {
+                _chatForm = new ChatForm();
+                _chatForm.Show();
+            }
+            else
+            {
+                _chatForm.Focus(); // Если уже открыта, просто активируем окно
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            FriendsForm friendsForm = new FriendsForm();
+            friendsForm.Show();
+        }
+
     }
 }

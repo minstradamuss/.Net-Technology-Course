@@ -14,7 +14,7 @@ namespace ChatBook
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm("1"));
+            Application.Run(new LoginForm());
         }
     }
 }
