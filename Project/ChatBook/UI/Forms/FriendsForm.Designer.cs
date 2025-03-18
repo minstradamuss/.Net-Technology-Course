@@ -28,6 +28,7 @@
             // flowLayoutPanelFriends
             // 
             this.flowLayoutPanelFriends.AutoScroll = true;
+            this.flowLayoutPanelFriends.BackColor = System.Drawing.Color.Moccasin;
             this.flowLayoutPanelFriends.Location = new System.Drawing.Point(20, 60);
             this.flowLayoutPanelFriends.Name = "flowLayoutPanelFriends";
             this.flowLayoutPanelFriends.Size = new System.Drawing.Size(500, 300);
@@ -42,30 +43,40 @@
             // 
             // btnSearch
             // 
+            this.btnSearch.BackColor = System.Drawing.Color.Moccasin;
             this.btnSearch.Location = new System.Drawing.Point(230, 18);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(80, 26);
             this.btnSearch.TabIndex = 2;
             this.btnSearch.Text = "Поиск";
+            this.btnSearch.UseVisualStyleBackColor = false;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // btnShowFriends
             // 
+            this.btnShowFriends.BackColor = System.Drawing.Color.Moccasin;
             this.btnShowFriends.Location = new System.Drawing.Point(320, 18);
             this.btnShowFriends.Name = "btnShowFriends";
             this.btnShowFriends.Size = new System.Drawing.Size(120, 26);
             this.btnShowFriends.TabIndex = 3;
             this.btnShowFriends.Text = "Мои друзья";
+            this.btnShowFriends.UseVisualStyleBackColor = false;
             this.btnShowFriends.Click += new System.EventHandler(this.btnShowFriends_Click);
             // 
             // FriendsForm
             // 
+            this.BackColor = System.Drawing.Color.OldLace;
             this.ClientSize = new System.Drawing.Size(600, 400);
             this.Controls.Add(this.flowLayoutPanelFriends);
             this.Controls.Add(this.txtSearch);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.btnShowFriends);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(618, 447);
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(618, 447);
             this.Name = "FriendsForm";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Друзья";
             this.ResumeLayout(false);

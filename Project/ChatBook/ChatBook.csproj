@@ -212,12 +212,6 @@
     <Compile Include="UI\Forms\FriendsForm.Designer.cs">
       <DependentUpon>FriendsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Forms\FriendProfileForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Forms\FriendProfileForm.Designer.cs">
-      <DependentUpon>FriendProfileForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\Forms\SearchForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -263,9 +257,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\FriendsForm.resx">
       <DependentUpon>FriendsForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Forms\FriendProfileForm.resx">
-      <DependentUpon>FriendProfileForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\SearchForm.resx">
       <DependentUpon>SearchForm.cs</DependentUpon>

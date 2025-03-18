@@ -46,12 +46,13 @@
             // 
             // btnSend
             // 
+            this.btnSend.BackColor = System.Drawing.Color.Moccasin;
             this.btnSend.Location = new System.Drawing.Point(710, 368);
             this.btnSend.Name = "btnSend";
             this.btnSend.Size = new System.Drawing.Size(95, 26);
             this.btnSend.TabIndex = 2;
             this.btnSend.Text = "Отправить";
-            this.btnSend.UseVisualStyleBackColor = true;
+            this.btnSend.UseVisualStyleBackColor = false;
             this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
             // 
             // listBoxChats
@@ -68,7 +69,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.BackColor = System.Drawing.Color.OldLace;
             this.ClientSize = new System.Drawing.Size(817, 450);
             this.Controls.Add(this.listBoxChats);
             this.Controls.Add(this.listBoxMessages);

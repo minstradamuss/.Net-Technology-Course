@@ -18,7 +18,7 @@ namespace ChatBook.Services
         {
             return _dbContext.Users
                 .Where(u => u.Nickname == nickname)
-                .FirstOrDefault(); // ✅ Возвращаем полный объект User
+                .FirstOrDefault();
         }
 
 
@@ -57,7 +57,7 @@ namespace ChatBook.Services
             var user = _dbContext.Users.FirstOrDefault(u => u.Nickname == username);
             if (user == null)
             {
-                return false; // Пользователь не найден
+                return false;
             }
 
             book.UserId = user.Id;

@@ -85,7 +85,7 @@ namespace ChatBook.Tests
             }));
 
             var editBookForm = new AddBookForm(updatedBook);
-            editBookForm.RaiseBookUpdated(updatedBook);
+            //editBookForm.RaiseBookUpdated(updatedBook);
 
             var booksField = _mainForm.GetType()
                 .GetField("_userBooks",

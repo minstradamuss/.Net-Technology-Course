@@ -26,14 +26,12 @@ namespace ChatBook.UI.Forms
             this.lblFirstName = new System.Windows.Forms.Label();
             this.lblLastName = new System.Windows.Forms.Label();
             this.lblPhoneNumber = new System.Windows.Forms.Label();
-
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAvatar)).BeginInit();
             this.SuspendLayout();
-
             // 
             // pictureBoxAvatar
             // 
-            this.pictureBoxAvatar.BackColor = System.Drawing.Color.Snow;
+            this.pictureBoxAvatar.BackColor = System.Drawing.Color.Moccasin;
             this.pictureBoxAvatar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBoxAvatar.Location = new System.Drawing.Point(20, 20);
             this.pictureBoxAvatar.Name = "pictureBoxAvatar";
@@ -41,11 +39,10 @@ namespace ChatBook.UI.Forms
             this.pictureBoxAvatar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxAvatar.TabIndex = 0;
             this.pictureBoxAvatar.TabStop = false;
-
             // 
             // btnUploadAvatar
             // 
-            this.btnUploadAvatar.BackColor = System.Drawing.Color.Snow;
+            this.btnUploadAvatar.BackColor = System.Drawing.Color.Moccasin;
             this.btnUploadAvatar.Location = new System.Drawing.Point(140, 50);
             this.btnUploadAvatar.Name = "btnUploadAvatar";
             this.btnUploadAvatar.Size = new System.Drawing.Size(120, 30);
@@ -53,7 +50,6 @@ namespace ChatBook.UI.Forms
             this.btnUploadAvatar.Text = "Загрузить фото";
             this.btnUploadAvatar.UseVisualStyleBackColor = false;
             this.btnUploadAvatar.Click += new System.EventHandler(this.btnUploadAvatar_Click);
-
             // 
             // txtFirstName
             // 
@@ -61,7 +57,6 @@ namespace ChatBook.UI.Forms
             this.txtFirstName.Name = "txtFirstName";
             this.txtFirstName.Size = new System.Drawing.Size(200, 22);
             this.txtFirstName.TabIndex = 3;
-
             // 
             // txtLastName
             // 
@@ -69,7 +64,6 @@ namespace ChatBook.UI.Forms
             this.txtLastName.Name = "txtLastName";
             this.txtLastName.Size = new System.Drawing.Size(200, 22);
             this.txtLastName.TabIndex = 5;
-
             // 
             // txtPhoneNumber
             // 
@@ -77,11 +71,10 @@ namespace ChatBook.UI.Forms
             this.txtPhoneNumber.Name = "txtPhoneNumber";
             this.txtPhoneNumber.Size = new System.Drawing.Size(200, 22);
             this.txtPhoneNumber.TabIndex = 7;
-
             // 
             // btnSave
             // 
-            this.btnSave.BackColor = System.Drawing.Color.Snow;
+            this.btnSave.BackColor = System.Drawing.Color.Moccasin;
             this.btnSave.Location = new System.Drawing.Point(20, 260);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(320, 30);
@@ -89,7 +82,6 @@ namespace ChatBook.UI.Forms
             this.btnSave.Text = "Сохранить";
             this.btnSave.UseVisualStyleBackColor = false;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-
             // 
             // lblFirstName
             // 
@@ -98,7 +90,6 @@ namespace ChatBook.UI.Forms
             this.lblFirstName.Size = new System.Drawing.Size(100, 23);
             this.lblFirstName.TabIndex = 2;
             this.lblFirstName.Text = "Имя:";
-
             // 
             // lblLastName
             // 
@@ -107,7 +98,6 @@ namespace ChatBook.UI.Forms
             this.lblLastName.Size = new System.Drawing.Size(100, 23);
             this.lblLastName.TabIndex = 4;
             this.lblLastName.Text = "Фамилия:";
-
             // 
             // lblPhoneNumber
             // 
@@ -116,11 +106,10 @@ namespace ChatBook.UI.Forms
             this.lblPhoneNumber.Size = new System.Drawing.Size(100, 23);
             this.lblPhoneNumber.TabIndex = 6;
             this.lblPhoneNumber.Text = "Телефон:";
-
             // 
             // EditProfileForm
             // 
-            this.BackColor = System.Drawing.Color.PeachPuff;
+            this.BackColor = System.Drawing.Color.OldLace;
             this.ClientSize = new System.Drawing.Size(380, 320);
             this.Controls.Add(this.pictureBoxAvatar);
             this.Controls.Add(this.btnUploadAvatar);
@@ -139,6 +128,7 @@ namespace ChatBook.UI.Forms
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAvatar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
     }
 }

@@ -95,25 +95,29 @@ namespace ChatBook.UI.Forms
             // 
             // btnSaveBook
             // 
+            this.btnSaveBook.BackColor = System.Drawing.Color.Moccasin;
             this.btnSaveBook.Location = new System.Drawing.Point(20, 400);
             this.btnSaveBook.Name = "btnSaveBook";
             this.btnSaveBook.Size = new System.Drawing.Size(100, 30);
             this.btnSaveBook.TabIndex = 7;
             this.btnSaveBook.Text = "Добавить";
+            this.btnSaveBook.UseVisualStyleBackColor = false;
             this.btnSaveBook.Click += new System.EventHandler(this.btnSaveBook_Click);
             // 
             // btnCancel
             // 
+            this.btnCancel.BackColor = System.Drawing.Color.Moccasin;
             this.btnCancel.Location = new System.Drawing.Point(140, 400);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(100, 30);
             this.btnCancel.TabIndex = 8;
             this.btnCancel.Text = "Отмена";
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.btnCancel.UseVisualStyleBackColor = false;
+            //this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // pictureBoxCover
             // 
-            this.pictureBoxCover.BackColor = System.Drawing.Color.Snow;
+            this.pictureBoxCover.BackColor = System.Drawing.Color.Moccasin;
             this.pictureBoxCover.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBoxCover.Location = new System.Drawing.Point(20, 230);
             this.pictureBoxCover.Name = "pictureBoxCover";
@@ -124,7 +128,7 @@ namespace ChatBook.UI.Forms
             // 
             // btnUploadCover
             // 
-            this.btnUploadCover.BackColor = System.Drawing.Color.Snow;
+            this.btnUploadCover.BackColor = System.Drawing.Color.Moccasin;
             this.btnUploadCover.Location = new System.Drawing.Point(140, 230);
             this.btnUploadCover.Name = "btnUploadCover";
             this.btnUploadCover.Size = new System.Drawing.Size(140, 30);
@@ -144,7 +148,7 @@ namespace ChatBook.UI.Forms
             // 
             // AddBookForm
             // 
-            this.BackColor = System.Drawing.Color.PeachPuff;
+            this.BackColor = System.Drawing.Color.OldLace;
             this.ClientSize = new System.Drawing.Size(298, 450);
             this.Controls.Add(this.txtCoverImagePath);
             this.Controls.Add(this.txtBookTitle);

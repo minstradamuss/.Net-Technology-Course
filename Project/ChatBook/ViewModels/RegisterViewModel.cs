@@ -7,7 +7,6 @@ namespace ChatBook.UI.ViewModels
     {
         private readonly UserService _userService;
 
-        // Конструктор, который принимает UserService через DI
         public RegisterViewModel(UserService userService)
         {
             _userService = userService;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
@@ -13,11 +14,15 @@ namespace ChatBook.UI.Forms
         private Book _currentBook;
         private bool isEditMode = false;
         private byte[] _coverImageBytes;
+        private int _selectedRating = 1; 
+        private Label[] stars = new Label[5]; 
 
         public AddBookForm()
         {
             InitializeComponent();
             ToggleSaveButton(false);
+            InitializeStarRating();
+            numRating.Visible = false;
         }
 
         public AddBookForm(Book book) : this()
@@ -26,8 +31,8 @@ namespace ChatBook.UI.Forms
             isEditMode = true;
             txtBookTitle.Text = book.Title;
             cmbStatus.SelectedItem = book.Status;
-            numRating.Value = book.Rating;
             txtReview.Text = book.Review;
+            _selectedRating = book.Rating;
 
             if (book.CoverImage != null && book.CoverImage.Length > 0)
             {
@@ -35,6 +40,7 @@ namespace ChatBook.UI.Forms
                 _coverImageBytes = book.CoverImage;
             }
 
+            UpdateStarRating();
             ToggleSaveButton(true);
         }
 
@@ -46,14 +52,13 @@ namespace ChatBook.UI.Forms
                 return;
             }
 
-            // ✅ Обновляем текущую книгу, а не создаем новую
             if (_currentBook == null) _currentBook = new Book();
 
             _currentBook.Title = txtBookTitle.Text;
             _currentBook.Status = cmbStatus.SelectedItem?.ToString() ?? "В планах";
-            _currentBook.Rating = (int)numRating.Value;
+            _currentBook.Rating = _selectedRating;
             _currentBook.Review = txtReview.Text;
-            _currentBook.CoverImage = _coverImageBytes; // 🔹 Сохранение изображения
+            _currentBook.CoverImage = _coverImageBytes;
 
             if (isEditMode)
             {
@@ -67,9 +72,49 @@ namespace ChatBook.UI.Forms
             this.Close();
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void InitializeStarRating()
         {
-            this.Close();
+            FlowLayoutPanel starPanel = new FlowLayoutPanel
+            {
+                Location = new Point(20, 100),
+                Size = new Size(200, 40),
+                AutoSize = true
+            };
+
+            for (int i = 0; i < 5; i++)
+            {
+                stars[i] = new Label
+                {
+                    Text = "☆", 
+                    Font = new Font("Arial", 24, FontStyle.Regular),
+                    ForeColor = Color.Goldenrod,
+                    AutoSize = true,
+                    Cursor = Cursors.Hand,
+                    Tag = i + 1 
+                };
+                stars[i].Click += Star_Click;
+                starPanel.Controls.Add(stars[i]);
+            }
+
+            this.Controls.Add(starPanel);
+            UpdateStarRating();
+        }
+
+        private void Star_Click(object sender, EventArgs e)
+        {
+            if (sender is Label starLabel)
+            {
+                _selectedRating = (int)starLabel.Tag; 
+                UpdateStarRating();
+            }
+        }
+
+        private void UpdateStarRating()
+        {
+            for (int i = 0; i < stars.Length; i++)
+            {
+                stars[i].Text = (i < _selectedRating) ? "🌟" : "☆";
+            }
         }
 
         private void btnUploadCover_Click(object sender, EventArgs e)
@@ -125,11 +170,6 @@ namespace ChatBook.UI.Forms
         {
             btnSaveBook.Text = isEdit ? "Сохранить" : "Добавить";
             btnCancel.Text = "Отмена";
-        }
-
-        public void RaiseBookUpdated(Book updatedBook)
-        {
-            BookUpdated?.Invoke(updatedBook);
         }
     }
 }
