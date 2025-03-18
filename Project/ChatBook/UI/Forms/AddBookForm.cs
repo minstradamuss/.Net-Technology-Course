@@ -87,7 +87,7 @@ namespace ChatBook.UI.Forms
                 {
                     Text = "☆", 
                     Font = new Font("Arial", 24, FontStyle.Regular),
-                    ForeColor = Color.Goldenrod,
+                    ForeColor = Color.Crimson,
                     AutoSize = true,
                     Cursor = Cursors.Hand,
                     Tag = i + 1 

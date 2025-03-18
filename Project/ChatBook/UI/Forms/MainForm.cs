@@ -23,7 +23,7 @@ namespace ChatBook.UI.Forms
             InitializeComponent();
             _userService = userService ?? throw new ArgumentNullException(nameof(userService));
             _currentUser = user ?? throw new ArgumentNullException(nameof(user));
-            CurrentUserNickname = _currentUser.Nickname; // ✅ Сохраняем никнейм
+            CurrentUserNickname = _currentUser.Nickname;
 
             if (_currentUser == null)
             {
@@ -96,8 +96,6 @@ namespace ChatBook.UI.Forms
             }
         }
 
-
-
         private void btnLogout_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -166,17 +164,12 @@ namespace ChatBook.UI.Forms
 
                 editBookForm.BookUpdated += (updatedBook) =>
                 {
-                    // ✅ Удаляем старую книгу
                     if (_userBooks.ContainsKey(book))
                     {
                         flowLayoutPanelBooks.Controls.Remove(_userBooks[book]);
                         _userBooks.Remove(book);
                     }
-
-                    // ✅ Обновляем книгу в БД
                     _userService.UpdateBook(updatedBook);
-
-                    // ✅ Добавляем обновленную книгу в UI
                     AddBookForm_BookAdded(updatedBook);
                 };
                 editBookForm.Show();
@@ -251,7 +244,7 @@ namespace ChatBook.UI.Forms
         private void LoadUserBooks()
         {
             flowLayoutPanelBooks.Controls.Clear();
-            var books = _userService.GetUserBooks(_currentUser.Nickname); // ✅ Загружаем все книги
+            var books = _userService.GetUserBooks(_currentUser.Nickname);
 
             foreach (var book in books)
             {
