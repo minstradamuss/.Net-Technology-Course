@@ -12,6 +12,7 @@ namespace ChatBook.UI.Forms
         public event Action<Book> BookUpdated;
         private Book _currentBook;
         private bool isEditMode = false;
+        private byte[] _coverImageBytes;
 
         public AddBookForm()
         {
@@ -28,13 +29,10 @@ namespace ChatBook.UI.Forms
             numRating.Value = book.Rating;
             txtReview.Text = book.Review;
 
-            if (!string.IsNullOrEmpty(book.CoverImagePath) && File.Exists(book.CoverImagePath))
+            if (book.CoverImage != null && book.CoverImage.Length > 0)
             {
-                using (var fs = new FileStream(book.CoverImagePath, FileMode.Open, FileAccess.Read))
-                {
-                    pictureBoxCover.Image = Image.FromStream(fs);
-                }
-                txtCoverImagePath.Text = book.CoverImagePath;
+                pictureBoxCover.Image = ConvertByteArrayToImage(book.CoverImage);
+                _coverImageBytes = book.CoverImage;
             }
 
             ToggleSaveButton(true);
@@ -54,7 +52,7 @@ namespace ChatBook.UI.Forms
                 Status = cmbStatus.SelectedItem?.ToString() ?? "В планах",
                 Rating = (int)numRating.Value,
                 Review = txtReview.Text,
-                CoverImagePath = txtCoverImagePath.Text
+                CoverImage = _coverImageBytes // 🔹 Сохранение изображения как BLOB
             };
 
             if (isEditMode)
@@ -81,13 +79,45 @@ namespace ChatBook.UI.Forms
                 openFileDialog.Filter = "Изображения|*.jpg;*.jpeg;*.png;*.bmp;*.gif";
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    txtCoverImagePath.Text = openFileDialog.FileName;
-                    using (var fs = new FileStream(openFileDialog.FileName, FileMode.Open, FileAccess.Read))
-                    {
-                        pictureBoxCover.Image = Image.FromStream(fs);
-                    }
+                    _coverImageBytes = ConvertImageToByteArray(openFileDialog.FileName);
+                    pictureBoxCover.Image = Image.FromFile(openFileDialog.FileName);
                     pictureBoxCover.SizeMode = PictureBoxSizeMode.Zoom;
                 }
+            }
+        }
+
+        private byte[] ConvertImageToByteArray(string imagePath)
+        {
+            if (string.IsNullOrEmpty(imagePath) || !File.Exists(imagePath))
+                return null;
+
+            try
+            {
+                return File.ReadAllBytes(imagePath);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка загрузки изображения: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+        }
+
+        private Image ConvertByteArrayToImage(byte[] imageData)
+        {
+            if (imageData == null || imageData.Length == 0)
+                return null;
+
+            try
+            {
+                using (MemoryStream ms = new MemoryStream(imageData))
+                {
+                    return Image.FromStream(ms);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка загрузки изображения: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
             }
         }
 
@@ -101,6 +131,5 @@ namespace ChatBook.UI.Forms
         {
             BookUpdated?.Invoke(updatedBook);
         }
-
     }
 }

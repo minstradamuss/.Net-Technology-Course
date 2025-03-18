@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using ChatBook.Domain.Models;
@@ -11,8 +12,8 @@ namespace ChatBook.UI.Forms
     {
         private Dictionary<string, User> allUsers = new Dictionary<string, User>
         {
-            { "testUser", new User { Nickname = "testUser", FirstName = "John", LastName = "Doe", AvatarPath = "avatar.jpg" } },
-            { "testUsersearch", new User { Nickname = "testUsersearch", FirstName = "Test", LastName = "Search", AvatarPath = "avatar2.jpg" } }
+            { "testUser", new User { Nickname = "testUser", FirstName = "John", LastName = "Doe", Avatar = null } },
+            { "testUsersearch", new User { Nickname = "testUsersearch", FirstName = "Test", LastName = "Search", Avatar = null } }
         };
 
         private HashSet<string> friends = new HashSet<string> { "testUser" };
@@ -55,9 +56,9 @@ namespace ChatBook.UI.Forms
                 Tag = user
             };
 
-            if (!string.IsNullOrEmpty(user.AvatarPath) && System.IO.File.Exists(user.AvatarPath))
+            if (user.Avatar != null && user.Avatar.Length > 0)
             {
-                avatar.Image = Image.FromFile(user.AvatarPath);
+                avatar.Image = ConvertByteArrayToImage(user.Avatar);
             }
             else
             {
@@ -144,6 +145,25 @@ namespace ChatBook.UI.Forms
         private void btnShowFriends_Click(object sender, EventArgs e)
         {
             LoadFriends();
+        }
+
+        private Image ConvertByteArrayToImage(byte[] imageData)
+        {
+            if (imageData == null || imageData.Length == 0)
+                return null;
+
+            try
+            {
+                using (MemoryStream ms = new MemoryStream(imageData))
+                {
+                    return Image.FromStream(ms);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка загрузки изображения: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
         }
     }
 }

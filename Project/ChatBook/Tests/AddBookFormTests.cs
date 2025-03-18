@@ -31,7 +31,6 @@ namespace ChatBook.Tests
                 Status = "В планах",
                 Rating = 5,
                 Review = "Хорошая книга",
-                CoverImagePath = "test_image.jpg"
             };
 
             var formReady = new ManualResetEvent(false);

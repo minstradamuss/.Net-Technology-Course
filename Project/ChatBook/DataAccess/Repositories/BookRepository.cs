@@ -1,27 +1,61 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Linq;
 using ChatBook.Domain.Models;
-using ChatBook.Domain.Repositories;
+using System.Data.SQLite;
 
-namespace ChatBook.DataAccess.Repositories
+public class BookRepository
 {
-    public class BookRepository : IBookRepository
+    private string _connectionString = "Data Source=C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\Project\\ChatBook\\ChatBook.db;";
+
+    public void SaveBook(Book book)
     {
-        private List<Book> _books = new List<Book>();
-
-        public void Add(Book book) => _books.Add(book);
-
-        public void Update(Book book)
+        using (var connection = new SQLiteConnection(_connectionString))
         {
-            var existingBook = _books.Find(b => b.Title == book.Title);
-            if (existingBook != null)
+            connection.Open();
+
+            using (var command = new SQLiteCommand(connection))
             {
-                existingBook.Status = book.Status;
-                existingBook.Rating = book.Rating;
-                existingBook.Review = book.Review;
-                existingBook.CoverImagePath = book.CoverImagePath;
+                command.CommandText = @"
+                    INSERT INTO Books (Title, Status, Rating, Review, CoverImage) 
+                    VALUES (@Title, @Status, @Rating, @Review, @CoverImage)";
+                command.Parameters.AddWithValue("@Title", book.Title);
+                command.Parameters.AddWithValue("@Status", book.Status);
+                command.Parameters.AddWithValue("@Rating", book.Rating);
+                command.Parameters.AddWithValue("@Review", book.Review);
+                command.Parameters.AddWithValue("@CoverImage", book.CoverImage ?? new byte[0]);
+
+                command.ExecuteNonQuery();
             }
         }
+    }
 
-        public List<Book> GetAll() => _books;
+    public Book GetBookById(int id)
+    {
+        using (var connection = new SQLiteConnection(_connectionString))
+        {
+            connection.Open();
+
+            using (var command = new SQLiteCommand("SELECT * FROM Books WHERE Id = @Id", connection))
+            {
+                command.Parameters.AddWithValue("@Id", id);
+
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        return new Book
+                        {
+                            Id = Convert.ToInt32(reader["Id"]),
+                            Title = reader["Title"].ToString(),
+                            Status = reader["Status"].ToString(),
+                            Rating = Convert.ToInt32(reader["Rating"]),
+                            Review = reader["Review"].ToString(),
+                            CoverImage = reader["CoverImage"] as byte[]
+                        };
+                    }
+                }
+            }
+        }
+        return null;
     }
 }

@@ -29,7 +29,6 @@ namespace ChatBook.Tests
                 Status = "Прочитано",
                 Rating = 5,
                 Review = "Отличная книга!",
-                CoverImagePath = "test_image.jpg"
             };
         }
 
@@ -73,7 +72,6 @@ namespace ChatBook.Tests
                 Status = "Читаю",
                 Rating = 4,
                 Review = "Интересно!",
-                CoverImagePath = "new_image.jpg"
             };
 
             var bookCover = new PictureBox { Tag = _testBook };

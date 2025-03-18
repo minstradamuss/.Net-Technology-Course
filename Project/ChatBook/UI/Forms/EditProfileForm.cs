@@ -8,9 +8,9 @@ namespace ChatBook.UI.Forms
 {
     public partial class EditProfileForm : Form
     {
-        private string _avatarPath;
-        private User _currentUser;
         public event Action<User> ProfileUpdated;
+        private User _currentUser;
+        private byte[] _avatarBytes;
 
         public EditProfileForm(User user)
         {
@@ -19,37 +19,21 @@ namespace ChatBook.UI.Forms
 
             txtFirstName.Text = user.FirstName;
             txtLastName.Text = user.LastName;
-            txtPhone.Text = user.Phone;
+            txtPhoneNumber.Text = user.PhoneNumber;
 
-            // Добавляем поле для отображения пути к аватару
-            txtAvatarPath = new TextBox
+            if (user.Avatar != null && user.Avatar.Length > 0)
             {
-                Location = new Point(20, 160),
-                Size = new Size(260, 22),
-                ReadOnly = true // Запрещаем редактирование вручную
-            };
-            
-
-            if (!string.IsNullOrEmpty(user.AvatarPath) && File.Exists(user.AvatarPath))
-            {
-                pictureBoxAvatar.Image = Image.FromFile(user.AvatarPath);
-                _avatarPath = user.AvatarPath;
-                txtAvatarPath.Text = _avatarPath;
+                pictureBoxAvatar.Image = ConvertByteArrayToImage(user.Avatar);
+                _avatarBytes = user.Avatar;
             }
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (txtAvatarPath == null)
-            {
-                MessageBox.Show("Ошибка: Поле для аватара не инициализировано!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
             _currentUser.FirstName = txtFirstName.Text;
             _currentUser.LastName = txtLastName.Text;
-            _currentUser.Phone = txtPhone.Text;
-            _currentUser.AvatarPath = txtAvatarPath.Text; // Сохраняем путь в профиль
+            _currentUser.PhoneNumber = txtPhoneNumber.Text;
+            _currentUser.Avatar = _avatarBytes;
 
             ProfileUpdated?.Invoke(_currentUser);
             this.Close();
@@ -62,10 +46,45 @@ namespace ChatBook.UI.Forms
                 openFileDialog.Filter = "Изображения|*.jpg;*.jpeg;*.png;*.bmp;*.gif";
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
+                    _avatarBytes = ConvertImageToByteArray(openFileDialog.FileName);
                     pictureBoxAvatar.Image = Image.FromFile(openFileDialog.FileName);
-                    _avatarPath = openFileDialog.FileName;
-                    txtAvatarPath.Text = _avatarPath; // Обновляем путь в текстовом поле
+                    pictureBoxAvatar.SizeMode = PictureBoxSizeMode.Zoom;
                 }
+            }
+        }
+
+        private byte[] ConvertImageToByteArray(string imagePath)
+        {
+            if (string.IsNullOrEmpty(imagePath) || !File.Exists(imagePath))
+                return null;
+
+            try
+            {
+                return File.ReadAllBytes(imagePath);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка загрузки изображения: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+        }
+
+        private Image ConvertByteArrayToImage(byte[] imageData)
+        {
+            if (imageData == null || imageData.Length == 0)
+                return null;
+
+            try
+            {
+                using (MemoryStream ms = new MemoryStream(imageData))
+                {
+                    return Image.FromStream(ms);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка загрузки изображения: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
             }
         }
     }

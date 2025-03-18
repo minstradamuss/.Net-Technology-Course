@@ -27,15 +27,14 @@ namespace ChatBook.UI.Forms
         {
             flowLayoutPanelBooks = new FlowLayoutPanel
             {
-                AutoScroll = true, // Добавляем прокрутку
-                FlowDirection = FlowDirection.LeftToRight, // Книги идут слева направо
-                WrapContents = true, // Перенос на новую строку
+                AutoScroll = true,
+                FlowDirection = FlowDirection.LeftToRight,
+                WrapContents = true,
                 Location = new Point(20, 200),
-                Size = new Size(650, 300) // Фиксированная ширина (5 книг по 120px + отступы)
+                Size = new Size(650, 300)
             };
             Controls.Add(flowLayoutPanelBooks);
         }
-
 
         private void InitializeAddBookButton()
         {
@@ -46,26 +45,22 @@ namespace ChatBook.UI.Forms
         private void btnEditProfile_Click(object sender, EventArgs e)
         {
             EditProfileForm editProfileForm = new EditProfileForm(_currentUser);
-
-            // Подписываемся на событие ProfileUpdated
             editProfileForm.ProfileUpdated += UpdateProfileInfo;
-
             editProfileForm.ShowDialog();
         }
 
         private void UpdateProfileInfo(User updatedUser)
         {
-            _currentUser = updatedUser; // Обновляем объект пользователя
-
+            _currentUser = updatedUser;
             lblFullName.Text = $"{_currentUser.FirstName} {_currentUser.LastName}";
 
-            if (!string.IsNullOrEmpty(_currentUser.AvatarPath) && File.Exists(_currentUser.AvatarPath))
+            if (_currentUser.Avatar != null && _currentUser.Avatar.Length > 0)
             {
-                pictureBoxAvatar.Image = Image.FromFile(_currentUser.AvatarPath);
+                pictureBoxAvatar.Image = ConvertByteArrayToImage(_currentUser.Avatar);
             }
             else
             {
-                pictureBoxAvatar.Image = null; // Если аватара нет
+                pictureBoxAvatar.Image = null;
             }
         }
 
@@ -89,7 +84,7 @@ namespace ChatBook.UI.Forms
             {
                 Size = new Size(120, 180),
                 BorderStyle = BorderStyle.FixedSingle,
-                Margin = new Padding(10) // Отступы между книгами
+                Margin = new Padding(10)
             };
 
             PictureBox bookCover = new PictureBox
@@ -110,14 +105,11 @@ namespace ChatBook.UI.Forms
                 Height = 30
             };
 
-            if (!string.IsNullOrEmpty(newBook.CoverImagePath) && File.Exists(newBook.CoverImagePath))
+            if (newBook.CoverImage != null && newBook.CoverImage.Length > 0)
             {
                 try
                 {
-                    using (FileStream fs = new FileStream(newBook.CoverImagePath, FileMode.Open, FileAccess.Read))
-                    {
-                        bookCover.Image = Image.FromStream(fs);
-                    }
+                    bookCover.Image = ConvertByteArrayToImage(newBook.CoverImage);
                 }
                 catch (Exception ex)
                 {
@@ -131,15 +123,12 @@ namespace ChatBook.UI.Forms
             }
 
             bookCover.Click += BookCover_Click;
-
             bookPanel.Controls.Add(bookCover);
             bookPanel.Controls.Add(bookTitle);
 
             _userBooks[newBook] = bookPanel;
             flowLayoutPanelBooks.Controls.Add(bookPanel);
         }
-
-
 
         private void BookCover_Click(object sender, EventArgs e)
         {
@@ -161,14 +150,13 @@ namespace ChatBook.UI.Forms
             }
         }
 
-
         private void btnSearchBooks_Click(object sender, EventArgs e)
         {
             SearchForm searchForm = new SearchForm();
             searchForm.Show();
         }
 
-        private ChatForm _chatForm; 
+        private ChatForm _chatForm;
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -179,7 +167,7 @@ namespace ChatBook.UI.Forms
             }
             else
             {
-                _chatForm.Focus(); // Если уже открыта, просто активируем окно
+                _chatForm.Focus();
             }
         }
 
@@ -189,5 +177,23 @@ namespace ChatBook.UI.Forms
             friendsForm.Show();
         }
 
+        private Image ConvertByteArrayToImage(byte[] imageData)
+        {
+            if (imageData == null || imageData.Length == 0)
+                return null;
+
+            try
+            {
+                using (MemoryStream ms = new MemoryStream(imageData))
+                {
+                    return Image.FromStream(ms);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка загрузки изображения: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+        }
     }
 }

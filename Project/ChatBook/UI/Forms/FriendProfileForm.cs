@@ -23,13 +23,14 @@ namespace ChatBook.UI.Forms
             lblFullName.Text = $"{user.FirstName} {user.LastName}";
             lblNickname.Text = user.Nickname;
 
-            if (!string.IsNullOrEmpty(user.AvatarPath) && File.Exists(user.AvatarPath))
+            // 🔹 Загружаем аватар
+            if (user.Avatar != null && user.Avatar.Length > 0)
             {
-                pictureBoxAvatar.Image = Image.FromFile(user.AvatarPath);
+                pictureBoxAvatar.Image = ConvertByteArrayToImage(user.Avatar);
             }
             else
             {
-                pictureBoxAvatar.BackColor = Color.Gray;
+                pictureBoxAvatar.BackColor = Color.Gray; // Если аватар отсутствует
             }
 
             LoadUserBooks();
@@ -69,6 +70,25 @@ namespace ChatBook.UI.Forms
             _friends.Add(_user.Nickname);
             MessageBox.Show($"{_user.Nickname} добавлен в друзья!", "Успешно", MessageBoxButtons.OK, MessageBoxIcon.Information);
             btnAddFriend.Enabled = false;
+        }
+
+        private Image ConvertByteArrayToImage(byte[] imageData)
+        {
+            if (imageData == null || imageData.Length == 0)
+                return null;
+
+            try
+            {
+                using (MemoryStream ms = new MemoryStream(imageData))
+                {
+                    return Image.FromStream(ms);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка загрузки изображения: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
         }
     }
 }
