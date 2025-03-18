@@ -22,10 +22,9 @@
             this.pictureBoxAvatar = new System.Windows.Forms.PictureBox();
             this.lblNickname = new System.Windows.Forms.Label();
             this.lblFullName = new System.Windows.Forms.Label();
-            this.flowLayoutPanelBooks = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutPanelbooks = new System.Windows.Forms.FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAvatar)).BeginInit();
             this.SuspendLayout();
-
             // 
             // pictureBoxAvatar
             // 
@@ -36,7 +35,6 @@
             this.pictureBoxAvatar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxAvatar.TabIndex = 0;
             this.pictureBoxAvatar.TabStop = false;
-
             // 
             // lblNickname
             // 
@@ -47,7 +45,6 @@
             this.lblNickname.Size = new System.Drawing.Size(102, 24);
             this.lblNickname.TabIndex = 1;
             this.lblNickname.Text = "Nickname";
-
             // 
             // lblFullName
             // 
@@ -58,29 +55,29 @@
             this.lblFullName.Size = new System.Drawing.Size(81, 19);
             this.lblFullName.TabIndex = 2;
             this.lblFullName.Text = "Full Name";
-
             // 
-            // flowLayoutPanelBooks
+            // flowLayoutPanelbooks
             // 
-            this.flowLayoutPanelBooks.AutoScroll = true;
-            this.flowLayoutPanelBooks.Location = new System.Drawing.Point(20, 140);
-            this.flowLayoutPanelBooks.Name = "flowLayoutPanelBooks";
-            this.flowLayoutPanelBooks.Size = new System.Drawing.Size(300, 200);
-            this.flowLayoutPanelBooks.TabIndex = 3;
-
+            this.flowLayoutPanelbooks.AutoScroll = true;
+            this.flowLayoutPanelbooks.Location = new System.Drawing.Point(348, 30);
+            this.flowLayoutPanelbooks.Name = "flowLayoutPanelbooks";
+            this.flowLayoutPanelbooks.Size = new System.Drawing.Size(27, 68);
+            this.flowLayoutPanelbooks.TabIndex = 3;
             // 
             // FriendProfileForm
             // 
             this.ClientSize = new System.Drawing.Size(400, 400);
-            this.Controls.Add(this.flowLayoutPanelBooks);
+            this.Controls.Add(this.flowLayoutPanelbooks);
             this.Controls.Add(this.lblFullName);
             this.Controls.Add(this.lblNickname);
             this.Controls.Add(this.pictureBoxAvatar);
+            this.Name = "FriendProfileForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Профиль пользователя";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAvatar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
     }
 }

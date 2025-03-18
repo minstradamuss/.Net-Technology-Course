@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using ChatBook.Domain.Interfaces;
 using ChatBook.Domain.Models;
 using ChatBook.Services;
 
@@ -13,15 +14,39 @@ namespace ChatBook.UI.Forms
         private User _currentUser;
         private Dictionary<Book, Panel> _userBooks = new Dictionary<Book, Panel>();
         private FlowLayoutPanel flowLayoutPanelBooks;
+        private readonly UserService _userService;
 
-        public MainForm(string username)
+        public string CurrentUserNickname { get; private set; }
+
+        public MainForm(User user, UserService userService, bool isProfileViewOnly = false)
         {
             InitializeComponent();
-            _currentUser = new User { Nickname = username };
-            lblNickname.Text = username;
+            _userService = userService ?? throw new ArgumentNullException(nameof(userService));
+            _currentUser = user ?? throw new ArgumentNullException(nameof(user));
+            CurrentUserNickname = _currentUser.Nickname; // ✅ Сохраняем никнейм
+
+            if (_currentUser == null)
+            {
+                MessageBox.Show("Ошибка: пользователь не найден!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Close();
+                return;
+            }
+
+            UpdateProfileInfo(_currentUser);
+            lblNickname.Text = _currentUser.Nickname;
             InitializeFlowLayoutPanel();
-            InitializeAddBookButton();
+            LoadUserBooks();
+
+            if (isProfileViewOnly)
+            {
+                btnAddBook.Visible = false;
+                btnEditProfile.Visible = false;
+                buttonChats.Visible = false;
+                btnSearchBooks.Visible = false;
+                buttonSearchFriends.Visible = false;
+            }
         }
+
 
         private void InitializeFlowLayoutPanel()
         {
@@ -44,13 +69,20 @@ namespace ChatBook.UI.Forms
 
         private void btnEditProfile_Click(object sender, EventArgs e)
         {
-            EditProfileForm editProfileForm = new EditProfileForm(_currentUser);
-            editProfileForm.ProfileUpdated += UpdateProfileInfo;
+            EditProfileForm editProfileForm = new EditProfileForm(_currentUser, _userService);
+            editProfileForm.ProfileUpdated += (updatedUser) =>
+            {
+                _userService.UpdateProfile(updatedUser);
+                UpdateProfileInfo(updatedUser);
+            };
             editProfileForm.ShowDialog();
         }
 
+
         private void UpdateProfileInfo(User updatedUser)
         {
+            if (updatedUser == null) return;
+
             _currentUser = updatedUser;
             lblFullName.Text = $"{_currentUser.FirstName} {_currentUser.LastName}";
 
@@ -64,18 +96,13 @@ namespace ChatBook.UI.Forms
             }
         }
 
+
+
         private void btnLogout_Click(object sender, EventArgs e)
         {
             this.Close();
-            LoginForm loginForm = new LoginForm();
+            LoginForm loginForm = new LoginForm(_userService);
             loginForm.Show();
-        }
-
-        private void btnAddBook_Click(object sender, EventArgs e)
-        {
-            AddBookForm addBookForm = new AddBookForm();
-            addBookForm.BookAdded += AddBookForm_BookAdded;
-            addBookForm.Show();
         }
 
         private void AddBookForm_BookAdded(Book newBook)
@@ -139,16 +166,23 @@ namespace ChatBook.UI.Forms
 
                 editBookForm.BookUpdated += (updatedBook) =>
                 {
+                    // ✅ Удаляем старую книгу
                     if (_userBooks.ContainsKey(book))
                     {
                         flowLayoutPanelBooks.Controls.Remove(_userBooks[book]);
                         _userBooks.Remove(book);
                     }
+
+                    // ✅ Обновляем книгу в БД
+                    _userService.UpdateBook(updatedBook);
+
+                    // ✅ Добавляем обновленную книгу в UI
                     AddBookForm_BookAdded(updatedBook);
                 };
                 editBookForm.Show();
             }
         }
+
 
         private void btnSearchBooks_Click(object sender, EventArgs e)
         {
@@ -173,7 +207,7 @@ namespace ChatBook.UI.Forms
 
         private void button2_Click(object sender, EventArgs e)
         {
-            FriendsForm friendsForm = new FriendsForm();
+            FriendsForm friendsForm = new FriendsForm(_currentUser.Nickname, _userService);
             friendsForm.Show();
         }
 
@@ -195,5 +229,35 @@ namespace ChatBook.UI.Forms
                 return null;
             }
         }
+
+        private void btnAddBook_Click(object sender, EventArgs e)
+        {
+            AddBookForm addBookForm = new AddBookForm();
+            addBookForm.BookAdded += (newBook) =>
+            {
+                bool isAdded = _userService.AddBook(newBook, _currentUser.Nickname);
+                if (isAdded)
+                {
+                    AddBookForm_BookAdded(newBook);
+                }
+                else
+                {
+                    MessageBox.Show("Ошибка при добавлении книги в базу данных.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            };
+            addBookForm.Show();
+        }
+
+        private void LoadUserBooks()
+        {
+            flowLayoutPanelBooks.Controls.Clear();
+            var books = _userService.GetUserBooks(_currentUser.Nickname); // ✅ Загружаем все книги
+
+            foreach (var book in books)
+            {
+                AddBookForm_BookAdded(book);
+            }
+        }
+
     }
 }

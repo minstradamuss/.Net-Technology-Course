@@ -20,6 +20,6 @@ namespace ChatBook.Domain.Models
         public string Review { get; set; }
 
         public byte[] CoverImage { get; set; }
-        public ICollection<Review> Reviews { get; set; } // Связанные обзоры
+        public int UserId { get; set; }
     }
 }

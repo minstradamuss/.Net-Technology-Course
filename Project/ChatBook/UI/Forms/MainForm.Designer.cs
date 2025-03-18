@@ -41,8 +41,8 @@ namespace ChatBook.UI.Forms
             this.txtReview = new System.Windows.Forms.TextBox();
             this.btnSaveReview = new System.Windows.Forms.Button();
             this.cmbStatus = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.buttonChats = new System.Windows.Forms.Button();
+            this.buttonSearchFriends = new System.Windows.Forms.Button();
             this.btnAddBook = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAvatar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericRating)).BeginInit();
@@ -131,23 +131,23 @@ namespace ChatBook.UI.Forms
             this.cmbStatus.Size = new System.Drawing.Size(121, 24);
             this.cmbStatus.TabIndex = 0;
             // 
-            // button1
+            // buttonChats
             // 
-            this.button1.Location = new System.Drawing.Point(526, 79);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(120, 30);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "Чаты";
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.buttonChats.Location = new System.Drawing.Point(526, 79);
+            this.buttonChats.Name = "buttonChats";
+            this.buttonChats.Size = new System.Drawing.Size(120, 30);
+            this.buttonChats.TabIndex = 7;
+            this.buttonChats.Text = "Чаты";
+            this.buttonChats.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button2
+            // buttonSearchFriends
             // 
-            this.button2.Location = new System.Drawing.Point(652, 79);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(120, 30);
-            this.button2.TabIndex = 8;
-            this.button2.Text = "Друзья";
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.buttonSearchFriends.Location = new System.Drawing.Point(652, 79);
+            this.buttonSearchFriends.Name = "buttonSearchFriends";
+            this.buttonSearchFriends.Size = new System.Drawing.Size(120, 30);
+            this.buttonSearchFriends.TabIndex = 8;
+            this.buttonSearchFriends.Text = "Друзья";
+            this.buttonSearchFriends.Click += new System.EventHandler(this.button2_Click);
             // 
             // btnAddBook
             // 
@@ -163,8 +163,8 @@ namespace ChatBook.UI.Forms
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(782, 553);
             this.Controls.Add(this.btnAddBook);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.buttonSearchFriends);
+            this.Controls.Add(this.buttonChats);
             this.Controls.Add(this.pictureBoxAvatar);
             this.Controls.Add(this.lblNickname);
             this.Controls.Add(this.lblFullName);
@@ -186,8 +186,8 @@ namespace ChatBook.UI.Forms
         }
         #endregion
 
-        private Button button1;
-        private Button button2;
+        private Button buttonChats;
+        private Button buttonSearchFriends;
         private Button btnAddBook;
     }
 }

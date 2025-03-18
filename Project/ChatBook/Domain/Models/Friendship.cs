@@ -8,16 +8,12 @@ namespace ChatBook.Domain.Models
         [Key]
         public int Id { get; set; }
 
-        // Связь с User (первый пользователь)
         [ForeignKey(nameof(User1))]
         public int User1Id { get; set; }
-        public User User1 { get; set; } // Навигационное свойство
+        public User User1 { get; set; } 
 
-        // Связь с User (второй пользователь)
         [ForeignKey(nameof(User2))]
         public int User2Id { get; set; }
-        public User User2 { get; set; } // Навигационное свойство
-
-        public bool IsAccepted { get; set; } // Подтверждено ли добавление в друзья
+        public User User2 { get; set; }
     }
 }

@@ -17,8 +17,9 @@ namespace ChatBook.Domain.Models
 
         public string PhoneNumber { get; set; }
 
-        // Навигационные свойства
-        public ICollection<Review> Reviews { get; set; } // Список отзывов пользователя
+        public string Password { get; set; }
+
+        //public ICollection<Review> Reviews { get; set; } // Список отзывов пользователя
     }
 }
 

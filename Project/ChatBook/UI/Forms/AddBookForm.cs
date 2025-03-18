@@ -46,22 +46,22 @@ namespace ChatBook.UI.Forms
                 return;
             }
 
-            var newBook = new Book
-            {
-                Title = txtBookTitle.Text,
-                Status = cmbStatus.SelectedItem?.ToString() ?? "В планах",
-                Rating = (int)numRating.Value,
-                Review = txtReview.Text,
-                CoverImage = _coverImageBytes // 🔹 Сохранение изображения как BLOB
-            };
+            // ✅ Обновляем текущую книгу, а не создаем новую
+            if (_currentBook == null) _currentBook = new Book();
+
+            _currentBook.Title = txtBookTitle.Text;
+            _currentBook.Status = cmbStatus.SelectedItem?.ToString() ?? "В планах";
+            _currentBook.Rating = (int)numRating.Value;
+            _currentBook.Review = txtReview.Text;
+            _currentBook.CoverImage = _coverImageBytes; // 🔹 Сохранение изображения
 
             if (isEditMode)
             {
-                BookUpdated?.Invoke(newBook);
+                BookUpdated?.Invoke(_currentBook);
             }
             else
             {
-                BookAdded?.Invoke(newBook);
+                BookAdded?.Invoke(_currentBook);
             }
 
             this.Close();

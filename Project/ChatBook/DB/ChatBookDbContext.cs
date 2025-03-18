@@ -1,23 +1,20 @@
 ﻿using System.Data.Common;
-using System.Data.SQLite;
-using System.Data.SqlClient;
-using ChatBook.Domain.Models;
 using System.Data.Entity;
+using ChatBook.Domain.Models;
 
-public class ChatBookDbContext : DbContext
+namespace ChatBook
 {
-    private readonly bool _isSqlServer;
-
-    // Конструктор, принимающий DbConnection
-    public ChatBookDbContext(DbConnection connection)
-        : base(connection, true)
+    public class ChatBookDbContext : DbContext
     {
-        _isSqlServer = connection is SqlConnection;
-    }
+        public ChatBookDbContext(DbConnection connection)
+            : base(connection, contextOwnsConnection: true) // Контекст управляет соединением
+        {
+        }
 
-    public DbSet<User> Users { get; set; }
-    public DbSet<Book> Books { get; set; }
-    public DbSet<Review> Reviews { get; set; }
-    public DbSet<Friendship> Friendships { get; set; }
-    public DbSet<Message> Messages { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Book> Books { get; set; }
+        public DbSet<Review> Reviews { get; set; }
+        public DbSet<Friendship> Friendships { get; set; }
+        public DbSet<Message> Messages { get; set; }
+    }
 }

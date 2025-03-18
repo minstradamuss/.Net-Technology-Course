@@ -18,7 +18,7 @@ namespace ChatBook.Tests
         [TestInitialize]
         public void Setup()
         {
-            _mainForm = new MainForm("TestUser");
+            //_mainForm = new MainForm("TestUser", "1");
             _mainForm.Show();
             Application.DoEvents();
 

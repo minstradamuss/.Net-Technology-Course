@@ -1,14 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ChatBook.Services;
+using System;
 using System.Windows.Forms;
+using ChatBook.Domain.Models;
 
 namespace ChatBook.UI.Forms
 {
     public partial class LoginForm : Form
     {
-        public LoginForm()
+        private readonly UserService _userService;
+        public LoginForm(UserService userService)
         {
             InitializeComponent();
+            _userService = userService;
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -16,35 +19,40 @@ namespace ChatBook.UI.Forms
             string nickname = txtNickname.Text;
             string password = txtPassword.Text;
 
-            if (users.ContainsKey(nickname) && users[nickname] == password)
+            var user = _userService?.GetUserByNickname(nickname); // ✅ Загружаем полные данные
+
+            if (user != null && user.Password == password)
             {
-                MainForm mainForm = new MainForm(nickname);
+                // ✅ Передаём весь объект `User` в MainForm
+                MainForm mainForm = new MainForm(user, _userService);
                 mainForm.Show();
-                Hide();
+                this.Hide();
             }
             else
             {
-                MessageBox.Show("Неверный логин или пароль!");
+                MessageBox.Show("Неверный никнейм или пароль.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private static Dictionary<string, string> users = new Dictionary<string, string>(); // 🔹 Временное хранилище пользователей
 
         private void btnRegister_Click(object sender, EventArgs e)
         {
-            string nickname = txtNickname.Text;
-            string password = txtPassword.Text;
-
-            if (users.ContainsKey(nickname))
+            var user = new User
             {
-                MessageBox.Show("Этот логин уже зарегистрирован!");
+                Nickname = txtNickname.Text,
+                Password = txtPassword.Text 
+            };
+
+            bool isRegistered = _userService.Register(user);
+            if (isRegistered)
+            {
+                MessageBox.Show("Регистрация прошла успешно!", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                users[nickname] = password;
-                MessageBox.Show("Регистрация успешна!");
+                MessageBox.Show("Ошибка регистрации. Возможно, такой никнейм уже существует.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
     }
+
 }

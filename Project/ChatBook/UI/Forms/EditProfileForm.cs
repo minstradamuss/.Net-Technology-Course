@@ -1,8 +1,9 @@
-﻿using System;
-using System.Drawing;
+﻿using ChatBook.Services;
+using ChatBook.Domain.Models;
+using System;
 using System.IO;
 using System.Windows.Forms;
-using ChatBook.Domain.Models;
+using System.Drawing;
 
 namespace ChatBook.UI.Forms
 {
@@ -11,12 +12,15 @@ namespace ChatBook.UI.Forms
         public event Action<User> ProfileUpdated;
         private User _currentUser;
         private byte[] _avatarBytes;
+        private readonly UserService _userService;
 
-        public EditProfileForm(User user)
+        public EditProfileForm(User user, UserService userService)
         {
             InitializeComponent();
             _currentUser = user;
+            _userService = userService;
 
+            // Загрузка текущих данных пользователя в форму
             txtFirstName.Text = user.FirstName;
             txtLastName.Text = user.LastName;
             txtPhoneNumber.Text = user.PhoneNumber;
@@ -30,13 +34,24 @@ namespace ChatBook.UI.Forms
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            // Обновление данных пользователя
             _currentUser.FirstName = txtFirstName.Text;
             _currentUser.LastName = txtLastName.Text;
             _currentUser.PhoneNumber = txtPhoneNumber.Text;
             _currentUser.Avatar = _avatarBytes;
 
-            ProfileUpdated?.Invoke(_currentUser);
-            this.Close();
+            // Обновление в базе данных
+            bool isUpdated = _userService.UpdateProfile(_currentUser);
+            if (isUpdated)
+            {
+                ProfileUpdated?.Invoke(_currentUser);
+                MessageBox.Show("Профиль обновлен!", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Ошибка при обновлении профиля.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnUploadAvatar_Click(object sender, EventArgs e)

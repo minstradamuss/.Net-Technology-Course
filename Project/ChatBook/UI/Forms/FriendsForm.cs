@@ -1,47 +1,42 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Windows.Forms;
 using ChatBook.Domain.Models;
+using ChatBook.Services;
 
 namespace ChatBook.UI.Forms
 {
     public partial class FriendsForm : Form
     {
-        private Dictionary<string, User> allUsers = new Dictionary<string, User>
-        {
-            { "testUser", new User { Nickname = "testUser", FirstName = "John", LastName = "Doe", Avatar = null } },
-            { "testUsersearch", new User { Nickname = "testUsersearch", FirstName = "Test", LastName = "Search", Avatar = null } }
-        };
+        private readonly UserService _userService;
+        private readonly string _currentUserNickname;
 
-        private HashSet<string> friends = new HashSet<string> { "testUser" };
-
-        public FriendsForm()
+        public FriendsForm(string currentUserNickname, UserService userService)
         {
             InitializeComponent();
+            _currentUserNickname = currentUserNickname ?? throw new ArgumentNullException(nameof(currentUserNickname));
+            _userService = userService ?? throw new ArgumentNullException(nameof(userService));
             LoadFriends();
         }
 
         private void LoadFriends()
         {
             flowLayoutPanelFriends.Controls.Clear();
-            foreach (var nickname in friends)
+            var friends = _userService.GetFriends(_currentUserNickname);
+
+            foreach (var friend in friends)
             {
-                if (allUsers.ContainsKey(nickname))
-                {
-                    Panel friendPanel = CreateFriendPanel(allUsers[nickname]);
-                    flowLayoutPanelFriends.Controls.Add(friendPanel);
-                }
+                Panel friendPanel = CreateFriendPanel(friend, isSearchResult: false);
+                flowLayoutPanelFriends.Controls.Add(friendPanel);
             }
         }
 
-        private Panel CreateFriendPanel(User user)
+        private Panel CreateFriendPanel(User user, bool isSearchResult)
         {
             Panel panel = new Panel
             {
-                Size = new Size(150, 180),
+                Size = new Size(200, 220),
                 BorderStyle = BorderStyle.FixedSingle,
                 Margin = new Padding(10),
                 Tag = user
@@ -52,7 +47,7 @@ namespace ChatBook.UI.Forms
                 Size = new Size(120, 120),
                 BorderStyle = BorderStyle.FixedSingle,
                 SizeMode = PictureBoxSizeMode.Zoom,
-                Location = new Point(15, 10),
+                Location = new Point(40, 10),
                 Tag = user
             };
 
@@ -70,7 +65,8 @@ namespace ChatBook.UI.Forms
                 Text = user.Nickname,
                 AutoSize = false,
                 TextAlign = ContentAlignment.MiddleCenter,
-                Dock = DockStyle.Bottom,
+                Location = new Point(0, 140),
+                Width = 200,
                 Height = 20,
                 Tag = user
             };
@@ -80,10 +76,25 @@ namespace ChatBook.UI.Forms
                 Text = $"{user.FirstName} {user.LastName}",
                 AutoSize = false,
                 TextAlign = ContentAlignment.MiddleCenter,
-                Dock = DockStyle.Bottom,
+                Location = new Point(0, 165),
+                Width = 200,
                 Height = 20,
                 Tag = user
             };
+
+            Button btnAddFriend = null;
+
+            if (isSearchResult && !_userService.AreFriends(_currentUserNickname, user.Nickname))
+            {
+                btnAddFriend = new Button
+                {
+                    Text = "Добавить в друзья",
+                    Location = new Point(30, 190),
+                    Width = 150,
+                    Height = 20
+                };
+                btnAddFriend.Click += (s, e) => AddFriend(user, panel, btnAddFriend);
+            }
 
             panel.DoubleClick += OpenUserProfile;
             avatar.DoubleClick += OpenUserProfile;
@@ -93,9 +104,12 @@ namespace ChatBook.UI.Forms
             panel.Controls.Add(avatar);
             panel.Controls.Add(nicknameLabel);
             panel.Controls.Add(fullNameLabel);
+            if (btnAddFriend != null)
+                panel.Controls.Add(btnAddFriend);
 
             return panel;
         }
+
 
         private void OpenUserProfile(object sender, EventArgs e)
         {
@@ -108,15 +122,22 @@ namespace ChatBook.UI.Forms
             else if (sender is Label label && label.Tag is User labelUser)
                 user = labelUser;
 
-            if (user == null) return;
+            if (user == null)
+            {
+                MessageBox.Show("Ошибка: не удалось получить данные пользователя!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-            var userProfile = new FriendProfileForm(user, friends);
-            userProfile.ShowDialog();
+            this.Hide();
+
+            MainForm mainForm = new MainForm(user, _userService, isProfileViewOnly: true);
+            mainForm.FormClosed += (s, args) => this.Show();
+            mainForm.Show();
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            string searchNickname = txtSearch.Text.Trim().ToLower();
+            string searchNickname = txtSearch.Text.Trim();
 
             if (string.IsNullOrEmpty(searchNickname))
             {
@@ -124,27 +145,40 @@ namespace ChatBook.UI.Forms
                 return;
             }
 
-            var filteredUsers = allUsers.Values
-                .Where(user => user.Nickname.ToLower().Contains(searchNickname))
-                .ToList();
+            var foundUsers = _userService.SearchUsers(searchNickname);
 
             flowLayoutPanelFriends.Controls.Clear();
 
-            if (filteredUsers.Count == 0)
+            if (foundUsers.Count == 0)
             {
                 MessageBox.Show("Пользователь не найден.", "Результаты поиска", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
-            foreach (var user in filteredUsers)
+            foreach (var user in foundUsers)
             {
-                flowLayoutPanelFriends.Controls.Add(CreateFriendPanel(user));
+                flowLayoutPanelFriends.Controls.Add(CreateFriendPanel(user, isSearchResult: true));
             }
         }
 
         private void btnShowFriends_Click(object sender, EventArgs e)
         {
             LoadFriends();
+        }
+
+        private void AddFriend(User user, Panel panel, Button btnAddFriend)
+        {
+            bool success = _userService.AddFriend(_currentUserNickname, user.Nickname);
+            if (success)
+            {
+                //MessageBox.Show($"{user.Nickname} добавлен в друзья!", "Успешно", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                btnAddFriend.Enabled = false;
+                btnAddFriend.Text = "Запрос отправлен";
+            }
+            else
+            {
+                MessageBox.Show("Ошибка при добавлении в друзья.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private Image ConvertByteArrayToImage(byte[] imageData)

@@ -1,7 +1,11 @@
-﻿using System;
+﻿using ChatBook.Services;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Data.Common;
 using System.Data.SQLite;
 using System.Windows.Forms;
 using ChatBook.UI.Forms;
+using ChatBook.UI.ViewModels;
 
 namespace ChatBook
 {
@@ -10,25 +14,23 @@ namespace ChatBook
         [STAThread]
         static void Main()
         {
+            var serviceProvider = new ServiceCollection()
+                .AddSingleton<DbConnection>(provider =>
+                {
+                    string connectionString = "Data Source=C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\Project\\ChatBook\\DB\\ChatBook.db"; // Подключение к SQLite
+                    return new SQLiteConnection(connectionString);
+                })
+                .AddSingleton<ChatBookDbContext>()
+                .AddSingleton<UserService>()
+                .AddSingleton<RegisterViewModel>()
+                .BuildServiceProvider();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            // Указываем строку подключения для SQLite
-            string connectionString = "Data Source =C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\Project\\ChatBook\\DB\\ChatBook.db";
+            var userService = serviceProvider.GetService<UserService>();
 
-            // Создаем SQLite-соединение
-            using (var connection = new SQLiteConnection(connectionString))
-            {
-                // Инициализируем контекст с этим соединением
-                using (var db = new ChatBookDbContext(connection))
-                {
-                    // Инициализируем базу данных
-                    db.Database.Initialize(force: false);
-                }
-            }
-
-            // Запуск формы входа в приложение
-            Application.Run(new LoginForm());
+            Application.Run(new LoginForm(userService));
         }
     }
 }
