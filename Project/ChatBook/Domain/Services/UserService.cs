@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace ChatBook.Services
 {
@@ -80,11 +81,11 @@ namespace ChatBook.Services
             if (user == null) return new List<User>();
 
             var friendIds = _dbContext.Friendships
-                .Where(f => f.User1Id == user.Id || f.User2Id == user.Id) // ✅ Проверяем по ID
-                .Select(f => f.User1Id == user.Id ? f.User2Id : f.User1Id) // ✅ Получаем ID друга
+                .Where(f => f.User1Id == user.Id || f.User2Id == user.Id)
+                .Select(f => f.User1Id == user.Id ? f.User2Id : f.User1Id) 
                 .ToList();
 
-            return _dbContext.Users.Where(u => friendIds.Contains(u.Id)).ToList(); // ✅ Загружаем друзей
+            return _dbContext.Users.Where(u => friendIds.Contains(u.Id)).ToList();
         }
 
 
@@ -154,6 +155,104 @@ namespace ChatBook.Services
             return _dbContext.Friendships
                 .Any(f => (f.User1Id == user.Id && f.User2Id == friend.Id) ||
                           (f.User1Id == friend.Id && f.User2Id == user.Id));
+        }
+
+        public bool RemoveFriend(string currentUserNickname, string friendNickname)
+        {
+            var currentUser = _dbContext.Users.FirstOrDefault(u => u.Nickname == currentUserNickname);
+            var friend = _dbContext.Users.FirstOrDefault(u => u.Nickname == friendNickname);
+
+            if (currentUser == null || friend == null) return false;
+
+            var friendship = _dbContext.Friendships
+                .FirstOrDefault(f => (f.User1Id == currentUser.Id && f.User2Id == friend.Id) ||
+                                     (f.User1Id == friend.Id && f.User2Id == currentUser.Id));
+
+            if (friendship == null) return false;
+
+            _dbContext.Friendships.Remove(friendship);
+            _dbContext.SaveChanges();
+
+            return true;
+        }
+
+
+
+        public bool DeleteBook(int bookId)
+        {
+            var book = _dbContext.Books.FirstOrDefault(b => b.Id == bookId);
+            if (book == null) return false;
+
+            _dbContext.Books.Remove(book);
+            _dbContext.SaveChanges();
+            return true;
+        }
+
+       
+
+
+        public List<ChatBook.Domain.Models.Message> GetChatMessages(int userId, int friendId)
+        {
+            return _dbContext.Messages
+                .Where(m => (m.SenderId == userId && m.ReceiverId == friendId) ||
+                            (m.SenderId == friendId && m.ReceiverId == userId))
+                .OrderBy(m => m.Timestamp)
+                .ToList();
+        }
+
+        public bool SendMessage(ChatBook.Domain.Models.Message message)
+        {
+            try
+            {
+                _dbContext.Messages.Add(message);
+                _dbContext.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public List<ChatBook.Domain.Models.Message> GetChatMessages(string senderNickname, string receiverNickname)
+        {
+            var sender = _dbContext.Users.FirstOrDefault(u => u.Nickname == senderNickname);
+            var receiver = _dbContext.Users.FirstOrDefault(u => u.Nickname == receiverNickname);
+
+            if (sender == null || receiver == null)
+                return new List<ChatBook.Domain.Models.Message>();
+
+            return _dbContext.Messages
+                .Where(m => (m.SenderId == sender.Id && m.ReceiverId == receiver.Id) ||
+                            (m.SenderId == receiver.Id && m.ReceiverId == sender.Id))
+                .OrderBy(m => m.Timestamp)
+                .ToList();
+        }
+
+        public void SaveMessage(ChatBook.Domain.Models.Message message)
+        {
+            _dbContext.Messages.Add(message);
+            _dbContext.SaveChanges();
+        }
+
+        public List<User> GetAllChatPartners(string userNickname)
+        {
+            var user = _dbContext.Users.FirstOrDefault(u => u.Nickname == userNickname);
+            if (user == null) return new List<User>();
+
+            var chatPartners = _dbContext.Messages
+                .Where(m => m.SenderId == user.Id || m.ReceiverId == user.Id)
+                .Select(m => m.SenderId == user.Id ? m.Receiver : m.Sender)
+                .Distinct()
+                .ToList();
+
+            return chatPartners;
+        }
+
+        public Book GetBookByUserAndTitle(int userId, string bookTitle)
+        {
+            return _dbContext.Books
+                             .FirstOrDefault(b => b.UserId == userId && b.Title == bookTitle);
         }
 
 

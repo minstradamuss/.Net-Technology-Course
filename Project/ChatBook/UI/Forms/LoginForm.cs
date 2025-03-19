@@ -16,23 +16,27 @@ namespace ChatBook.UI.Forms
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            string nickname = txtNickname.Text;
-            string password = txtPassword.Text;
+            string nickname = txtNickname.Text.Trim();
+            string password = txtPassword.Text.Trim();
 
-            var user = _userService?.GetUserByNickname(nickname); // ✅ Загружаем полные данные
+            var user = _userService.GetUserByNickname(nickname);
 
-            if (user != null && user.Password == password)
+            if (user != null && user.Password == password) // ❗ Здесь добавь хеширование
             {
-                // ✅ Передаём весь объект `User` в MainForm
+                // ✅ Устанавливаем глобального пользователя
+                AppSession.SetLoggedUser(user);
+
+                // ✅ Передаём его в `MainForm`
                 MainForm mainForm = new MainForm(user, _userService);
-                mainForm.Show();
                 this.Hide();
+                mainForm.Show();
             }
             else
             {
-                MessageBox.Show("Неверный никнейм или пароль.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Неверный логин или пароль!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
 
         private void btnRegister_Click(object sender, EventArgs e)

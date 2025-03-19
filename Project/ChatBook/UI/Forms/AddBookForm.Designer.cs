@@ -8,13 +8,11 @@ namespace ChatBook.UI.Forms
         private System.ComponentModel.IContainer components = null;
         private System.Windows.Forms.TextBox txtBookTitle;
         private System.Windows.Forms.ComboBox cmbStatus;
-        private System.Windows.Forms.NumericUpDown numRating;
         private System.Windows.Forms.TextBox txtReview;
         private System.Windows.Forms.Button btnSaveBook;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.PictureBox pictureBoxCover;
         private System.Windows.Forms.Button btnUploadCover;
-        private System.Windows.Forms.TextBox txtCoverImagePath;
 
 
         protected override void Dispose(bool disposing)
@@ -30,14 +28,12 @@ namespace ChatBook.UI.Forms
         {
             this.txtBookTitle = new System.Windows.Forms.TextBox();
             this.cmbStatus = new System.Windows.Forms.ComboBox();
-            this.numRating = new System.Windows.Forms.NumericUpDown();
             this.txtReview = new System.Windows.Forms.TextBox();
             this.btnSaveBook = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.pictureBoxCover = new System.Windows.Forms.PictureBox();
             this.btnUploadCover = new System.Windows.Forms.Button();
-            this.txtCoverImagePath = new System.Windows.Forms.TextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.numRating)).BeginInit();
+            this.buttonDelete = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCover)).BeginInit();
             this.SuspendLayout();
             // 
@@ -46,7 +42,7 @@ namespace ChatBook.UI.Forms
             this.txtBookTitle.ForeColor = System.Drawing.Color.Gray;
             this.txtBookTitle.Location = new System.Drawing.Point(20, 20);
             this.txtBookTitle.Name = "txtBookTitle";
-            this.txtBookTitle.Size = new System.Drawing.Size(260, 22);
+            this.txtBookTitle.Size = new System.Drawing.Size(352, 22);
             this.txtBookTitle.TabIndex = 1;
             this.txtBookTitle.Text = "Введите название книги";
             // 
@@ -58,30 +54,8 @@ namespace ChatBook.UI.Forms
             "В планах"});
             this.cmbStatus.Location = new System.Drawing.Point(20, 60);
             this.cmbStatus.Name = "cmbStatus";
-            this.cmbStatus.Size = new System.Drawing.Size(121, 24);
+            this.cmbStatus.Size = new System.Drawing.Size(120, 24);
             this.cmbStatus.TabIndex = 2;
-            // 
-            // numRating
-            // 
-            this.numRating.Location = new System.Drawing.Point(20, 100);
-            this.numRating.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.numRating.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numRating.Name = "numRating";
-            this.numRating.Size = new System.Drawing.Size(120, 22);
-            this.numRating.TabIndex = 3;
-            this.numRating.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
             // 
             // txtReview
             // 
@@ -89,7 +63,7 @@ namespace ChatBook.UI.Forms
             this.txtReview.Location = new System.Drawing.Point(20, 140);
             this.txtReview.Multiline = true;
             this.txtReview.Name = "txtReview";
-            this.txtReview.Size = new System.Drawing.Size(260, 80);
+            this.txtReview.Size = new System.Drawing.Size(352, 80);
             this.txtReview.TabIndex = 4;
             this.txtReview.Text = "Введите отзыв (если прочитано)";
             // 
@@ -113,7 +87,6 @@ namespace ChatBook.UI.Forms
             this.btnCancel.TabIndex = 8;
             this.btnCancel.Text = "Отмена";
             this.btnCancel.UseVisualStyleBackColor = false;
-            //this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // pictureBoxCover
             // 
@@ -121,7 +94,7 @@ namespace ChatBook.UI.Forms
             this.pictureBoxCover.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBoxCover.Location = new System.Drawing.Point(20, 230);
             this.pictureBoxCover.Name = "pictureBoxCover";
-            this.pictureBoxCover.Size = new System.Drawing.Size(100, 150);
+            this.pictureBoxCover.Size = new System.Drawing.Size(127, 150);
             this.pictureBoxCover.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxCover.TabIndex = 5;
             this.pictureBoxCover.TabStop = false;
@@ -129,7 +102,7 @@ namespace ChatBook.UI.Forms
             // btnUploadCover
             // 
             this.btnUploadCover.BackColor = System.Drawing.Color.Moccasin;
-            this.btnUploadCover.Location = new System.Drawing.Point(140, 230);
+            this.btnUploadCover.Location = new System.Drawing.Point(185, 230);
             this.btnUploadCover.Name = "btnUploadCover";
             this.btnUploadCover.Size = new System.Drawing.Size(140, 30);
             this.btnUploadCover.TabIndex = 6;
@@ -137,41 +110,42 @@ namespace ChatBook.UI.Forms
             this.btnUploadCover.UseVisualStyleBackColor = false;
             this.btnUploadCover.Click += new System.EventHandler(this.btnUploadCover_Click);
             // 
-            // txtCoverImagePath
+            // buttonDelete
             // 
-            this.txtCoverImagePath.Location = new System.Drawing.Point(20, 390);
-            this.txtCoverImagePath.Name = "txtCoverImagePath";
-            this.txtCoverImagePath.ReadOnly = true;
-            this.txtCoverImagePath.Size = new System.Drawing.Size(260, 22);
-            this.txtCoverImagePath.TabIndex = 0;
-            this.txtCoverImagePath.Visible = false;
+            this.buttonDelete.BackColor = System.Drawing.Color.Moccasin;
+            this.buttonDelete.Location = new System.Drawing.Point(262, 400);
+            this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Size = new System.Drawing.Size(100, 30);
+            this.buttonDelete.TabIndex = 9;
+            this.buttonDelete.Text = "Удалить";
+            this.buttonDelete.UseVisualStyleBackColor = false;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
             // AddBookForm
             // 
             this.BackColor = System.Drawing.Color.OldLace;
-            this.ClientSize = new System.Drawing.Size(298, 450);
-            this.Controls.Add(this.txtCoverImagePath);
+            this.ClientSize = new System.Drawing.Size(384, 450);
+            this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.txtBookTitle);
             this.Controls.Add(this.cmbStatus);
-            this.Controls.Add(this.numRating);
             this.Controls.Add(this.txtReview);
             this.Controls.Add(this.pictureBoxCover);
             this.Controls.Add(this.btnUploadCover);
             this.Controls.Add(this.btnSaveBook);
             this.Controls.Add(this.btnCancel);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(316, 497);
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(316, 497);
             this.Name = "AddBookForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Добавление книги";
-            ((System.ComponentModel.ISupportInitialize)(this.numRating)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCover)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
+
+        private Button buttonDelete;
     }
 }

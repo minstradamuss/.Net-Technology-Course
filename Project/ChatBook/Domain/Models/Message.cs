@@ -9,15 +9,13 @@ namespace ChatBook.Domain.Models
         [Key]
         public int Id { get; set; }
 
-        // Связь с отправителем
         [ForeignKey(nameof(Sender))]
         public int SenderId { get; set; }
-        public User Sender { get; set; } // Навигационное свойство
+        public User Sender { get; set; }
 
-        // Связь с получателем
         [ForeignKey(nameof(Receiver))]
         public int ReceiverId { get; set; }
-        public User Receiver { get; set; } // Навигационное свойство
+        public User Receiver { get; set; }
 
         [Required]
         public string Content { get; set; }

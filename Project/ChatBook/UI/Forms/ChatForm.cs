@@ -1,52 +1,118 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
+using ChatBook.Domain.Models;
+using ChatBook.Services;
+
+using ChatMessage = ChatBook.Domain.Models.Message;
 
 namespace ChatBook.UI.Forms
 {
     public partial class ChatForm : Form
     {
-        private Dictionary<string, List<string>> chatMessages = new Dictionary<string, List<string>>();
+        private readonly UserService _userService;
+        private readonly string _currentUserNickname;
+        private Dictionary<string, List<ChatMessage>> chatMessages = new Dictionary<string, List<ChatMessage>>();
         private string selectedChat = null;
+        private readonly string _chatPartnerNickname;
 
-        public ChatForm()
+        public ChatForm(string currentUserNickname, UserService userService, string chatPartnerNickname = null)
         {
             InitializeComponent();
-            listBoxChats.KeyDown += listBoxChats_KeyDown; // Отслеживание нажатий клавиш
-            listBoxChats.Click += listBoxChats_Click; // Один клик — выделение чата
-            listBoxChats.DoubleClick += listBoxChats_DoubleClick; // Двойной клик — открытие чата
+            _userService = userService ?? throw new ArgumentNullException(nameof(userService));
+            _currentUserNickname = currentUserNickname ?? throw new ArgumentNullException(nameof(currentUserNickname));
+
+            LoadFriendsAndChats();
+
+            if (chatPartnerNickname != null)
+            {
+                selectedChat = chatPartnerNickname;
+                LoadChatMessages(selectedChat);
+            }
+
+            listBoxChats.KeyDown += listBoxChats_KeyDown;
+            listBoxChats.Click += listBoxChats_Click;
+            listBoxChats.DoubleClick += listBoxChats_DoubleClick;
         }
+
+        public void LoadChatMessages(string chatPartnerNickname)
+        {
+            listBoxMessages.Items.Clear();
+            var chatMessagesFromDb = _userService.GetChatMessages(_currentUserNickname, chatPartnerNickname);
+
+            chatMessages[chatPartnerNickname] = chatMessagesFromDb;
+
+            foreach (var msg in chatMessagesFromDb)
+            {
+                string sender = msg.SenderId == _userService.GetUserByNickname(_currentUserNickname).Id ? "Вы" : chatPartnerNickname;
+                listBoxMessages.Items.Add($"({msg.Timestamp:T}) {sender}: {msg.Content}");
+            }
+        }
+
+
+        private void LoadFriendsAndChats()
+        {
+            listBoxChats.Items.Clear();
+            var friends = _userService.GetFriends(_currentUserNickname);
+            var chatPartners = _userService.GetAllChatPartners(_currentUserNickname);
+
+            HashSet<string> uniqueUsers = new HashSet<string>();
+
+            foreach (var friend in friends)
+            {
+                string displayName = $"{friend.Nickname} - {friend.FirstName} {friend.LastName}";
+                if (uniqueUsers.Add(friend.Nickname))
+                {
+                    listBoxChats.Items.Add(displayName);
+                }
+            }
+
+            foreach (var chatPartner in chatPartners)
+            {
+                string displayName = $"{chatPartner.Nickname} - {chatPartner.FirstName} {chatPartner.LastName}";
+                if (uniqueUsers.Add(chatPartner.Nickname))
+                {
+                    listBoxChats.Items.Add(displayName);
+                }
+            }
+        }
+
 
         private void btnSend_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(txtMessage.Text) && selectedChat != null)
             {
-                if (!chatMessages.ContainsKey(selectedChat))
+                // ✅ Извлекаем никнейм из "Nickname - FirstName LastName"
+                string receiverNickname = selectedChat.Split('-')[0].Trim();
+
+                var receiver = _userService.GetUserByNickname(receiverNickname);
+                if (receiver == null)
                 {
-                    chatMessages[selectedChat] = new List<string>();
+                    MessageBox.Show("Ошибка: получатель не найден!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
 
-                chatMessages[selectedChat].Add($"Вы: {txtMessage.Text}");
-                listBoxMessages.Items.Add($"Вы: {txtMessage.Text}");
+                var newMessage = new ChatMessage
+                {
+                    SenderId = _userService.GetUserByNickname(_currentUserNickname).Id,
+                    ReceiverId = receiver.Id,
+                    Content = txtMessage.Text,
+                    Timestamp = DateTime.UtcNow
+                };
+
+                _userService.SaveMessage(newMessage);
+
+                if (!chatMessages.ContainsKey(selectedChat))
+                {
+                    chatMessages[selectedChat] = new List<ChatMessage>();
+                }
+
+                chatMessages[selectedChat].Add(newMessage);
+                listBoxMessages.Items.Add($"Вы: {newMessage.Content}");
                 txtMessage.Clear();
             }
-        }
-
-        private void txtMessage_TextChanged(object sender, EventArgs e)
-        {
-            const int maxHeight = 100; // Максимальная высота поля
-            const int minHeight = 22;  // Минимальная высота поля
-
-            using (Graphics g = txtMessage.CreateGraphics())
-            {
-                SizeF size = g.MeasureString(txtMessage.Text, txtMessage.Font, txtMessage.Width);
-                int newHeight = Math.Min(maxHeight, Math.Max(minHeight, (int)size.Height + 10));
-
-                txtMessage.Height = newHeight;
-            }
-
-            txtMessage.ScrollBars = txtMessage.Height >= maxHeight ? ScrollBars.Vertical : ScrollBars.None;
         }
 
 
@@ -54,21 +120,22 @@ namespace ChatBook.UI.Forms
         {
             if (listBoxChats.SelectedItem != null)
             {
-                selectedChat = listBoxChats.SelectedItem.ToString(); // Выделяем чат
+                selectedChat = listBoxChats.SelectedItem.ToString().Split('-')[0].Trim();
             }
         }
 
+
         private void listBoxChats_DoubleClick(object sender, EventArgs e)
         {
-            if (selectedChat != null && chatMessages.ContainsKey(selectedChat))
+            if (selectedChat != null)
             {
-                listBoxMessages.Items.Clear();
-                foreach (var msg in chatMessages[selectedChat])
-                {
-                    listBoxMessages.Items.Add(msg);
-                }
+                string chatPartnerNickname = selectedChat.Split('-')[0].Trim();
+                LoadChatMessages(chatPartnerNickname);
             }
         }
+
+
+
 
         private void listBoxChats_KeyDown(object sender, KeyEventArgs e)
         {
@@ -81,13 +148,20 @@ namespace ChatBook.UI.Forms
             }
         }
 
-        public void AddChat(string chatName)
+        private void txtMessage_TextChanged(object sender, EventArgs e)
         {
-            if (!listBoxChats.Items.Contains(chatName))
+            const int maxHeight = 100;
+            const int minHeight = 22;
+
+            using (Graphics g = txtMessage.CreateGraphics())
             {
-                listBoxChats.Items.Add(chatName);
-                chatMessages[chatName] = new List<string>();
+                SizeF size = g.MeasureString(txtMessage.Text, txtMessage.Font, txtMessage.Width);
+                int newHeight = Math.Min(maxHeight, Math.Max(minHeight, (int)size.Height + 10));
+
+                txtMessage.Height = newHeight;
             }
+
+            txtMessage.ScrollBars = txtMessage.Height >= maxHeight ? ScrollBars.Vertical : ScrollBars.None;
         }
     }
 }

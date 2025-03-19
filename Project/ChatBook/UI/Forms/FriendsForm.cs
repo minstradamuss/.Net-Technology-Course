@@ -91,9 +91,11 @@ namespace ChatBook.UI.Forms
                     Text = "Добавить в друзья",
                     Location = new Point(30, 190),
                     Width = 150,
-                    Height = 20
+                    Height = 20,
+                    BackColor = Color.LightGreen
                 };
                 btnAddFriend.Click += (s, e) => AddFriend(user, panel, btnAddFriend);
+                panel.Controls.Add(btnAddFriend);
             }
 
             panel.DoubleClick += OpenUserProfile;
@@ -109,7 +111,6 @@ namespace ChatBook.UI.Forms
 
             return panel;
         }
-
 
         private void OpenUserProfile(object sender, EventArgs e)
         {
@@ -173,7 +174,6 @@ namespace ChatBook.UI.Forms
             {
                 //MessageBox.Show($"{user.Nickname} добавлен в друзья!", "Успешно", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 btnAddFriend.Enabled = false;
-                btnAddFriend.Text = "Запрос отправлен";
             }
             else
             {

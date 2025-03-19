@@ -37,7 +37,7 @@ namespace ChatBook.Tests
 
             _uiThread = new Thread(() =>
             {
-                _addBookForm = new AddBookForm(_testBook);
+                //_addBookForm = new AddBookForm(_testBook);
                 _addBookForm.BookAdded += _mockBookAdded.Object;
                 _addBookForm.BookUpdated += _mockBookUpdated.Object;
 

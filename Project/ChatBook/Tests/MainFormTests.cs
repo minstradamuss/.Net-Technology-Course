@@ -84,7 +84,7 @@ namespace ChatBook.Tests
                 method?.Invoke(_mainForm, new object[] { bookCover, EventArgs.Empty });
             }));
 
-            var editBookForm = new AddBookForm(updatedBook);
+            //var editBookForm = new AddBookForm(updatedBook);
             //editBookForm.RaiseBookUpdated(updatedBook);
 
             var booksField = _mainForm.GetType()

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace ChatBook.UI.Forms
@@ -16,6 +17,10 @@ namespace ChatBook.UI.Forms
         private System.Windows.Forms.TextBox txtReview;
         private System.Windows.Forms.Button btnSaveReview;
         private System.Windows.Forms.ComboBox cmbStatus;
+        private System.Windows.Forms.Button btnRemoveFriend;
+        private System.Windows.Forms.Button btnRefreshBooks;
+        private System.Windows.Forms.TextBox txtSearchBooks;
+
 
         protected override void Dispose(bool disposing)
         {
@@ -43,7 +48,10 @@ namespace ChatBook.UI.Forms
             this.cmbStatus = new System.Windows.Forms.ComboBox();
             this.buttonChats = new System.Windows.Forms.Button();
             this.buttonSearchFriends = new System.Windows.Forms.Button();
+            this.btnRemoveFriend = new System.Windows.Forms.Button();
             this.btnAddBook = new System.Windows.Forms.Button();
+            this.btnRefreshBooks = new System.Windows.Forms.Button();
+            this.txtSearchBooks = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAvatar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericRating)).BeginInit();
             this.SuspendLayout();
@@ -138,7 +146,7 @@ namespace ChatBook.UI.Forms
             this.buttonChats.Size = new System.Drawing.Size(120, 30);
             this.buttonChats.TabIndex = 7;
             this.buttonChats.Text = "Чаты";
-            this.buttonChats.Click += new System.EventHandler(this.button1_Click);
+            this.buttonChats.Click += new System.EventHandler(this.buttonChats_Click);
             // 
             // buttonSearchFriends
             // 
@@ -149,6 +157,18 @@ namespace ChatBook.UI.Forms
             this.buttonSearchFriends.Text = "Друзья";
             this.buttonSearchFriends.Click += new System.EventHandler(this.button2_Click);
             // 
+            // btnRemoveFriend
+            // 
+            this.btnRemoveFriend.BackColor = System.Drawing.Color.Coral;
+            this.btnRemoveFriend.Location = new System.Drawing.Point(600, 20);
+            this.btnRemoveFriend.Name = "btnRemoveFriend";
+            this.btnRemoveFriend.Size = new System.Drawing.Size(160, 30);
+            this.btnRemoveFriend.TabIndex = 10;
+            this.btnRemoveFriend.Text = "Удалить из друзей";
+            this.btnRemoveFriend.UseVisualStyleBackColor = false;
+            this.btnRemoveFriend.Visible = false;
+            this.btnRemoveFriend.Click += new System.EventHandler(this.btnRemoveFriend_Click);
+            // 
             // btnAddBook
             // 
             this.btnAddBook.Location = new System.Drawing.Point(12, 166);
@@ -156,12 +176,41 @@ namespace ChatBook.UI.Forms
             this.btnAddBook.Size = new System.Drawing.Size(198, 30);
             this.btnAddBook.TabIndex = 9;
             this.btnAddBook.Text = "Добавить книгу";
+            this.btnAddBook.Click += new System.EventHandler(this.btnAddBook_Click);
+            // 
+            // btnRefreshBooks
+            // 
+            this.btnRefreshBooks.FlatAppearance.BorderSize = 0;
+            this.btnRefreshBooks.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRefreshBooks.Font = new System.Drawing.Font("Arial", 16F, System.Drawing.FontStyle.Bold);
+            this.btnRefreshBooks.ForeColor = System.Drawing.Color.Black;
+            this.btnRefreshBooks.Location = new System.Drawing.Point(422, 161);
+            this.btnRefreshBooks.Name = "btnRefreshBooks";
+            this.btnRefreshBooks.Size = new System.Drawing.Size(35, 37);
+            this.btnRefreshBooks.TabIndex = 0;
+            this.btnRefreshBooks.Text = "↻";
+            this.btnRefreshBooks.Click += new System.EventHandler(this.btnRefreshBooks_Click);
+            // 
+            // txtSearchBooks
+            // 
+            this.txtSearchBooks.Font = new System.Drawing.Font("Arial", 12F);
+            this.txtSearchBooks.ForeColor = System.Drawing.Color.Gray;
+            this.txtSearchBooks.Location = new System.Drawing.Point(216, 166);
+            this.txtSearchBooks.Name = "txtSearchBooks";
+            this.txtSearchBooks.Size = new System.Drawing.Size(200, 30);
+            this.txtSearchBooks.TabIndex = 0;
+            this.txtSearchBooks.Text = "🔍 Искать книгу...";
+            this.txtSearchBooks.TextChanged += new System.EventHandler(this.txtSearchBooks_TextChanged);
+            this.txtSearchBooks.Enter += new System.EventHandler(this.txtSearchBooks_Enter);
+            this.txtSearchBooks.Leave += new System.EventHandler(this.txtSearchBooks_Leave);
             // 
             // MainForm
             // 
             this.BackColor = System.Drawing.Color.AntiqueWhite;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(782, 553);
+            this.Controls.Add(this.txtSearchBooks);
+            this.Controls.Add(this.btnRefreshBooks);
             this.Controls.Add(this.btnAddBook);
             this.Controls.Add(this.buttonSearchFriends);
             this.Controls.Add(this.buttonChats);
@@ -170,6 +219,7 @@ namespace ChatBook.UI.Forms
             this.Controls.Add(this.lblFullName);
             this.Controls.Add(this.btnEditProfile);
             this.Controls.Add(this.btnSearchBooks);
+            this.Controls.Add(this.btnRemoveFriend);
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(800, 600);
             this.MinimizeBox = false;

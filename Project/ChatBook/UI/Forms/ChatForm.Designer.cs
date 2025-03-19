@@ -29,57 +29,56 @@
             // 
             // listBoxMessages
             // 
-            this.listBoxMessages.FormattingEnabled = true;
+            this.listBoxMessages.BackColor = System.Drawing.Color.Moccasin;
             this.listBoxMessages.ItemHeight = 16;
-            this.listBoxMessages.Location = new System.Drawing.Point(188, 12);
+            this.listBoxMessages.Location = new System.Drawing.Point(251, 12);
             this.listBoxMessages.Name = "listBoxMessages";
-            this.listBoxMessages.Size = new System.Drawing.Size(612, 340);
-            this.listBoxMessages.TabIndex = 0;
+            this.listBoxMessages.Size = new System.Drawing.Size(576, 340);
+            this.listBoxMessages.TabIndex = 1;
             // 
             // txtMessage
             // 
-            this.txtMessage.Location = new System.Drawing.Point(188, 370);
+            this.txtMessage.Location = new System.Drawing.Point(214, 370);
             this.txtMessage.Name = "txtMessage";
             this.txtMessage.Size = new System.Drawing.Size(512, 22);
-            this.txtMessage.TabIndex = 1;
+            this.txtMessage.TabIndex = 2;
             this.txtMessage.TextChanged += new System.EventHandler(this.txtMessage_TextChanged);
             // 
             // btnSend
             // 
             this.btnSend.BackColor = System.Drawing.Color.Moccasin;
-            this.btnSend.Location = new System.Drawing.Point(710, 368);
+            this.btnSend.Location = new System.Drawing.Point(732, 368);
             this.btnSend.Name = "btnSend";
             this.btnSend.Size = new System.Drawing.Size(95, 26);
-            this.btnSend.TabIndex = 2;
+            this.btnSend.TabIndex = 3;
             this.btnSend.Text = "Отправить";
             this.btnSend.UseVisualStyleBackColor = false;
             this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
             // 
             // listBoxChats
             // 
-            this.listBoxChats.FormattingEnabled = true;
+            this.listBoxChats.BackColor = System.Drawing.Color.Moccasin;
             this.listBoxChats.ItemHeight = 16;
             this.listBoxChats.Location = new System.Drawing.Point(12, 12);
             this.listBoxChats.Name = "listBoxChats";
-            this.listBoxChats.Size = new System.Drawing.Size(170, 340);
-            this.listBoxChats.TabIndex = 3;
+            this.listBoxChats.Size = new System.Drawing.Size(233, 340);
+            this.listBoxChats.TabIndex = 0;
             this.listBoxChats.DoubleClick += new System.EventHandler(this.listBoxChats_DoubleClick);
             // 
             // ChatForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.OldLace;
-            this.ClientSize = new System.Drawing.Size(817, 450);
+            this.ClientSize = new System.Drawing.Size(839, 410);
             this.Controls.Add(this.listBoxChats);
             this.Controls.Add(this.listBoxMessages);
             this.Controls.Add(this.txtMessage);
             this.Controls.Add(this.btnSend);
-            this.MaximumSize = new System.Drawing.Size(835, 497);
-            this.MinimumSize = new System.Drawing.Size(835, 497);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(857, 457);
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(857, 457);
             this.Name = "ChatForm";
             this.ShowIcon = false;
-            this.Text = "Чат";
             this.ResumeLayout(false);
             this.PerformLayout();
 

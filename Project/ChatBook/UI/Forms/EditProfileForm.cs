@@ -20,7 +20,6 @@ namespace ChatBook.UI.Forms
             _currentUser = user;
             _userService = userService;
 
-            // Загрузка текущих данных пользователя в форму
             txtFirstName.Text = user.FirstName;
             txtLastName.Text = user.LastName;
             txtPhoneNumber.Text = user.PhoneNumber;
@@ -34,18 +33,15 @@ namespace ChatBook.UI.Forms
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            // Обновление данных пользователя
             _currentUser.FirstName = txtFirstName.Text;
             _currentUser.LastName = txtLastName.Text;
             _currentUser.PhoneNumber = txtPhoneNumber.Text;
             _currentUser.Avatar = _avatarBytes;
 
-            // Обновление в базе данных
             bool isUpdated = _userService.UpdateProfile(_currentUser);
             if (isUpdated)
             {
                 ProfileUpdated?.Invoke(_currentUser);
-                MessageBox.Show("Профиль обновлен!", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
             else
