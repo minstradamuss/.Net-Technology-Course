@@ -1,0 +1,20 @@
+{
+  "defaultLifetime": "scoped",
+  "components": [
+    {
+      "type": "ChatBook.Domain.Services.BookService, ChatBook.Domain",
+      "services": [ "ChatBook.Domain.Interfaces.IBookService, ChatBook.Domain" ],
+      "lifetime": "scoped"
+    },
+    {
+      "type": "ChatBook.DataAccess.Repositories.BookRepository, ChatBook.DataAccess",
+      "services": [ "ChatBook.Domain.Repositories.IBookRepository, ChatBook.Domain" ],
+      "lifetime": "singleton"
+    },
+    {
+      "type": "ChatBook.DataAccess.Repositories.ChatRepository, ChatBook.DataAccess",
+      "services": [ "ChatBook.Domain.Interfaces.IChatService, ChatBook.Domain" ],
+      "lifetime": "transient"
+    }
+  ]
+}

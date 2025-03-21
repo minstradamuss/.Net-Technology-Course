@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ChatBook.Domain.Interfaces;
 using ChatBook.Domain.Models;
 using ChatBook.Domain.Repositories;
 
@@ -30,6 +31,11 @@ namespace ChatBook.Domain.Services
         public List<Book> GetBooks()
         {
             return _bookRepository.GetAll();
+        }
+
+        public List<Book> SearchBooks(string query)
+        {
+            throw new NotImplementedException();
         }
     }
 }
