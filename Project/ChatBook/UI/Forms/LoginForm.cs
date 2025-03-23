@@ -1,7 +1,7 @@
 ﻿using ChatBook.Services;
 using System;
 using System.Windows.Forms;
-using ChatBook.Domain.Models;
+using ChatBook.Entities;
 
 namespace ChatBook.UI.Forms
 {
@@ -21,12 +21,10 @@ namespace ChatBook.UI.Forms
 
             var user = _userService.GetUserByNickname(nickname);
 
-            if (user != null && user.Password == password) // ❗ Здесь добавь хеширование
+            if (user != null && user.Password == password)
             {
-                // ✅ Устанавливаем глобального пользователя
                 AppSession.SetLoggedUser(user);
 
-                // ✅ Передаём его в `MainForm`
                 MainForm mainForm = new MainForm(user, _userService);
                 this.Hide();
                 mainForm.Show();

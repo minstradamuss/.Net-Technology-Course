@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using ChatBook.Domain.Models;
+using ChatBook.Entities;
 using ChatBook.Services;
 
 namespace ChatBook.UI.Forms
@@ -100,6 +100,7 @@ namespace ChatBook.UI.Forms
         }
 
 
+
         private void UpdateProfileInfo(User updatedUser)
         {
             if (updatedUser == null) return;
@@ -181,8 +182,9 @@ namespace ChatBook.UI.Forms
             if (sender is PictureBox bookCover && bookCover.Tag is Book book)
             {
                 bool isProfileViewOnly = (_logged.Nickname != _currentUser.Nickname);
+                
+                AddBookForm viewBookForm = new AddBookForm(_currentUser, _userService, isProfileViewOnly, book);
 
-                AddBookForm viewBookForm = new AddBookForm(book, _userService, _currentUser, isProfileViewOnly);
                 viewBookForm.ToggleSaveButton(!isProfileViewOnly);
 
                 viewBookForm.BookUpdated += (updatedBook) =>

@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using ChatBook.Domain.Models;
+using ChatBook.Entities;
 using ChatBook.Services;
-using static Microsoft.ApplicationInsights.MetricDimensionNames.TelemetryContext;
 
-using ChatUser = ChatBook.Domain.Models.User;
-
+using ChatUser = ChatBook.Entities.User;
 
 namespace ChatBook.UI.Forms
 {
@@ -16,6 +13,8 @@ namespace ChatBook.UI.Forms
     {
         public event Action<Book> BookAdded;
         public event Action<Book> BookUpdated;
+        public event Action<int> BookDeleted;
+
         private Book _currentBook;
         private bool isEditMode = false;
         private byte[] _coverImageBytes;
@@ -23,10 +22,8 @@ namespace ChatBook.UI.Forms
         private Label[] stars = new Label[5];
         private ChatUser _currentUser;
         private ChatUser _logged;
-
-        public event Action<int> BookDeleted;
-
         private readonly UserService _userService;
+
         public string CurrentUserNickname { get; private set; }
 
         public AddBookForm(UserService userService, ChatUser user)
@@ -36,12 +33,13 @@ namespace ChatBook.UI.Forms
             _currentUser = user ?? throw new ArgumentNullException(nameof(user));
             _logged = AppSession.LoggedUser;
             CurrentUserNickname = _currentUser.Nickname;
+
             if (_logged.Nickname != CurrentUserNickname)
             {
                 DisableEditing();
             }
-
         }
+
         public AddBookForm(ChatUser user, UserService userService, bool isProfileViewOnly = false, Book book = null)
         {
             InitializeComponent();
@@ -51,10 +49,30 @@ namespace ChatBook.UI.Forms
             CurrentUserNickname = _currentUser.Nickname;
 
             ToggleSaveButton(false);
+            int userId = _currentUser.Id;
+            string title = book?.Title ?? string.Empty;
+            InitializeStarRating(userId, title);
 
             if (book != null)
             {
-                InitializeStarRating(book.UserId, book.Title);
+                _currentBook = book;
+                isEditMode = !isProfileViewOnly;
+                txtAuthor.ForeColor = Color.Black;
+                txtBookTitle.ForeColor = Color.Black;
+                txtReview.ForeColor = Color.Black;
+                txtBookTitle.Text = book.Title;
+                txtAuthor.Text = book.Author;
+                cmbStatus.SelectedItem = book.Status;
+                txtReview.Text = book.Review;
+                _selectedRating = book.Rating;
+
+                if (book.CoverImage != null && book.CoverImage.Length > 0)
+                {
+                    pictureBoxCover.Image = ConvertByteArrayToImage(book.CoverImage);
+                    _coverImageBytes = book.CoverImage;
+                }
+
+                ToggleSaveButton(true);
             }
 
             if (_logged.Nickname != CurrentUserNickname)
@@ -63,118 +81,29 @@ namespace ChatBook.UI.Forms
             }
         }
 
-
         private void DisableEditing()
         {
             txtBookTitle.ReadOnly = true;
+            txtAuthor.ReadOnly = true;
             txtReview.ReadOnly = true;
             cmbStatus.Enabled = false;
-
             btnSaveBook.Visible = false;
             btnUploadCover.Visible = false;
             buttonDelete.Visible = false;
-            btnCancel.Visible = true;
+            
 
-            if (stars == null || stars.Length == 0)
+            if (stars == null || stars.Length == 0 && _currentBook != null)
             {
-                if (_currentBook != null)
-                {
-                    LoadBookRatingFromDatabase(_currentBook.UserId, _currentBook.Title);
-                }
+                LoadBookRatingFromDatabase(_currentBook.UserId, _currentBook.Title);
             }
         }
-
-
 
         private void LoadBookRatingFromDatabase(int userId, string bookTitle)
         {
             Book book = _userService.GetBookByUserAndTitle(userId, bookTitle);
-
-            if (book != null)
-            {
-                _selectedRating = book.Rating;
-            }
-            else
-            {
-                _selectedRating = 0;
-            }
-
+            _selectedRating = book?.Rating ?? 0;
             InitializeStarRating(userId, bookTitle);
             UpdateStarRating();
-        }
-
-
-
-        public AddBookForm(Book book, UserService userService, ChatUser user, bool isProfileViewOnly)
-    : this(userService, user)
-        {
-            _currentBook = book;
-            isEditMode = !isProfileViewOnly; 
-
-            txtBookTitle.Text = book.Title;
-            cmbStatus.SelectedItem = book.Status;
-            txtReview.Text = book.Review;
-            _selectedRating = book.Rating;
-
-            if (book.CoverImage != null && book.CoverImage.Length > 0)
-            {
-                pictureBoxCover.Image = ConvertByteArrayToImage(book.CoverImage);
-                _coverImageBytes = book.CoverImage;
-            }
-
-            LoadBookRatingFromDatabase(user.Id, book.Title);
-
-            ToggleSaveButton(true);
-        }
-
-        private void UpdateStarRating()
-        {
-            if (stars == null || stars.Length == 0)
-            {
-                if (_currentBook != null)
-                {
-                    InitializeStarRating(_currentBook.UserId, _currentBook.Title);
-                }
-                else
-                {
-                    return;
-                }
-            }
-
-            for (int i = 0; i < stars.Length; i++)
-            {
-                stars[i].Text = (i < _selectedRating) ? "🌟" : "☆";
-            }
-        }
-
-
-
-        private void btnSaveBook_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txtBookTitle.Text))
-            {
-                MessageBox.Show("Введите название книги.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            if (_currentBook == null) _currentBook = new Book();
-
-            _currentBook.Title = txtBookTitle.Text;
-            _currentBook.Status = cmbStatus.SelectedItem?.ToString() ?? "В планах";
-            _currentBook.Rating = _selectedRating;
-            _currentBook.Review = txtReview.Text;
-            _currentBook.CoverImage = _coverImageBytes;
-
-            if (isEditMode)
-            {
-                BookUpdated?.Invoke(_currentBook);
-            }
-            else
-            {
-                BookAdded?.Invoke(_currentBook);
-            }
-
-            this.Close();
         }
 
         private void InitializeStarRating(int userId, string bookTitle)
@@ -184,7 +113,7 @@ namespace ChatBook.UI.Forms
 
             FlowLayoutPanel starPanel = new FlowLayoutPanel
             {
-                Location = new Point(20, 100),
+                Location = new Point(20, 110),
                 Size = new Size(200, 40),
                 AutoSize = true
             };
@@ -200,7 +129,6 @@ namespace ChatBook.UI.Forms
                     Cursor = Cursors.Hand,
                     Tag = i + 1
                 };
-
                 stars[i].Click += Star_Click;
                 starPanel.Controls.Add(stars[i]);
             }
@@ -208,32 +136,60 @@ namespace ChatBook.UI.Forms
             this.Controls.Add(starPanel);
 
             Book book = _userService.GetBookByUserAndTitle(userId, bookTitle);
-
-            if (book != null)
-            {
-                _selectedRating = book.Rating;
-                UpdateStarRating();
-            }
+            _selectedRating = book?.Rating ?? 0;
+            UpdateStarRating();
 
             if (_logged.Nickname != CurrentUserNickname)
             {
                 foreach (var star in stars)
-                {
                     star.Enabled = false;
-                }
             }
         }
-
-
-
 
         private void Star_Click(object sender, EventArgs e)
         {
             if (sender is Label starLabel)
             {
-                _selectedRating = (int)starLabel.Tag; 
+                _selectedRating = (int)starLabel.Tag;
                 UpdateStarRating();
             }
+        }
+
+        private void UpdateStarRating()
+        {
+            for (int i = 0; i < stars.Length; i++)
+            {
+                stars[i].Text = (i < _selectedRating) ? "🌟" : "☆";
+            }
+        }
+
+        private void btnSaveBook_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtBookTitle.Text))
+            {
+                MessageBox.Show("Введите название книги.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (_currentBook == null) _currentBook = new Book();
+
+            _currentBook.Title = txtBookTitle.Text;
+            _currentBook.Author = txtAuthor.Text;
+            _currentBook.Status = cmbStatus.SelectedItem?.ToString() ?? "В планах";
+            _currentBook.Rating = _selectedRating;
+            _currentBook.Review = txtReview.Text;
+            _currentBook.CoverImage = _coverImageBytes;
+
+            if (isEditMode)
+            {
+                BookUpdated?.Invoke(_currentBook);
+            }
+            else
+            {
+                BookAdded?.Invoke(_currentBook);
+            }
+
+            this.Close();
         }
 
         private void btnUploadCover_Click(object sender, EventArgs e)
@@ -252,43 +208,23 @@ namespace ChatBook.UI.Forms
 
         private byte[] ConvertImageToByteArray(string imagePath)
         {
-            if (string.IsNullOrEmpty(imagePath) || !File.Exists(imagePath))
-                return null;
-
-            try
-            {
-                return File.ReadAllBytes(imagePath);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка загрузки изображения: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return null;
-            }
+            if (string.IsNullOrEmpty(imagePath) || !File.Exists(imagePath)) return null;
+            return File.ReadAllBytes(imagePath);
         }
 
         private Image ConvertByteArrayToImage(byte[] imageData)
         {
-            if (imageData == null || imageData.Length == 0)
-                return null;
-
-            try
+            if (imageData == null || imageData.Length == 0) return null;
+            using (MemoryStream ms = new MemoryStream(imageData))
             {
-                using (MemoryStream ms = new MemoryStream(imageData))
-                {
-                    return Image.FromStream(ms);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка загрузки изображения: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return null;
+                return Image.FromStream(ms);
             }
         }
 
         public void ToggleSaveButton(bool isEdit)
         {
             btnSaveBook.Text = isEdit ? "Сохранить" : "Добавить";
-            btnCancel.Text = "Отмена";
+            
         }
 
         private void buttonDelete_Click(object sender, EventArgs e)
@@ -305,7 +241,6 @@ namespace ChatBook.UI.Forms
             if (confirmResult == DialogResult.Yes)
             {
                 bool success = _userService.DeleteBook(_currentBook.Id);
-
                 if (success)
                 {
                     BookDeleted?.Invoke(_currentBook.Id);
@@ -315,6 +250,30 @@ namespace ChatBook.UI.Forms
                 {
                     MessageBox.Show("Ошибка при удалении книги.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+        }
+
+        private void txtBookTitle_Click(object sender, EventArgs e)
+        {
+            if (txtBookTitle.Text.ToString() == "Введите название книги")
+            {
+                txtBookTitle.Text = "";
+            }
+        }
+
+        private void txtAuthor_Click(object sender, EventArgs e)
+        {
+            if (txtAuthor.Text.ToString() == "Введите автора")
+            {
+                txtAuthor.Text = "";
+            }
+        }
+
+        private void txtReview_Click(object sender, EventArgs e)
+        {
+            if (txtReview.Text.ToString() == "Введите отзыв(если прочитано)")
+            {
+                txtReview.Text = "";
             }
         }
     }

@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Forms;
-using ChatBook.Domain.Models;
 using ChatBook.UI.Forms;
 using Moq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using ChatBook.Entities;
 
 namespace ChatBook.Tests
 {

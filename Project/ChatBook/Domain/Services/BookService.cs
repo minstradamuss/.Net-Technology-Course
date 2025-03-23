@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using ChatBook.Domain.Models;
-using ChatBook.Domain.Repositories;
+using ChatBook.Entities;
 
 namespace ChatBook.Domain.Services
 {
     public class BookService : IBookService
     {
-        private readonly IBookRepository _bookRepository;
+        private readonly IBookService _bookRepository;
 
-        public BookService(IBookRepository bookRepository)
+        public BookService(IBookService bookRepository)
         {
             _bookRepository = bookRepository;
         }
@@ -30,6 +29,21 @@ namespace ChatBook.Domain.Services
         public List<Book> GetBooks()
         {
             return _bookRepository.GetAll();
+        }
+
+        public void Add(Book book)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Book book)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Book> GetAll()
+        {
+            throw new NotImplementedException();
         }
     }
 }

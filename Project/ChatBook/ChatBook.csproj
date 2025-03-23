@@ -163,6 +163,9 @@
     <Reference Include="System.Data.SQLite.EF6, Version=1.0.119.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
       <HintPath>packages\System.Data.SQLite.EF6.1.0.119.0\lib\net46\System.Data.SQLite.EF6.dll</HintPath>
     </Reference>
+    <Reference Include="System.Data.SQLite.EF6.Migrations, Version=1.0.113.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\System.Data.SQLite.EF6.Migrations.1.0.113\lib\System.Data.SQLite.EF6.Migrations.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data.SQLite.Linq, Version=1.0.119.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
       <HintPath>packages\System.Data.SQLite.Linq.1.0.119.0\lib\net46\System.Data.SQLite.Linq.dll</HintPath>
     </Reference>
@@ -223,27 +226,39 @@
   <ItemGroup>
     <Compile Include="DataAccess\Repositories\BookRepository.cs" />
     <Compile Include="DataAccess\Repositories\ChatRepository.cs" />
-    <Compile Include="Domain\Models\AppSession.cs" />
-    <Compile Include="Domain\Models\Friendship.cs" />
-    <Compile Include="Domain\Repositories\IBookRepository.cs" />
+    <Compile Include="Entities\AdminUser.cs" />
+    <Compile Include="AppSession.cs" />
     <Compile Include="DataAccess\Repositories\UserRepository.cs" />
-    <Compile Include="DB\ChatBookDbContext.cs" />
-    <Compile Include="Domain\Interfaces\IBookService.cs" />
+    <Compile Include="DataAccess\ApplicationDbContext.cs" />
     <Compile Include="Domain\Interfaces\IChatService.cs" />
     <Compile Include="Domain\Interfaces\IReviewService.cs" />
     <Compile Include="Domain\Interfaces\IUserService.cs" />
-    <Compile Include="Domain\Models\Book.cs" />
-    <Compile Include="Domain\Models\Message.cs" />
-    <Compile Include="Domain\Models\Review.cs" />
-    <Compile Include="Domain\Models\User.cs" />
+    <Compile Include="Entities\BaseUser.cs" />
+    <Compile Include="Entities\Message.cs" />
+    <Compile Include="Entities\Review.cs" />
     <Compile Include="Domain\Services\BookService.cs" />
-    <Compile Include="Domain\Services\IBookService.cs" />
+    <Compile Include="Domain\Interfaces\IBookService.cs" />
     <Compile Include="Domain\Services\ImageService.cs" />
     <Compile Include="Domain\Services\UserService.cs" />
+    <Compile Include="Entities\Book.cs" />
+    <Compile Include="Entities\Friendship.cs" />
+    <Compile Include="Entities\Profile.cs" />
+    <Compile Include="Entities\User.cs" />
+    <Compile Include="Migrations\20250323154600_InitialCreate.cs" />
+    <Compile Include="Migrations\20250323160000_AddGenreToBook.cs" />
+    <Compile Include="Migrations\20250323160000_AddGenreToBook.Designer.cs">
+      <DependentUpon>20250323160000_AddGenreToBook.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Migrations\MigrationHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\AddBookFormTests.cs" />
+    <Compile Include="Tests\DBTests\DbInitializer.cs" />
+    <Compile Include="Tests\DBTests\TestDbContext.cs" />
+    <Compile Include="Tests\DBTests\Tests.cs" />
     <Compile Include="Tests\MainFormTests.cs" />
+    <Compile Include="Tests\UserServiceTests.cs" />
     <Compile Include="UI\Forms\EditProfileForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -286,7 +301,6 @@
     <Compile Include="UI\Forms\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\RegisterViewModel.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -328,6 +342,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Tests\DBTests\ChatBook_Test.db" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -339,6 +354,7 @@
   <ItemGroup>
     <Content Include="Tests\7177ef3957443bccd96662169c6f0b2a.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

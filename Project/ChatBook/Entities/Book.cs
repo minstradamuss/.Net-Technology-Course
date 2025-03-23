@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace ChatBook.Domain.Models
+namespace ChatBook.Entities
 {
     public class Book
     {
         [Key]
         public int Id { get; set; }
-
         [Required]
         public string Title { get; set; }
 
@@ -21,5 +22,9 @@ namespace ChatBook.Domain.Models
 
         public byte[] CoverImage { get; set; }
         public int UserId { get; set; }
+
+        public string Genre { get; set; }
+        public string Author { get; set; }
+
     }
 }

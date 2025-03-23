@@ -1,44 +1,39 @@
-﻿using ChatBook.Domain.Models;
+﻿using ChatBook.DataAccess;
+using ChatBook.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
+using System.Data.Entity;
 
 namespace ChatBook.Services
 {
     public class UserService
     {
-        private readonly ChatBookDbContext _dbContext;
+        private readonly ApplicationDbContext _dbContext;
 
-        public UserService(ChatBookDbContext dbContext)
+        public UserService(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public User GetUserByNickname(string nickname)
-        {
-            return _dbContext.Users
-                .Where(u => u.Nickname == nickname)
-                .FirstOrDefault();
-        }
-
-
         public bool Register(User user)
         {
             var existingUser = _dbContext.Users.FirstOrDefault(u => u.Nickname == user.Nickname);
-            if (existingUser != null)
-            {
-                return false;
-            }
+            if (existingUser != null) return false;
 
             _dbContext.Users.Add(user);
             _dbContext.SaveChanges();
             return true;
         }
 
+        public User GetUserByNickname(string nickname)
+        {
+            return _dbContext.Users.Include(u => u.Profile).FirstOrDefault(u => u.Nickname == nickname);
+        }
+
         public bool UpdateProfile(User user)
         {
-            var existingUser = _dbContext.Users.FirstOrDefault(u => u.Nickname == user.Nickname);
+            var existingUser = _dbContext.Users.FirstOrDefault(u => u.Id == user.Id);
             if (existingUser != null)
             {
                 existingUser.FirstName = user.FirstName;
@@ -53,13 +48,11 @@ namespace ChatBook.Services
             return false;
         }
 
+
         public bool AddBook(Book book, string username)
         {
             var user = _dbContext.Users.FirstOrDefault(u => u.Nickname == username);
-            if (user == null)
-            {
-                return false;
-            }
+            if (user == null) return false;
 
             book.UserId = user.Id;
             _dbContext.Books.Add(book);
@@ -82,7 +75,7 @@ namespace ChatBook.Services
 
             var friendIds = _dbContext.Friendships
                 .Where(f => f.User1Id == user.Id || f.User2Id == user.Id)
-                .Select(f => f.User1Id == user.Id ? f.User2Id : f.User1Id) 
+                .Select(f => f.User1Id == user.Id ? f.User2Id : f.User1Id)
                 .ToList();
 
             return _dbContext.Users.Where(u => friendIds.Contains(u.Id)).ToList();
@@ -191,7 +184,7 @@ namespace ChatBook.Services
        
 
 
-        public List<ChatBook.Domain.Models.Message> GetChatMessages(int userId, int friendId)
+        public List<ChatBook.Entities.Message> GetChatMessages(int userId, int friendId)
         {
             return _dbContext.Messages
                 .Where(m => (m.SenderId == userId && m.ReceiverId == friendId) ||
@@ -200,7 +193,7 @@ namespace ChatBook.Services
                 .ToList();
         }
 
-        public bool SendMessage(ChatBook.Domain.Models.Message message)
+        public bool SendMessage(ChatBook.Entities.Message message)
         {
             try
             {
@@ -214,13 +207,13 @@ namespace ChatBook.Services
             }
         }
 
-        public List<ChatBook.Domain.Models.Message> GetChatMessages(string senderNickname, string receiverNickname)
+        public List<ChatBook.Entities.Message> GetChatMessages(string senderNickname, string receiverNickname)
         {
             var sender = _dbContext.Users.FirstOrDefault(u => u.Nickname == senderNickname);
             var receiver = _dbContext.Users.FirstOrDefault(u => u.Nickname == receiverNickname);
 
             if (sender == null || receiver == null)
-                return new List<ChatBook.Domain.Models.Message>();
+                return new List<ChatBook.Entities.Message>();
 
             return _dbContext.Messages
                 .Where(m => (m.SenderId == sender.Id && m.ReceiverId == receiver.Id) ||
@@ -229,7 +222,7 @@ namespace ChatBook.Services
                 .ToList();
         }
 
-        public void SaveMessage(ChatBook.Domain.Models.Message message)
+        public void SaveMessage(ChatBook.Entities.Message message)
         {
             _dbContext.Messages.Add(message);
             _dbContext.SaveChanges();

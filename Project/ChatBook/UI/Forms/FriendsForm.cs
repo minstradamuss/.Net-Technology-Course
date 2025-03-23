@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using ChatBook.Domain.Models;
+using ChatBook.Entities;
 using ChatBook.Services;
 
 namespace ChatBook.UI.Forms

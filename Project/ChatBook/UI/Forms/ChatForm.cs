@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using ChatBook.Domain.Models;
+using ChatBook.Entities;
 using ChatBook.Services;
 
-using ChatMessage = ChatBook.Domain.Models.Message;
 
 namespace ChatBook.UI.Forms
 {
@@ -14,7 +13,7 @@ namespace ChatBook.UI.Forms
     {
         private readonly UserService _userService;
         private readonly string _currentUserNickname;
-        private Dictionary<string, List<ChatMessage>> chatMessages = new Dictionary<string, List<ChatMessage>>();
+        private Dictionary<string, List<Entities.Message>> chatMessages = new Dictionary<string, List<Entities.Message>>();
         private string selectedChat = null;
         private readonly string _chatPartnerNickname;
 
@@ -84,7 +83,6 @@ namespace ChatBook.UI.Forms
         {
             if (!string.IsNullOrEmpty(txtMessage.Text) && selectedChat != null)
             {
-                // ✅ Извлекаем никнейм из "Nickname - FirstName LastName"
                 string receiverNickname = selectedChat.Split('-')[0].Trim();
 
                 var receiver = _userService.GetUserByNickname(receiverNickname);
@@ -94,7 +92,7 @@ namespace ChatBook.UI.Forms
                     return;
                 }
 
-                var newMessage = new ChatMessage
+                var newMessage = new Entities.Message
                 {
                     SenderId = _userService.GetUserByNickname(_currentUserNickname).Id,
                     ReceiverId = receiver.Id,
@@ -106,7 +104,8 @@ namespace ChatBook.UI.Forms
 
                 if (!chatMessages.ContainsKey(selectedChat))
                 {
-                    chatMessages[selectedChat] = new List<ChatMessage>();
+                    chatMessages[selectedChat] = new List<Entities.Message>();
+
                 }
 
                 chatMessages[selectedChat].Add(newMessage);
@@ -133,8 +132,6 @@ namespace ChatBook.UI.Forms
                 LoadChatMessages(chatPartnerNickname);
             }
         }
-
-
 
 
         private void listBoxChats_KeyDown(object sender, KeyEventArgs e)

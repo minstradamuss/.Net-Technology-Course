@@ -3,7 +3,7 @@ using System.Drawing;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
-using ChatBook.Domain.Models;
+using ChatBook.Entities;
 using ChatBook.UI.Forms;
 using Moq;
 using NUnit.Framework;

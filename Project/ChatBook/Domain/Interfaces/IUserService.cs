@@ -1,4 +1,4 @@
-﻿using ChatBook.Domain.Models;
+﻿using ChatBook.Entities;
 
 namespace ChatBook.Domain.Interfaces
 {
