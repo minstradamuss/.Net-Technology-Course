@@ -1,0 +1,560 @@
+2025-03-29 23:07:42.192 +03:00 [DBG] An additional 'IServiceProvider' was created for internal use by Entity Framework. An existing service provider was not used due to the following configuration changes: configuration added for 'Proxies:UseLazyLoadingProxies', configuration added for 'Proxies:UseChangeTrackingProxies', configuration added for 'Core:UseMemoryCache', configuration added for 'Core:EnableSensitiveDataLogging', configuration added for 'Core:EnableDetailedErrors', configuration added for 'Core:EnableThreadSafetyChecks', configuration added for 'Core:ConfigureWarnings', configuration added for 'Sqlite'.
+2025-03-29 23:07:43.066 +03:00 [DBG] The index {'order_id'} was not created on entity type 'orderitem' as the properties are already covered by the index {'order_id', 'product_id'}.
+2025-03-29 23:07:43.204 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data; this mode should only be enabled during development.
+2025-03-29 23:07:43.516 +03:00 [DBG] Entity Framework Core 7.0.20 initialized 'ProductsContext' using provider 'Microsoft.EntityFrameworkCore.Sqlite:7.0.20' with options: using lazy loading proxies SensitiveDataLoggingEnabled 
+2025-03-29 23:07:43.554 +03:00 [DBG] Compiling query expression: 
+'DbSet<product>()
+    .Any()'
+2025-03-29 23:07:43.772 +03:00 [DBG] Generated query execution expression: 
+'queryContext => new SingleQueryingEnumerable<bool>(
+    (RelationalQueryContext)queryContext, 
+    RelationalCommandCache.QueryExpression(
+        Projection Mapping:
+            EmptyProjectionMember -> 0
+        SELECT EXISTS (
+            SELECT 1
+            FROM product AS p)), 
+    null, 
+    Func<QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator, bool>, 
+    Products.Models.ProductsContext, 
+    False, 
+    False, 
+    True
+)
+    .Single()'
+2025-03-29 23:07:43.806 +03:00 [DBG] Creating DbCommand for 'ExecuteReader'.
+2025-03-29 23:07:43.808 +03:00 [DBG] Creating DbConnection.
+2025-03-29 23:07:43.852 +03:00 [DBG] Created DbConnection. (38ms).
+2025-03-29 23:07:43.864 +03:00 [DBG] Created DbCommand for 'ExecuteReader' (55ms).
+2025-03-29 23:07:43.866 +03:00 [DBG] Initialized DbCommand for 'ExecuteReader' (64ms).
+2025-03-29 23:07:43.869 +03:00 [DBG] Opening connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:43.887 +03:00 [DBG] Opened connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:43.899 +03:00 [DBG] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "product" AS "p")
+2025-03-29 23:07:43.926 +03:00 [INF] Executed DbCommand (28ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "product" AS "p")
+2025-03-29 23:07:43.934 +03:00 [DBG] Closing data reader to 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:43.943 +03:00 [DBG] A data reader for 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db' is being disposed after spending 9ms reading results.
+2025-03-29 23:07:43.945 +03:00 [DBG] Closing connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:43.949 +03:00 [DBG] Closed connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db' (3ms).
+2025-03-29 23:07:43.955 +03:00 [DBG] Compiling query expression: 
+'DbSet<product>()
+    .Max(p => p.p_id)'
+2025-03-29 23:07:44.015 +03:00 [DBG] Generated query execution expression: 
+'queryContext => new SingleQueryingEnumerable<long>(
+    (RelationalQueryContext)queryContext, 
+    RelationalCommandCache.QueryExpression(
+        Projection Mapping:
+            EmptyProjectionMember -> 0
+        SELECT MAX(p.p_id)
+        FROM product AS p), 
+    null, 
+    Func<QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator, long>, 
+    Products.Models.ProductsContext, 
+    False, 
+    False, 
+    True
+)
+    .Single()'
+2025-03-29 23:07:44.021 +03:00 [DBG] Creating DbCommand for 'ExecuteReader'.
+2025-03-29 23:07:44.021 +03:00 [DBG] Created DbCommand for 'ExecuteReader' (0ms).
+2025-03-29 23:07:44.022 +03:00 [DBG] Initialized DbCommand for 'ExecuteReader' (0ms).
+2025-03-29 23:07:44.022 +03:00 [DBG] Opening connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.022 +03:00 [DBG] Opened connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.022 +03:00 [DBG] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MAX("p"."p_id")
+FROM "product" AS "p"
+2025-03-29 23:07:44.023 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MAX("p"."p_id")
+FROM "product" AS "p"
+2025-03-29 23:07:44.024 +03:00 [DBG] Closing data reader to 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.024 +03:00 [DBG] A data reader for 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db' is being disposed after spending 0ms reading results.
+2025-03-29 23:07:44.024 +03:00 [DBG] Closing connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.024 +03:00 [DBG] Closed connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db' (0ms).
+2025-03-29 23:07:44.125 +03:00 [DBG] Context 'ProductsContext' started tracking 'product' entity with key '{p_id: 24}'.
+2025-03-29 23:07:44.129 +03:00 [DBG] SaveChanges starting for 'ProductsContext'.
+2025-03-29 23:07:44.132 +03:00 [DBG] DetectChanges starting for 'ProductsContext'.
+2025-03-29 23:07:44.149 +03:00 [DBG] DetectChanges completed for 'ProductsContext'.
+2025-03-29 23:07:44.223 +03:00 [DBG] Opening connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.224 +03:00 [DBG] Opened connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.225 +03:00 [DBG] Creating DbCommand for 'ExecuteReader'.
+2025-03-29 23:07:44.225 +03:00 [DBG] Created DbCommand for 'ExecuteReader' (0ms).
+2025-03-29 23:07:44.227 +03:00 [DBG] Initialized DbCommand for 'ExecuteReader' (2ms).
+2025-03-29 23:07:44.231 +03:00 [DBG] Executing DbCommand [Parameters=[@p0='24', @p1='TestProduct' (Size = 11), @p2='100' (Nullable = true)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "product" ("p_id", "p_name", "price")
+VALUES (@p0, @p1, @p2);
+2025-03-29 23:07:44.246 +03:00 [INF] Executed DbCommand (19ms) [Parameters=[@p0='24', @p1='TestProduct' (Size = 11), @p2='100' (Nullable = true)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "product" ("p_id", "p_name", "price")
+VALUES (@p0, @p1, @p2);
+2025-03-29 23:07:44.248 +03:00 [DBG] Closing data reader to 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.248 +03:00 [DBG] A data reader for 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db' is being disposed after spending 1ms reading results.
+2025-03-29 23:07:44.249 +03:00 [DBG] Closing connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.249 +03:00 [DBG] Closed connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db' (0ms).
+2025-03-29 23:07:44.261 +03:00 [DBG] The 'product' entity with key '{p_id: 24}' tracked by 'ProductsContext' changed state from '"Added"' to '"Unchanged"'.
+2025-03-29 23:07:44.262 +03:00 [DBG] SaveChanges completed for 'ProductsContext' with 1 entities written to the database.
+2025-03-29 23:07:44.269 +03:00 [DBG] Compiling query expression: 
+'DbSet<product>()'
+2025-03-29 23:07:44.450 +03:00 [DBG] Generated query execution expression: 
+'queryContext => new SingleQueryingEnumerable<product>(
+    (RelationalQueryContext)queryContext, 
+    RelationalCommandCache.QueryExpression(
+        Projection Mapping:
+            EmptyProjectionMember -> Dictionary<IProperty, int> { [Property: product.p_id (long) Required PK AfterSave:Throw, 0], [Property: product.p_name (string), 1], [Property: product.price (double?), 2] }
+        SELECT p.p_id, p.p_name, p.price
+        FROM product AS p), 
+    null, 
+    Func<QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator, product>, 
+    Products.Models.ProductsContext, 
+    False, 
+    False, 
+    True
+)'
+2025-03-29 23:07:44.453 +03:00 [DBG] Creating DbCommand for 'ExecuteReader'.
+2025-03-29 23:07:44.453 +03:00 [DBG] Created DbCommand for 'ExecuteReader' (0ms).
+2025-03-29 23:07:44.453 +03:00 [DBG] Initialized DbCommand for 'ExecuteReader' (0ms).
+2025-03-29 23:07:44.453 +03:00 [DBG] Opening connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.454 +03:00 [DBG] Opened connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.454 +03:00 [DBG] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."p_id", "p"."p_name", "p"."price"
+FROM "product" AS "p"
+2025-03-29 23:07:44.454 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."p_id", "p"."p_name", "p"."price"
+FROM "product" AS "p"
+2025-03-29 23:07:44.464 +03:00 [DBG] Context 'ProductsContext' started tracking 'product' entity with key '{p_id: 11}'.
+2025-03-29 23:07:44.468 +03:00 [DBG] Context 'ProductsContext' started tracking 'product' entity with key '{p_id: 12}'.
+2025-03-29 23:07:44.468 +03:00 [DBG] Context 'ProductsContext' started tracking 'product' entity with key '{p_id: 13}'.
+2025-03-29 23:07:44.468 +03:00 [DBG] Context 'ProductsContext' started tracking 'product' entity with key '{p_id: 14}'.
+2025-03-29 23:07:44.468 +03:00 [DBG] Context 'ProductsContext' started tracking 'product' entity with key '{p_id: 15}'.
+2025-03-29 23:07:44.468 +03:00 [DBG] Context 'ProductsContext' started tracking 'product' entity with key '{p_id: 16}'.
+2025-03-29 23:07:44.469 +03:00 [DBG] Context 'ProductsContext' started tracking 'product' entity with key '{p_id: 17}'.
+2025-03-29 23:07:44.469 +03:00 [DBG] Context 'ProductsContext' started tracking 'product' entity with key '{p_id: 18}'.
+2025-03-29 23:07:44.469 +03:00 [DBG] Context 'ProductsContext' started tracking 'product' entity with key '{p_id: 19}'.
+2025-03-29 23:07:44.469 +03:00 [DBG] Context 'ProductsContext' started tracking 'product' entity with key '{p_id: 20}'.
+2025-03-29 23:07:44.469 +03:00 [DBG] Context 'ProductsContext' started tracking 'product' entity with key '{p_id: 21}'.
+2025-03-29 23:07:44.469 +03:00 [DBG] Context 'ProductsContext' started tracking 'product' entity with key '{p_id: 22}'.
+2025-03-29 23:07:44.469 +03:00 [DBG] Context 'ProductsContext' started tracking 'product' entity with key '{p_id: 23}'.
+2025-03-29 23:07:44.470 +03:00 [DBG] Closing data reader to 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.470 +03:00 [DBG] A data reader for 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db' is being disposed after spending 15ms reading results.
+2025-03-29 23:07:44.470 +03:00 [DBG] Closing connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.470 +03:00 [DBG] Closed connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db' (0ms).
+2025-03-29 23:07:44.471 +03:00 [DBG] The 'product' entity with key '{p_id: 24}' tracked by 'ProductsContext' changed state from '"Unchanged"' to '"Modified"'.
+2025-03-29 23:07:44.472 +03:00 [DBG] SaveChanges starting for 'ProductsContext'.
+2025-03-29 23:07:44.472 +03:00 [DBG] DetectChanges starting for 'ProductsContext'.
+2025-03-29 23:07:44.474 +03:00 [DBG] DetectChanges completed for 'ProductsContext'.
+2025-03-29 23:07:44.479 +03:00 [DBG] Opening connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.479 +03:00 [DBG] Opened connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.479 +03:00 [DBG] Creating DbCommand for 'ExecuteReader'.
+2025-03-29 23:07:44.479 +03:00 [DBG] Created DbCommand for 'ExecuteReader' (0ms).
+2025-03-29 23:07:44.479 +03:00 [DBG] Initialized DbCommand for 'ExecuteReader' (0ms).
+2025-03-29 23:07:44.479 +03:00 [DBG] Executing DbCommand [Parameters=[@p2='24', @p0='UpdatedProduct' (Size = 14), @p1='100' (Nullable = true)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "product" SET "p_name" = @p0, "price" = @p1
+WHERE "p_id" = @p2
+RETURNING 1;
+2025-03-29 23:07:44.483 +03:00 [INF] Executed DbCommand (4ms) [Parameters=[@p2='24', @p0='UpdatedProduct' (Size = 14), @p1='100' (Nullable = true)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "product" SET "p_name" = @p0, "price" = @p1
+WHERE "p_id" = @p2
+RETURNING 1;
+2025-03-29 23:07:44.489 +03:00 [DBG] Closing data reader to 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.489 +03:00 [DBG] A data reader for 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db' is being disposed after spending 5ms reading results.
+2025-03-29 23:07:44.489 +03:00 [DBG] Closing connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.489 +03:00 [DBG] Closed connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db' (0ms).
+2025-03-29 23:07:44.489 +03:00 [DBG] The 'product' entity with key '{p_id: 24}' tracked by 'ProductsContext' changed state from '"Modified"' to '"Unchanged"'.
+2025-03-29 23:07:44.489 +03:00 [DBG] SaveChanges completed for 'ProductsContext' with 1 entities written to the database.
+2025-03-29 23:07:44.490 +03:00 [DBG] Compiling query expression: 
+'DbSet<order>()
+    .Any()'
+2025-03-29 23:07:44.493 +03:00 [DBG] Generated query execution expression: 
+'queryContext => new SingleQueryingEnumerable<bool>(
+    (RelationalQueryContext)queryContext, 
+    RelationalCommandCache.QueryExpression(
+        Projection Mapping:
+            EmptyProjectionMember -> 0
+        SELECT EXISTS (
+            SELECT 1
+            FROM order AS o)), 
+    null, 
+    Func<QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator, bool>, 
+    Products.Models.ProductsContext, 
+    False, 
+    False, 
+    True
+)
+    .Single()'
+2025-03-29 23:07:44.493 +03:00 [DBG] Creating DbCommand for 'ExecuteReader'.
+2025-03-29 23:07:44.493 +03:00 [DBG] Created DbCommand for 'ExecuteReader' (0ms).
+2025-03-29 23:07:44.493 +03:00 [DBG] Initialized DbCommand for 'ExecuteReader' (0ms).
+2025-03-29 23:07:44.493 +03:00 [DBG] Opening connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.493 +03:00 [DBG] Opened connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.493 +03:00 [DBG] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "order" AS "o")
+2025-03-29 23:07:44.494 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "order" AS "o")
+2025-03-29 23:07:44.494 +03:00 [DBG] Closing data reader to 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.494 +03:00 [DBG] A data reader for 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db' is being disposed after spending 0ms reading results.
+2025-03-29 23:07:44.494 +03:00 [DBG] Closing connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.494 +03:00 [DBG] Closed connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db' (0ms).
+2025-03-29 23:07:44.494 +03:00 [DBG] Compiling query expression: 
+'DbSet<order>()
+    .Max(o => o.o_id)'
+2025-03-29 23:07:44.498 +03:00 [DBG] Generated query execution expression: 
+'queryContext => new SingleQueryingEnumerable<long>(
+    (RelationalQueryContext)queryContext, 
+    RelationalCommandCache.QueryExpression(
+        Projection Mapping:
+            EmptyProjectionMember -> 0
+        SELECT MAX(o.o_id)
+        FROM order AS o), 
+    null, 
+    Func<QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator, long>, 
+    Products.Models.ProductsContext, 
+    False, 
+    False, 
+    True
+)
+    .Single()'
+2025-03-29 23:07:44.498 +03:00 [DBG] Creating DbCommand for 'ExecuteReader'.
+2025-03-29 23:07:44.498 +03:00 [DBG] Created DbCommand for 'ExecuteReader' (0ms).
+2025-03-29 23:07:44.498 +03:00 [DBG] Initialized DbCommand for 'ExecuteReader' (0ms).
+2025-03-29 23:07:44.498 +03:00 [DBG] Opening connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.498 +03:00 [DBG] Opened connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.498 +03:00 [DBG] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MAX("o"."o_id")
+FROM "order" AS "o"
+2025-03-29 23:07:44.499 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MAX("o"."o_id")
+FROM "order" AS "o"
+2025-03-29 23:07:44.499 +03:00 [DBG] Closing data reader to 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.499 +03:00 [DBG] A data reader for 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db' is being disposed after spending 0ms reading results.
+2025-03-29 23:07:44.499 +03:00 [DBG] Closing connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.499 +03:00 [DBG] Closed connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db' (0ms).
+2025-03-29 23:07:44.516 +03:00 [DBG] Context 'ProductsContext' started tracking 'order' entity with key '{o_id: 5013}'.
+2025-03-29 23:07:44.516 +03:00 [DBG] SaveChanges starting for 'ProductsContext'.
+2025-03-29 23:07:44.516 +03:00 [DBG] DetectChanges starting for 'ProductsContext'.
+2025-03-29 23:07:44.518 +03:00 [DBG] DetectChanges completed for 'ProductsContext'.
+2025-03-29 23:07:44.520 +03:00 [DBG] Opening connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.520 +03:00 [DBG] Opened connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.520 +03:00 [DBG] Creating DbCommand for 'ExecuteReader'.
+2025-03-29 23:07:44.520 +03:00 [DBG] Created DbCommand for 'ExecuteReader' (0ms).
+2025-03-29 23:07:44.520 +03:00 [DBG] Initialized DbCommand for 'ExecuteReader' (0ms).
+2025-03-29 23:07:44.521 +03:00 [DBG] Executing DbCommand [Parameters=[@p0='5013', @p1='0x32E8A383166FDD08' (Size = 8)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "order" ("o_id", "order_date")
+VALUES (@p0, @p1);
+2025-03-29 23:07:44.527 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[@p0='5013', @p1='0x32E8A383166FDD08' (Size = 8)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "order" ("o_id", "order_date")
+VALUES (@p0, @p1);
+2025-03-29 23:07:44.527 +03:00 [DBG] Closing data reader to 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.527 +03:00 [DBG] A data reader for 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db' is being disposed after spending 0ms reading results.
+2025-03-29 23:07:44.527 +03:00 [DBG] Closing connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.527 +03:00 [DBG] Closed connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db' (0ms).
+2025-03-29 23:07:44.529 +03:00 [DBG] The 'order' entity with key '{o_id: 5013}' tracked by 'ProductsContext' changed state from '"Added"' to '"Unchanged"'.
+2025-03-29 23:07:44.529 +03:00 [DBG] SaveChanges completed for 'ProductsContext' with 1 entities written to the database.
+2025-03-29 23:07:44.568 +03:00 [DBG] The navigation 'orderitem.order' for entity with key '{order_id: 5013, product_id: 24}' was detected as changed.
+2025-03-29 23:07:44.585 +03:00 [DBG] The navigation 'orderitem.product' for entity with key '{order_id: 5013, product_id: 24}' was detected as changed.
+2025-03-29 23:07:44.587 +03:00 [DBG] Context 'ProductsContext' started tracking 'orderitem' entity with key '{order_id: 5013, product_id: 24}'.
+2025-03-29 23:07:44.588 +03:00 [DBG] SaveChanges starting for 'ProductsContext'.
+2025-03-29 23:07:44.588 +03:00 [DBG] DetectChanges starting for 'ProductsContext'.
+2025-03-29 23:07:44.594 +03:00 [DBG] DetectChanges completed for 'ProductsContext'.
+2025-03-29 23:07:44.601 +03:00 [DBG] Opening connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.601 +03:00 [DBG] Opened connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.601 +03:00 [DBG] Creating DbCommand for 'ExecuteReader'.
+2025-03-29 23:07:44.601 +03:00 [DBG] Created DbCommand for 'ExecuteReader' (0ms).
+2025-03-29 23:07:44.601 +03:00 [DBG] Initialized DbCommand for 'ExecuteReader' (0ms).
+2025-03-29 23:07:44.601 +03:00 [DBG] Executing DbCommand [Parameters=[@p0='5013', @p1='24', @p2='2', @p3='100' (Nullable = true)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "orderitem" ("order_id", "product_id", "amount", "price")
+VALUES (@p0, @p1, @p2, @p3)
+RETURNING "total";
+2025-03-29 23:07:44.603 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='5013', @p1='24', @p2='2', @p3='100' (Nullable = true)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "orderitem" ("order_id", "product_id", "amount", "price")
+VALUES (@p0, @p1, @p2, @p3)
+RETURNING "total";
+2025-03-29 23:07:44.623 +03:00 [DBG] Closing data reader to 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.624 +03:00 [DBG] A data reader for 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db' is being disposed after spending 20ms reading results.
+2025-03-29 23:07:44.624 +03:00 [DBG] Closing connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.624 +03:00 [DBG] Closed connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db' (0ms).
+2025-03-29 23:07:44.627 +03:00 [DBG] The 'orderitem' entity with key '{order_id: 5013, product_id: 24}' tracked by 'ProductsContext' changed state from '"Added"' to '"Unchanged"'.
+2025-03-29 23:07:44.627 +03:00 [DBG] SaveChanges completed for 'ProductsContext' with 1 entities written to the database.
+2025-03-29 23:07:44.633 +03:00 [DBG] Compiling query expression: 
+'DbSet<product>()
+    .AsNoTracking()'
+2025-03-29 23:07:44.639 +03:00 [DBG] Generated query execution expression: 
+'queryContext => new SingleQueryingEnumerable<product>(
+    (RelationalQueryContext)queryContext, 
+    RelationalCommandCache.QueryExpression(
+        Projection Mapping:
+            EmptyProjectionMember -> Dictionary<IProperty, int> { [Property: product.p_id (long) Required PK AfterSave:Throw, 0], [Property: product.p_name (string), 1], [Property: product.price (double?), 2] }
+        SELECT p.p_id, p.p_name, p.price
+        FROM product AS p), 
+    null, 
+    Func<QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator, product>, 
+    Products.Models.ProductsContext, 
+    False, 
+    False, 
+    True
+)'
+2025-03-29 23:07:44.640 +03:00 [DBG] Creating DbCommand for 'ExecuteReader'.
+2025-03-29 23:07:44.640 +03:00 [DBG] Created DbCommand for 'ExecuteReader' (0ms).
+2025-03-29 23:07:44.640 +03:00 [DBG] Initialized DbCommand for 'ExecuteReader' (0ms).
+2025-03-29 23:07:44.640 +03:00 [DBG] Opening connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.640 +03:00 [DBG] Opened connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.640 +03:00 [DBG] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."p_id", "p"."p_name", "p"."price"
+FROM "product" AS "p"
+2025-03-29 23:07:44.640 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."p_id", "p"."p_name", "p"."price"
+FROM "product" AS "p"
+2025-03-29 23:07:44.641 +03:00 [DBG] Closing data reader to 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.641 +03:00 [DBG] A data reader for 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db' is being disposed after spending 0ms reading results.
+2025-03-29 23:07:44.641 +03:00 [DBG] Closing connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.641 +03:00 [DBG] Closed connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db' (0ms).
+2025-03-29 23:07:44.651 +03:00 [DBG] The 'product' entity with key '{p_id: 24}' tracked by 'ProductsContext' changed state from '"Unchanged"' to '"Detached"'.
+2025-03-29 23:07:44.663 +03:00 [DBG] A cascade state change of an entity of type 'orderitem' with key '{order_id: 5013, product_id: 24}' to '"Detached"' occurred due to the deletion of its parent entity of type 'product' with key '{p_id: 24}'.
+2025-03-29 23:07:44.665 +03:00 [DBG] The 'orderitem' entity with key '{order_id: 5013, product_id: 24}' tracked by 'ProductsContext' changed state from '"Unchanged"' to '"Detached"'.
+2025-03-29 23:07:44.666 +03:00 [DBG] Context 'ProductsContext' started tracking 'product' entity with key '{p_id: 24}'.
+2025-03-29 23:07:44.668 +03:00 [DBG] The 'product' entity with key '{p_id: 24}' tracked by 'ProductsContext' changed state from '"Unchanged"' to '"Modified"'.
+2025-03-29 23:07:44.668 +03:00 [DBG] SaveChanges starting for 'ProductsContext'.
+2025-03-29 23:07:44.668 +03:00 [DBG] DetectChanges starting for 'ProductsContext'.
+2025-03-29 23:07:44.668 +03:00 [DBG] DetectChanges completed for 'ProductsContext'.
+2025-03-29 23:07:44.669 +03:00 [DBG] Opening connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.669 +03:00 [DBG] Opened connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.669 +03:00 [DBG] Creating DbCommand for 'ExecuteReader'.
+2025-03-29 23:07:44.669 +03:00 [DBG] Created DbCommand for 'ExecuteReader' (0ms).
+2025-03-29 23:07:44.669 +03:00 [DBG] Initialized DbCommand for 'ExecuteReader' (0ms).
+2025-03-29 23:07:44.669 +03:00 [DBG] Executing DbCommand [Parameters=[@p1='24', @p0='AttachUpdated' (Size = 13)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "product" SET "p_name" = @p0
+WHERE "p_id" = @p1
+RETURNING 1;
+2025-03-29 23:07:44.671 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[@p1='24', @p0='AttachUpdated' (Size = 13)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "product" SET "p_name" = @p0
+WHERE "p_id" = @p1
+RETURNING 1;
+2025-03-29 23:07:44.674 +03:00 [DBG] Closing data reader to 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.675 +03:00 [DBG] A data reader for 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db' is being disposed after spending 3ms reading results.
+2025-03-29 23:07:44.675 +03:00 [DBG] Closing connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.675 +03:00 [DBG] Closed connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db' (0ms).
+2025-03-29 23:07:44.675 +03:00 [DBG] The 'product' entity with key '{p_id: 24}' tracked by 'ProductsContext' changed state from '"Modified"' to '"Unchanged"'.
+2025-03-29 23:07:44.675 +03:00 [DBG] SaveChanges completed for 'ProductsContext' with 1 entities written to the database.
+2025-03-29 23:07:44.678 +03:00 [DBG] Compiling query expression: 
+'DbSet<order>()
+    .Include(o => o.orderitems)
+    .ThenInclude(oi => oi.product)'
+2025-03-29 23:07:44.690 +03:00 [DBG] Including navigation: 'order.orderitems'.
+2025-03-29 23:07:44.701 +03:00 [DBG] Including navigation: 'orderitem.product'.
+2025-03-29 23:07:44.879 +03:00 [DBG] Generated query execution expression: 
+'queryContext => new SingleQueryingEnumerable<order>(
+    (RelationalQueryContext)queryContext, 
+    RelationalCommandCache.QueryExpression(
+        Client Projections:
+            0 -> Dictionary<IProperty, int> { [Property: order.o_id (long) Required PK AfterSave:Throw, 0], [Property: order.order_date (byte[]), 1] }
+            1 -> 0
+            2 -> Dictionary<IProperty, int> { [Property: orderitem.order_id (long) Required PK FK AfterSave:Throw, 2], [Property: orderitem.product_id (long) Required PK FK Index AfterSave:Throw, 3], [Property: orderitem.amount (double) Required, 4], [Property: orderitem.price (double?), 5], [Property: orderitem.total (double?) BeforeSave:Ignore AfterSave:Ignore ValueGenerated.OnAddOrUpdate, 6] }
+            3 -> Dictionary<IProperty, int> { [Property: product.p_id (long) Required PK AfterSave:Throw, 7], [Property: product.p_name (string), 8], [Property: product.price (double?), 9] }
+            4 -> 2
+            5 -> 3
+            6 -> 7
+        SELECT o.o_id, o.order_date, t.order_id, t.product_id, t.amount, t.price, t.total, t.p_id, t.p_name, t.price0
+        FROM order AS o
+        LEFT JOIN 
+        (
+            SELECT o0.order_id, o0.product_id, o0.amount, o0.price, o0.total, p.p_id, p.p_name, p.price AS price0
+            FROM orderitem AS o0
+            INNER JOIN product AS p ON o0.product_id == p.p_id
+        ) AS t ON o.o_id == t.order_id
+        ORDER BY o.o_id ASC, t.order_id ASC, t.product_id ASC), 
+    null, 
+    Func<QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator, order>, 
+    Products.Models.ProductsContext, 
+    False, 
+    False, 
+    True
+)'
+2025-03-29 23:07:44.886 +03:00 [DBG] Creating DbCommand for 'ExecuteReader'.
+2025-03-29 23:07:44.886 +03:00 [DBG] Created DbCommand for 'ExecuteReader' (0ms).
+2025-03-29 23:07:44.886 +03:00 [DBG] Initialized DbCommand for 'ExecuteReader' (0ms).
+2025-03-29 23:07:44.887 +03:00 [DBG] Opening connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.887 +03:00 [DBG] Opened connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.887 +03:00 [DBG] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "o"."o_id", "o"."order_date", "t"."order_id", "t"."product_id", "t"."amount", "t"."price", "t"."total", "t"."p_id", "t"."p_name", "t"."price0"
+FROM "order" AS "o"
+LEFT JOIN (
+    SELECT "o0"."order_id", "o0"."product_id", "o0"."amount", "o0"."price", "o0"."total", "p"."p_id", "p"."p_name", "p"."price" AS "price0"
+    FROM "orderitem" AS "o0"
+    INNER JOIN "product" AS "p" ON "o0"."product_id" = "p"."p_id"
+) AS "t" ON "o"."o_id" = "t"."order_id"
+ORDER BY "o"."o_id", "t"."order_id", "t"."product_id"
+2025-03-29 23:07:44.888 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "o"."o_id", "o"."order_date", "t"."order_id", "t"."product_id", "t"."amount", "t"."price", "t"."total", "t"."p_id", "t"."p_name", "t"."price0"
+FROM "order" AS "o"
+LEFT JOIN (
+    SELECT "o0"."order_id", "o0"."product_id", "o0"."amount", "o0"."price", "o0"."total", "p"."p_id", "p"."p_name", "p"."price" AS "price0"
+    FROM "orderitem" AS "o0"
+    INNER JOIN "product" AS "p" ON "o0"."product_id" = "p"."p_id"
+) AS "t" ON "o"."o_id" = "t"."order_id"
+ORDER BY "o"."o_id", "t"."order_id", "t"."product_id"
+2025-03-29 23:07:44.892 +03:00 [DBG] Context 'ProductsContext' started tracking 'order' entity with key '{o_id: 5001}'.
+2025-03-29 23:07:44.898 +03:00 [DBG] Context 'ProductsContext' started tracking 'order' entity with key '{o_id: 5002}'.
+2025-03-29 23:07:44.898 +03:00 [DBG] Context 'ProductsContext' started tracking 'order' entity with key '{o_id: 5003}'.
+2025-03-29 23:07:44.899 +03:00 [DBG] Context 'ProductsContext' started tracking 'order' entity with key '{o_id: 5004}'.
+2025-03-29 23:07:44.899 +03:00 [DBG] Context 'ProductsContext' started tracking 'order' entity with key '{o_id: 5005}'.
+2025-03-29 23:07:44.899 +03:00 [DBG] Context 'ProductsContext' started tracking 'order' entity with key '{o_id: 5006}'.
+2025-03-29 23:07:44.899 +03:00 [DBG] Context 'ProductsContext' started tracking 'order' entity with key '{o_id: 5007}'.
+2025-03-29 23:07:44.899 +03:00 [DBG] Context 'ProductsContext' started tracking 'order' entity with key '{o_id: 5008}'.
+2025-03-29 23:07:44.900 +03:00 [DBG] Context 'ProductsContext' started tracking 'order' entity with key '{o_id: 5009}'.
+2025-03-29 23:07:44.904 +03:00 [DBG] The navigation 'orderitem.product' for entity with key '{order_id: 5009, product_id: 11}' was detected as changed.
+2025-03-29 23:07:44.904 +03:00 [DBG] Context 'ProductsContext' started tracking 'orderitem' entity with key '{order_id: 5009, product_id: 11}'.
+2025-03-29 23:07:44.905 +03:00 [DBG] Context 'ProductsContext' started tracking 'order' entity with key '{o_id: 5010}'.
+2025-03-29 23:07:44.906 +03:00 [DBG] The navigation 'orderitem.product' for entity with key '{order_id: 5010, product_id: 12}' was detected as changed.
+2025-03-29 23:07:44.906 +03:00 [DBG] Context 'ProductsContext' started tracking 'orderitem' entity with key '{order_id: 5010, product_id: 12}'.
+2025-03-29 23:07:44.906 +03:00 [DBG] Context 'ProductsContext' started tracking 'order' entity with key '{o_id: 5011}'.
+2025-03-29 23:07:44.906 +03:00 [DBG] The navigation 'orderitem.product' for entity with key '{order_id: 5011, product_id: 14}' was detected as changed.
+2025-03-29 23:07:44.907 +03:00 [DBG] Context 'ProductsContext' started tracking 'orderitem' entity with key '{order_id: 5011, product_id: 14}'.
+2025-03-29 23:07:44.907 +03:00 [DBG] Context 'ProductsContext' started tracking 'order' entity with key '{o_id: 5012}'.
+2025-03-29 23:07:44.907 +03:00 [DBG] The navigation 'orderitem.product' for entity with key '{order_id: 5012, product_id: 23}' was detected as changed.
+2025-03-29 23:07:44.907 +03:00 [DBG] Context 'ProductsContext' started tracking 'orderitem' entity with key '{order_id: 5012, product_id: 23}'.
+2025-03-29 23:07:44.907 +03:00 [DBG] The navigation 'orderitem.product' for entity with key '{order_id: 5013, product_id: 24}' was detected as changed.
+2025-03-29 23:07:44.907 +03:00 [DBG] Context 'ProductsContext' started tracking 'orderitem' entity with key '{order_id: 5013, product_id: 24}'.
+2025-03-29 23:07:44.907 +03:00 [DBG] Closing data reader to 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.908 +03:00 [DBG] A data reader for 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db' is being disposed after spending 19ms reading results.
+2025-03-29 23:07:44.908 +03:00 [DBG] Closing connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.908 +03:00 [DBG] Closed connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db' (0ms).
+2025-03-29 23:07:44.909 +03:00 [DBG] Compiling query expression: 
+'DbSet<order>()
+    .FirstOrDefault()'
+2025-03-29 23:07:44.911 +03:00 [WRN] The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+2025-03-29 23:07:44.916 +03:00 [DBG] Generated query execution expression: 
+'queryContext => new SingleQueryingEnumerable<order>(
+    (RelationalQueryContext)queryContext, 
+    RelationalCommandCache.QueryExpression(
+        Projection Mapping:
+            EmptyProjectionMember -> Dictionary<IProperty, int> { [Property: order.o_id (long) Required PK AfterSave:Throw, 0], [Property: order.order_date (byte[]), 1] }
+        SELECT TOP(1) o.o_id, o.order_date
+        FROM order AS o), 
+    null, 
+    Func<QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator, order>, 
+    Products.Models.ProductsContext, 
+    False, 
+    False, 
+    True
+)
+    .SingleOrDefault()'
+2025-03-29 23:07:44.917 +03:00 [DBG] Creating DbCommand for 'ExecuteReader'.
+2025-03-29 23:07:44.917 +03:00 [DBG] Created DbCommand for 'ExecuteReader' (0ms).
+2025-03-29 23:07:44.917 +03:00 [DBG] Initialized DbCommand for 'ExecuteReader' (0ms).
+2025-03-29 23:07:44.917 +03:00 [DBG] Opening connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.917 +03:00 [DBG] Opened connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.917 +03:00 [DBG] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "o"."o_id", "o"."order_date"
+FROM "order" AS "o"
+LIMIT 1
+2025-03-29 23:07:44.918 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "o"."o_id", "o"."order_date"
+FROM "order" AS "o"
+LIMIT 1
+2025-03-29 23:07:44.918 +03:00 [DBG] Closing data reader to 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.918 +03:00 [DBG] A data reader for 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db' is being disposed after spending 0ms reading results.
+2025-03-29 23:07:44.918 +03:00 [DBG] Closing connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.918 +03:00 [DBG] Closed connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db' (0ms).
+2025-03-29 23:07:44.926 +03:00 [DBG] Compiling query expression: 
+'DbSet<orderitem>()
+    .Where(oi => oi.order_id == __newOrder_o_id_0)'
+2025-03-29 23:07:44.957 +03:00 [DBG] Generated query execution expression: 
+'queryContext => new SingleQueryingEnumerable<orderitem>(
+    (RelationalQueryContext)queryContext, 
+    RelationalCommandCache.QueryExpression(
+        Projection Mapping:
+            EmptyProjectionMember -> Dictionary<IProperty, int> { [Property: orderitem.order_id (long) Required PK FK AfterSave:Throw, 0], [Property: orderitem.product_id (long) Required PK FK Index AfterSave:Throw, 1], [Property: orderitem.amount (double) Required, 2], [Property: orderitem.price (double?), 3], [Property: orderitem.total (double?) BeforeSave:Ignore AfterSave:Ignore ValueGenerated.OnAddOrUpdate, 4] }
+        SELECT o.order_id, o.product_id, o.amount, o.price, o.total
+        FROM orderitem AS o
+        WHERE o.order_id == @__newOrder_o_id_0), 
+    null, 
+    Func<QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator, orderitem>, 
+    Products.Models.ProductsContext, 
+    False, 
+    False, 
+    True
+)'
+2025-03-29 23:07:44.963 +03:00 [DBG] Creating DbCommand for 'ExecuteReader'.
+2025-03-29 23:07:44.963 +03:00 [DBG] Created DbCommand for 'ExecuteReader' (0ms).
+2025-03-29 23:07:44.963 +03:00 [DBG] Initialized DbCommand for 'ExecuteReader' (0ms).
+2025-03-29 23:07:44.963 +03:00 [DBG] Opening connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.963 +03:00 [DBG] Opened connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.963 +03:00 [DBG] Executing DbCommand [Parameters=[@__newOrder_o_id_0='5013'], CommandType='"Text"', CommandTimeout='30']
+SELECT "o"."order_id", "o"."product_id", "o"."amount", "o"."price", "o"."total"
+FROM "orderitem" AS "o"
+WHERE "o"."order_id" = @__newOrder_o_id_0
+2025-03-29 23:07:44.964 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[@__newOrder_o_id_0='5013'], CommandType='"Text"', CommandTimeout='30']
+SELECT "o"."order_id", "o"."product_id", "o"."amount", "o"."price", "o"."total"
+FROM "orderitem" AS "o"
+WHERE "o"."order_id" = @__newOrder_o_id_0
+2025-03-29 23:07:44.964 +03:00 [DBG] The 'orderitem' entity with key '{order_id: 5013, product_id: 24}' tracked by 'ProductsContext' changed state from '"Unchanged"' to '"Deleted"'.
+2025-03-29 23:07:44.964 +03:00 [DBG] Closing data reader to 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.965 +03:00 [DBG] A data reader for 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db' is being disposed after spending 0ms reading results.
+2025-03-29 23:07:44.965 +03:00 [DBG] Closing connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.965 +03:00 [DBG] Closed connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db' (0ms).
+2025-03-29 23:07:44.966 +03:00 [DBG] The 'order' entity with key '{o_id: 5013}' tracked by 'ProductsContext' changed state from '"Unchanged"' to '"Deleted"'.
+2025-03-29 23:07:44.966 +03:00 [DBG] The 'product' entity with key '{p_id: 24}' tracked by 'ProductsContext' changed state from '"Unchanged"' to '"Deleted"'.
+2025-03-29 23:07:44.967 +03:00 [DBG] SaveChanges starting for 'ProductsContext'.
+2025-03-29 23:07:44.967 +03:00 [DBG] DetectChanges starting for 'ProductsContext'.
+2025-03-29 23:07:44.967 +03:00 [DBG] DetectChanges completed for 'ProductsContext'.
+2025-03-29 23:07:44.980 +03:00 [DBG] Opening connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.980 +03:00 [DBG] Opened connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.983 +03:00 [DBG] Beginning transaction with isolation level 'Unspecified'.
+2025-03-29 23:07:44.988 +03:00 [DBG] Began transaction with isolation level 'Serializable'.
+2025-03-29 23:07:44.990 +03:00 [DBG] Creating DbCommand for 'ExecuteReader'.
+2025-03-29 23:07:44.990 +03:00 [DBG] Created DbCommand for 'ExecuteReader' (0ms).
+2025-03-29 23:07:44.990 +03:00 [DBG] Initialized DbCommand for 'ExecuteReader' (0ms).
+2025-03-29 23:07:44.990 +03:00 [DBG] Executing DbCommand [Parameters=[@p0='5013', @p1='24'], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "orderitem"
+WHERE "order_id" = @p0 AND "product_id" = @p1
+RETURNING 1;
+2025-03-29 23:07:44.994 +03:00 [INF] Executed DbCommand (4ms) [Parameters=[@p0='5013', @p1='24'], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "orderitem"
+WHERE "order_id" = @p0 AND "product_id" = @p1
+RETURNING 1;
+2025-03-29 23:07:44.994 +03:00 [DBG] Closing data reader to 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.994 +03:00 [DBG] A data reader for 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db' is being disposed after spending 0ms reading results.
+2025-03-29 23:07:44.995 +03:00 [DBG] Creating DbCommand for 'ExecuteReader'.
+2025-03-29 23:07:44.995 +03:00 [DBG] Created DbCommand for 'ExecuteReader' (0ms).
+2025-03-29 23:07:44.995 +03:00 [DBG] Initialized DbCommand for 'ExecuteReader' (0ms).
+2025-03-29 23:07:44.995 +03:00 [DBG] Executing DbCommand [Parameters=[@p0='5013'], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "order"
+WHERE "o_id" = @p0
+RETURNING 1;
+2025-03-29 23:07:44.995 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='5013'], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "order"
+WHERE "o_id" = @p0
+RETURNING 1;
+2025-03-29 23:07:44.996 +03:00 [DBG] Closing data reader to 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.996 +03:00 [DBG] A data reader for 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db' is being disposed after spending 0ms reading results.
+2025-03-29 23:07:44.996 +03:00 [DBG] Creating DbCommand for 'ExecuteReader'.
+2025-03-29 23:07:44.996 +03:00 [DBG] Created DbCommand for 'ExecuteReader' (0ms).
+2025-03-29 23:07:44.996 +03:00 [DBG] Initialized DbCommand for 'ExecuteReader' (0ms).
+2025-03-29 23:07:44.996 +03:00 [DBG] Executing DbCommand [Parameters=[@p0='24'], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "product"
+WHERE "p_id" = @p0
+RETURNING 1;
+2025-03-29 23:07:44.996 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='24'], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "product"
+WHERE "p_id" = @p0
+RETURNING 1;
+2025-03-29 23:07:44.996 +03:00 [DBG] Closing data reader to 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:44.996 +03:00 [DBG] A data reader for 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db' is being disposed after spending 0ms reading results.
+2025-03-29 23:07:44.998 +03:00 [DBG] Committing transaction.
+2025-03-29 23:07:45.004 +03:00 [DBG] Committed transaction.
+2025-03-29 23:07:45.005 +03:00 [DBG] Closing connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:45.005 +03:00 [DBG] Closed connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db' (0ms).
+2025-03-29 23:07:45.006 +03:00 [DBG] Disposing transaction.
+2025-03-29 23:07:45.008 +03:00 [DBG] The 'orderitem' entity with key '{order_id: 5013, product_id: 24}' tracked by 'ProductsContext' changed state from '"Deleted"' to '"Detached"'.
+2025-03-29 23:07:45.008 +03:00 [DBG] The 'order' entity with key '{o_id: 5013}' tracked by 'ProductsContext' changed state from '"Deleted"' to '"Detached"'.
+2025-03-29 23:07:45.008 +03:00 [DBG] The 'product' entity with key '{p_id: 24}' tracked by 'ProductsContext' changed state from '"Deleted"' to '"Detached"'.
+2025-03-29 23:07:45.009 +03:00 [DBG] SaveChanges completed for 'ProductsContext' with 3 entities written to the database.
+2025-03-29 23:07:45.011 +03:00 [DBG] 'ProductsContext' disposed.
+2025-03-29 23:07:45.013 +03:00 [DBG] Disposing connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db'.
+2025-03-29 23:07:45.014 +03:00 [DBG] Disposed connection to database 'main' on server 'C:\Users\User\source\repos\.Net-Technology-Course\Products\Products\Products.db' (1ms).
