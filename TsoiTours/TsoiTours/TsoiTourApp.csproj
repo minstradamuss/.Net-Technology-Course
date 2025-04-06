@@ -106,5 +106,54 @@
     <Resource Include="Images\1982\3.jpg" />
     <Resource Include="Images\1982\4.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\1984\1.jpg" />
+    <Resource Include="Images\1984\2.jpg" />
+    <Resource Include="Images\1984\3.jpg" />
+    <Resource Include="Images\1984\4.jpg" />
+    <Resource Include="Images\1985\1.jpg" />
+    <Resource Include="Images\1985\2.jpg" />
+    <Resource Include="Images\1985\3.jpg" />
+    <Resource Include="Images\1985\4.jpg" />
+    <Resource Include="Images\1985\5.jpg" />
+    <Resource Include="Images\1985\6.jpg" />
+    <Resource Include="Images\1986\1.jpg" />
+    <Resource Include="Images\1986\2.jpg" />
+    <Resource Include="Images\1986\3.jpg" />
+    <Resource Include="Images\1986\4.jpg" />
+    <Resource Include="Images\1986\5.jpg" />
+    <Resource Include="Images\1986\6.jpg" />
+    <Resource Include="Images\1986\7.jpg" />
+    <Resource Include="Images\1986\8.jpg" />
+    <Resource Include="Images\1987\1.jpg" />
+    <Resource Include="Images\1987\2.jpg" />
+    <Resource Include="Images\1987\3.jpg" />
+    <Resource Include="Images\1987\4.jpg" />
+    <Resource Include="Images\1987\5.jpg" />
+    <Resource Include="Images\1987\6.jpg" />
+    <Resource Include="Images\1988\1.jpg" />
+    <Resource Include="Images\1988\2.jpg" />
+    <Resource Include="Images\1988\3.jpg" />
+    <Resource Include="Images\1988\4.jpg" />
+    <Resource Include="Images\1988\5.jpg" />
+    <Resource Include="Images\1988\6.jpg" />
+    <Resource Include="Images\1988\7.jpg" />
+    <Resource Include="Images\1988\8.jpg" />
+    <Resource Include="Images\1989\1.jpg" />
+    <Resource Include="Images\1989\2.jpg" />
+    <Resource Include="Images\1989\3.jpg" />
+    <Resource Include="Images\1989\4.jpg" />
+    <Resource Include="Images\1989\5.jpg" />
+    <Resource Include="Images\1989\6.jpg" />
+    <Resource Include="Images\1990\1.jpg" />
+    <Resource Include="Images\1990\2.jpg" />
+    <Resource Include="Images\1990\3.jpg" />
+    <Resource Include="Images\1990\4.jpg" />
+    <Resource Include="Images\1990\5.jpg" />
+    <Resource Include="Images\1990\6.jpg" />
+    <Resource Include="Images\1990\7.jpg" />
+    <Resource Include="Images\1990\8.jpg" />
+    <Resource Include="Images\1990\9.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

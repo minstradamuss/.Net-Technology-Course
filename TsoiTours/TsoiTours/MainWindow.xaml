@@ -7,7 +7,9 @@
         mc:Ignorable="d"
         FontFamily="Comic Sans MS"
         FontSize="16"
-        Title="КИНО" Height="500" Width="1000">
+        Title="КИНО" Height="500" Width="1000"
+        ResizeMode="NoResize"
+        WindowStyle="SingleBorderWindow">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -20,20 +22,20 @@
                 <StackPanel Orientation="Vertical">
                     <TextBlock Text="1982" HorizontalAlignment="Center" Margin="0,0,0,5"/>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
-
                         <Image Source="Images/1982/4.jpg" Width="60" Margin="0,0,10,0"/>
-
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
-                            <Button Name="first1982" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
-                                <Image Source="Images/1982/1.jpg"/>
-                            </Button>
-                            <Button Name="second1982" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
-                                <Image Source="Images/1982/2.jpg"/>
-                            </Button>
-                            <Button Name="third1982" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,0,0">
-                                <Image Source="Images/1982/3.jpg"/>
-                            </Button>
-                        </StackPanel>
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
+                                <Button Name="first1982" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
+                                    <Image Source="Images/1982/1.jpg"/>
+                                </Button>
+                                <Button Name="second1982" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
+                                    <Image Source="Images/1982/2.jpg"/>
+                                </Button>
+                                <Button Name="third1982" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
+                                    <Image Source="Images/1982/3.jpg"/>
+                                </Button>
+                            </StackPanel>
+                        </ScrollViewer>
                     </StackPanel>
                 </StackPanel>
             </ListBoxItem>
@@ -44,23 +46,238 @@
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
 
                         <Image Source="Images/1983/4.jpg" Width="60" Margin="0,0,10,0"/>
-
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
-                            <Button Name="first1983" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
-                                <Image Source="Images/1983/1.jpg"/>
-                            </Button>
-                            <Button Name="second1983" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
-                                <Image Source="Images/1983/2.jpg"/>
-                            </Button>
-                            <Button Name="third1983" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,0,0">
-                                <Image Source="Images/1983/3.jpg"/>
-                            </Button>
-                        </StackPanel>
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
+                                <Button Name="first1983" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
+                                    <Image Source="Images/1983/1.jpg"/>
+                                </Button>
+                                <Button Name="second1983" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
+                                    <Image Source="Images/1983/2.jpg"/>
+                                </Button>
+                                <Button Name="third1983" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
+                                    <Image Source="Images/1983/3.jpg"/>
+                                </Button>
+                            </StackPanel>
+                        </ScrollViewer>
                     </StackPanel>
                 </StackPanel>
             </ListBoxItem>
-        </ListBox>
 
+            <ListBoxItem Margin="5">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="1984" HorizontalAlignment="Center" Margin="0,0,0,5"/>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                        <Image Source="Images/1984/1.jpg" Width="60" Margin="0,0,10,0"/>
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
+                                <Button Name="first1984" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
+                                    <Image Source="Images/1984/2.jpg"/>
+                                </Button>
+                                <Button Name="second1984" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
+                                    <Image Source="Images/1984/3.jpg"/>
+                                </Button>
+                                <Button Name="third1984" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
+                                    <Image Source="Images/1984/4.jpg"/>
+                                </Button>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </StackPanel>
+                </StackPanel>
+            </ListBoxItem>
+
+            <ListBoxItem Margin="5">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="1985" HorizontalAlignment="Center" Margin="0,0,0,5"/>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                        <Image Source="Images/1985/6.jpg" Width="60" Margin="0,0,10,0"/>
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
+                                <Button Name="first1985" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
+                                    <Image Source="Images/1985/1.jpg"/>
+                                </Button>
+                                <Button Name="second1985" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
+                                    <Image Source="Images/1985/2.jpg"/>
+                                </Button>
+                                <Button Name="third1985" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
+                                    <Image Source="Images/1985/3.jpg"/>
+                                </Button>
+                                <Button Name="forth1985" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
+                                    <Image Source="Images/1985/4.jpg"/>
+                                </Button>
+                                <Button Name="fifth1985" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
+                                    <Image Source="Images/1985/5.jpg"/>
+                                </Button>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </StackPanel>
+                </StackPanel>
+            </ListBoxItem>
+
+            <ListBoxItem Margin="5">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="1986" HorizontalAlignment="Center" Margin="0,0,0,5"/>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                        <Image Source="Images/1986/1.jpg" Width="60" Margin="0,0,10,0"/>
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
+                                <Button Name="first1986" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
+                                    <Image Source="Images/1986/2.jpg"/>
+                                </Button>
+                                <Button Name="second1986" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
+                                    <Image Source="Images/1986/3.jpg"/>
+                                </Button>
+                                <Button Name="third1986" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
+                                    <Image Source="Images/1986/4.jpg"/>
+                                </Button>
+                                <Button Name="forth1986" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
+                                    <Image Source="Images/1986/5.jpg"/>
+                                </Button>
+                                <Button Name="fifth1986" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
+                                    <Image Source="Images/1986/6.jpg"/>
+                                </Button>
+                                <Button Name="sixth1986" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
+                                    <Image Source="Images/1986/7.jpg"/>
+                                </Button>
+                                <Button Name="seventh1986" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
+                                    <Image Source="Images/1986/8.jpg"/>
+                                </Button>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </StackPanel>
+                </StackPanel>
+            </ListBoxItem>
+
+            <ListBoxItem Margin="5">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="1987" HorizontalAlignment="Center" Margin="0,0,0,5"/>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                        <Image Source="Images/1987/6.jpg" Width="60" Margin="0,0,10,0"/>
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
+                                <Button Name="first1987" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
+                                    <Image Source="Images/1987/1.jpg"/>
+                                </Button>
+                                <Button Name="second1987" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
+                                    <Image Source="Images/1987/2.jpg"/>
+                                </Button>
+                                <Button Name="third1987" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
+                                    <Image Source="Images/1987/3.jpg"/>
+                                </Button>
+                                <Button Name="forth1987" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
+                                    <Image Source="Images/1987/4.jpg"/>
+                                </Button>
+                                <Button Name="fifth1987" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
+                                    <Image Source="Images/1987/5.jpg"/>
+                                </Button>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </StackPanel>
+                </StackPanel>
+            </ListBoxItem>
+
+            <ListBoxItem Margin="5">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="1988" HorizontalAlignment="Center" Margin="0,0,0,5"/>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                        <Image Source="Images/1988/7.jpg" Width="60" Margin="0,0,10,0"/>
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
+                                <Button Name="first1988" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
+                                    <Image Source="Images/1988/1.jpg"/>
+                                </Button>
+                                <Button Name="second1988" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
+                                    <Image Source="Images/1988/2.jpg"/>
+                                </Button>
+                                <Button Name="third1988" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
+                                    <Image Source="Images/1988/3.jpg"/>
+                                </Button>
+                                <Button Name="forth1988" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
+                                    <Image Source="Images/1988/4.jpg"/>
+                                </Button>
+                                <Button Name="fifth1988" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
+                                    <Image Source="Images/1988/5.jpg"/>
+                                </Button>
+                                <Button Name="sixth1988" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
+                                    <Image Source="Images/1988/6.jpg"/>
+                                </Button>
+                                <Button Name="seventh1988" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
+                                    <Image Source="Images/1988/8.jpg"/>
+                                </Button>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </StackPanel>
+                </StackPanel>
+            </ListBoxItem>
+
+            <ListBoxItem Margin="5">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="1989" HorizontalAlignment="Center" Margin="0,0,0,5"/>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                        <Image Source="Images/1989/5.jpg" Width="60" Margin="0,0,10,0"/>
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
+                                <Button Name="first1989" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
+                                    <Image Source="Images/1989/1.jpg"/>
+                                </Button>
+                                <Button Name="second1989" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
+                                    <Image Source="Images/1989/2.jpg"/>
+                                </Button>
+                                <Button Name="third1989" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
+                                    <Image Source="Images/1989/3.jpg"/>
+                                </Button>
+                                <Button Name="forth1989" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
+                                    <Image Source="Images/1989/4.jpg"/>
+                                </Button>
+                                <Button Name="fifth1989" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
+                                    <Image Source="Images/1989/6.jpg"/>
+                                </Button>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </StackPanel>
+                </StackPanel>
+            </ListBoxItem>
+
+            <ListBoxItem Margin="5">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="1990" HorizontalAlignment="Center" Margin="0,0,0,5"/>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                        <Image Source="Images/1990/1.jpg" Width="60" Margin="0,0,10,0"/>
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
+                                <Button Name="first1990" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
+                                    <Image Source="Images/1990/2.jpg"/>
+                                </Button>
+                                <Button Name="second1990" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
+                                    <Image Source="Images/1990/3.jpg"/>
+                                </Button>
+                                <Button Name="third1990" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
+                                    <Image Source="Images/1990/4.jpg"/>
+                                </Button>
+                                <Button Name="forth1990" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
+                                    <Image Source="Images/1990/5.jpg"/>
+                                </Button>
+                                <Button Name="fifth1990" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
+                                    <Image Source="Images/1990/6.jpg"/>
+                                </Button>
+                                <Button Name="sixth1990" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
+                                    <Image Source="Images/1990/7.jpg"/>
+                                </Button>
+                                <Button Name="seventh1990" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
+                                    <Image Source="Images/1990/8.jpg"/>
+                                </Button>
+                                <Button Name="eighth1990" BorderThickness="0" Width="63" Height="50" Click="ShowBigImg" Margin="0,10,5,0">
+                                    <Image Source="Images/1990/9.jpg"/>
+                                </Button>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </StackPanel>
+                </StackPanel>
+            </ListBoxItem>
+
+
+        </ListBox>
+        
+        
 
         <Image Name="outputImage" Grid.Column="1" Margin="449,18,127,135" />
 
