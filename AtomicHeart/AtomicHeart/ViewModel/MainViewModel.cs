@@ -106,48 +106,62 @@ namespace AtomicHeart
                 new() {
                     Name = "Вавилов",
                     ImagePaths = new List<string> {
-                    "",
-                    ""
+                    "C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\AtomicHeart\\AtomicHeart\\View\\Imgs\\5.jpg",
+                    "C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\AtomicHeart\\AtomicHeart\\View\\Imgs\\6.jpg",
+                    "C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\AtomicHeart\\AtomicHeart\\View\\Imgs\\7.jpg",
+                    "C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\AtomicHeart\\AtomicHeart\\View\\Imgs\\8.jpg"
                     },
                     Description = "Экспериментальный ботанический комплекс."
                 },
                 new() {
                     Name = "Павлов",
                     ImagePaths = new List<string> {
-                    "",
-                    ""
+                    "C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\AtomicHeart\\AtomicHeart\\View\\Imgs\\9.jpg",
+                    "C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\AtomicHeart\\AtomicHeart\\View\\Imgs\\10.jpg"
                     },
-                    Description = "Экспериментальный медицинский комплекс."
+                    Description = "Экспериментальный комплекс изучения физики и химии тела, антропогенеза и медицины."
                 },
                 new() {
                     Name = "Нептун",
                     ImagePaths = new List<string> {
-                    "",
-                    ""
+                    "C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\AtomicHeart\\AtomicHeart\\View\\Imgs\\11.jpg",
+                    "C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\AtomicHeart\\AtomicHeart\\View\\Imgs\\12.jpg",
+                    "C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\AtomicHeart\\AtomicHeart\\View\\Imgs\\13.jpg",
+                    "C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\AtomicHeart\\AtomicHeart\\View\\Imgs\\14.jpg"
                     },
-                    Description = "В данном комплексе расположена Академия Последствий, а также архив."
+                    Description = "Экспериментальный подводный исследовательский комплекс, расположенный на дне озера Лазурь."
                 },
                 new() {
                     Name = "ВДНХ",
                     ImagePaths = new List<string> {
-                    "",
-                    ""
+                    "C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\AtomicHeart\\AtomicHeart\\View\\Imgs\\15.jpg",
+                    "C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\AtomicHeart\\AtomicHeart\\View\\Imgs\\16.jpg",
+                    "C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\AtomicHeart\\AtomicHeart\\View\\Imgs\\17.jpg",
+                    "C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\AtomicHeart\\AtomicHeart\\View\\Imgs\\18.jpg",
+                    "C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\AtomicHeart\\AtomicHeart\\View\\Imgs\\19.jpg"
                     },
                     Description = "Главная выставка Предприятия 3826."
                 },
                 new() {
                     Name = "Менделеев",
                     ImagePaths = new List<string> {
-                    "",
-                    ""
+                    "C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\AtomicHeart\\AtomicHeart\\View\\Imgs\\20.jpg",
+                    "C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\AtomicHeart\\AtomicHeart\\View\\Imgs\\21.jpg",
+                    "C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\AtomicHeart\\AtomicHeart\\View\\Imgs\\22.jpg",
+                    "C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\AtomicHeart\\AtomicHeart\\View\\Imgs\\23.jpg",
+                    "C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\AtomicHeart\\AtomicHeart\\View\\Imgs\\24.jpg",
+                    "C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\AtomicHeart\\AtomicHeart\\View\\Imgs\\25.jpg"
                     },
                     Description = "Экспериментальный химико-технологический комплекс."
                 },
                 new() {
                     Name = "Театр имени Майи Плисецкой",
                     ImagePaths = new List<string> {
-                    "",
-                    ""
+                    "C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\AtomicHeart\\AtomicHeart\\View\\Imgs\\26.jpg",
+                    "C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\AtomicHeart\\AtomicHeart\\View\\Imgs\\27.jpg",
+                    "C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\AtomicHeart\\AtomicHeart\\View\\Imgs\\28.jpg",
+                    "C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\AtomicHeart\\AtomicHeart\\View\\Imgs\\29.jpg",
+                    "C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\AtomicHeart\\AtomicHeart\\View\\Imgs\\30.jpg"
                     },
                     Description = "Основанный в 1948 году и расположенный на территории Предприятия первый в мире роботизированный театр."
                 },
@@ -158,14 +172,6 @@ namespace AtomicHeart
                     ""
                     },
                     Description = "Уникальный центр отдыха и восстановления, в первую очередь созданный для поддержания сил сотрудников Предприятия 3826, а также простых граждан и интуристов."
-                },
-                new() {
-                    Name = "Тритон",
-                    ImagePaths = new List<string> {
-                    "",
-                    ""
-                    },
-                    Description = ""
                 },
                 new() {
                     Name = "Лаборатория «Шар»",
