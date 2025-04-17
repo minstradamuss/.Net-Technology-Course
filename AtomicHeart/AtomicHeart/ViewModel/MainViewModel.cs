@@ -168,16 +168,22 @@ namespace AtomicHeart
                 new() {
                     Name = "Гостиница «Лёгкая»",
                     ImagePaths = new List<string> {
-                    "",
-                    ""
+                    "C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\AtomicHeart\\AtomicHeart\\View\\Imgs\\31.jpg",
+                    "C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\AtomicHeart\\AtomicHeart\\View\\Imgs\\32.jpg",
+                    "C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\AtomicHeart\\AtomicHeart\\View\\Imgs\\33.jpg",
+                    "C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\AtomicHeart\\AtomicHeart\\View\\Imgs\\34.jpg",
+                    "C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\AtomicHeart\\AtomicHeart\\View\\Imgs\\35.jpg"
                     },
                     Description = "Уникальный центр отдыха и восстановления, в первую очередь созданный для поддержания сил сотрудников Предприятия 3826, а также простых граждан и интуристов."
                 },
                 new() {
                     Name = "Лаборатория «Шар»",
                     ImagePaths = new List<string> {
-                    "",
-                    ""
+                    "C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\AtomicHeart\\AtomicHeart\\View\\Imgs\\36.jpg",
+                    "C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\AtomicHeart\\AtomicHeart\\View\\Imgs\\37.jpg",
+                    "C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\AtomicHeart\\AtomicHeart\\View\\Imgs\\38.jpg",
+                    "C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\AtomicHeart\\AtomicHeart\\View\\Imgs\\39.jpg",
+                    "C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\AtomicHeart\\AtomicHeart\\View\\Imgs\\40.jpg"
                     },
                     Description = "Мобильная лаборатория профессора Лебедева."
                 },
