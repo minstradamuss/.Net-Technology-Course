@@ -168,8 +168,11 @@ namespace AtomicHeart
                 new() {
                     Name = "Гостиница «Лёгкая»",
                     ImagePaths = new List<string> {
-                    "",
-                    ""
+                    "C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\AtomicHeart\\AtomicHeart\\View\\Imgs\\31.jpg",
+                    "C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\AtomicHeart\\AtomicHeart\\View\\Imgs\\32.jpg",
+                    "C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\AtomicHeart\\AtomicHeart\\View\\Imgs\\33.jpg",
+                    "C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\AtomicHeart\\AtomicHeart\\View\\Imgs\\34.jpg",
+                    "C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\AtomicHeart\\AtomicHeart\\View\\Imgs\\35.jpg"
                     },
                     Description = "Уникальный центр отдыха и восстановления, в первую очередь созданный для поддержания сил сотрудников Предприятия 3826, а также простых граждан и интуристов."
                 },
@@ -183,14 +186,6 @@ namespace AtomicHeart
                     "C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\AtomicHeart\\AtomicHeart\\View\\Imgs\\40.jpg"
                     },
                     Description = "Мобильная лаборатория профессора Лебедева."
-                },
-                new() {
-                    Name = "Деревня Лесника",
-                    ImagePaths = new List<string> {
-                    "",
-                    ""
-                    },
-                    Description = "Населённый пункт, расположенный на территории комплекса «Вавилов», который используется для обслуживания нужд комплекса, в том числе для обеспечения жильём части его персонала."
                 },
             };
             CurrentLocation = Locations[0];
