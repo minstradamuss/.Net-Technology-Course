@@ -1,31 +1,44 @@
-﻿using ChatBook.Services;
-using System;
+﻿using System;
+using System.Net.Http;
+using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using ChatBook.Entities;
+using ChatBook.Services;
 
 namespace ChatBook.UI.Forms
 {
     public partial class LoginForm : Form
     {
+        private readonly ApiAuthClient _apiClient = new ApiAuthClient();
         private readonly UserService _userService;
+
         public LoginForm(UserService userService)
         {
             InitializeComponent();
             _userService = userService;
         }
 
-        private void btnLogin_Click(object sender, EventArgs e)
+        private async void btnLogin_Click(object sender, EventArgs e)
         {
             string nickname = txtNickname.Text.Trim();
             string password = txtPassword.Text.Trim();
 
-            var user = _userService.GetUserByNickname(nickname);
+            var userDto = await _apiClient.LoginAsync(nickname, password);
 
-            if (user != null && user.Password == password)
+            if (userDto != null)
             {
+                // Маппинг из DTO в локального User
+                var user = new User
+                {
+                    Nickname = userDto.Username,
+                    Password = userDto.Password
+                };
+
                 AppSession.SetLoggedUser(user);
 
-                MainForm mainForm = new MainForm(user, _userService);
+                MainForm mainForm = new MainForm(user, _userService); ;
                 this.Hide();
                 mainForm.Show();
             }
@@ -35,26 +48,60 @@ namespace ChatBook.UI.Forms
             }
         }
 
-
-
-        private void btnRegister_Click(object sender, EventArgs e)
+        private async void btnRegister_Click(object sender, EventArgs e)
         {
-            var user = new User
-            {
-                Nickname = txtNickname.Text,
-                Password = txtPassword.Text 
-            };
+            string nickname = txtNickname.Text.Trim();
+            string password = txtPassword.Text.Trim();
 
-            bool isRegistered = _userService.Register(user);
-            if (isRegistered)
+            var success = await _apiClient.RegisterAsync(nickname, password);
+            if (success)
             {
                 MessageBox.Show("Регистрация прошла успешно!", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                MessageBox.Show("Ошибка регистрации. Возможно, такой никнейм уже существует.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Ошибка регистрации. Такой пользователь уже существует.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
 
+    public class ApiAuthClient
+    {
+        private readonly HttpClient _client = new HttpClient();
+
+        public async Task<UserDto> LoginAsync(string username, string password)
+        {
+            var content = new StringContent(JsonSerializer.Serialize(new
+            {
+                Username = username,
+                Password = password
+            }), Encoding.UTF8, "application/json");
+
+            var response = await _client.PostAsync("http://localhost:52695/api/auth/login", content);
+
+            if (!response.IsSuccessStatusCode)
+                return null;
+
+            var responseBody = await response.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<UserDto>(responseBody);
+        }
+
+        public async Task<bool> RegisterAsync(string username, string password)
+        {
+            var content = new StringContent(JsonSerializer.Serialize(new
+            {
+                Username = username,
+                Password = password
+            }), Encoding.UTF8, "application/json");
+
+            var response = await _client.PostAsync("http://localhost:52695/api/auth/register", content);
+            return response.IsSuccessStatusCode;
+        }
+    }
+
+    public class UserDto
+    {
+        public string Username { get; set; } = "";
+        public string Password { get; set; } = "";
+    }
 }
