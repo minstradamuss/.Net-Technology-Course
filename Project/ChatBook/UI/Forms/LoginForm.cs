@@ -29,11 +29,10 @@ namespace ChatBook.UI.Forms
 
             if (userDto != null)
             {
-                // Маппинг из DTO в локального User
                 var user = new User
                 {
-                    Nickname = userDto.Username,
-                    Password = userDto.Password
+                    Nickname = nickname,
+                    Password = password
                 };
 
                 AppSession.SetLoggedUser(user);
@@ -80,9 +79,17 @@ namespace ChatBook.UI.Forms
             var response = await _client.PostAsync("http://localhost:52695/api/auth/login", content);
 
             if (!response.IsSuccessStatusCode)
+            {
+                // Логируем ошибку
+                Console.WriteLine($"Login failed: {response.StatusCode}");
                 return null;
+            }
 
             var responseBody = await response.Content.ReadAsStringAsync();
+
+            // Логируем тело ответа
+            Console.WriteLine($"Response: {responseBody}");
+
             return JsonSerializer.Deserialize<UserDto>(responseBody);
         }
 
@@ -94,6 +101,7 @@ namespace ChatBook.UI.Forms
                 Password = password
             }), Encoding.UTF8, "application/json");
 
+
             var response = await _client.PostAsync("http://localhost:52695/api/auth/register", content);
             return response.IsSuccessStatusCode;
         }
@@ -101,7 +109,7 @@ namespace ChatBook.UI.Forms
 
     public class UserDto
     {
-        public string Username { get; set; } = "";
-        public string Password { get; set; } = "";
+        public string Username { get; set; }
+        public string Password { get; set; }
     }
 }

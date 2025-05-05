@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "W6L6yS9sZDkWASvz9hj000Hz44DxQQLaqVpTGd6c3soCMVSLE0DJ6BNi0gW+YyfTe7PqgYk1z5PMoBzbshyybA==",
+  "dgSpecHash": "+G0HcdFtRuw8wbb5Z4XQ96CMkJfbNbbwAxAU9Ta7C3kTfvGSyVAPkpILZjKPkZCpxpJqsUEEX0ESS/u0NOR0pA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\Project\\AuthService\\AuthService.csproj",
+  "projectFilePath": "C:\\Users\\User\\source\\repos\\B\\Project\\AuthService\\AuthService.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\User\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
