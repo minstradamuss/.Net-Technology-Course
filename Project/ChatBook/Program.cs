@@ -1,41 +1,53 @@
 ﻿using ChatBook.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Data.Common;
-using System.Data.SQLite;
-using System.Windows.Forms;
-using ChatBook.UI.Forms;
-using ChatBook.DataAccess;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
+using System.Windows.Forms;
+using ChatBook.DataAccess;
 using ChatBook.Migrations;
+using ChatBook.UI.Forms;
 
 namespace ChatBook
 {
     internal static class Program
     {
+        public static IServiceProvider ServiceProvider { get; private set; }
+
         [STAThread]
         static void Main()
         {
-            // Применяем миграции перед запуском
             ApplyMigrations();
-
-            var serviceProvider = new ServiceCollection()
-                // connectionString больше не нужен — EF сам возьмёт из App.config
-                .AddSingleton<ApplicationDbContext>()
-                .AddSingleton<UserService>()
-                .BuildServiceProvider();
-
-            // Seed Data (DbInitializer)
-            Database.SetInitializer(new DB.DbInitializer());
+            ConfigureServices();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            var userService = serviceProvider.GetService<UserService>();
-            Application.Run(new LoginForm(userService));
+            // Получаем сервис
+            var loginForm = ServiceProvider.GetRequiredService<LoginForm>();
+            Application.Run(loginForm);
         }
 
+        static void ConfigureServices()
+        {
+            var services = new ServiceCollection();
+
+            services.AddSingleton<ApplicationDbContext>();
+            services.AddSingleton<UserService>();
+
+            // Регистрируем формы
+            services.AddTransient<LoginForm>();
+            services.AddTransient<MainForm>();
+            services.AddTransient<FriendsForm>();
+            services.AddTransient<EditProfileForm>();
+            services.AddTransient<AddBookForm>();
+            services.AddTransient<ChatForm>();
+
+            ServiceProvider = services.BuildServiceProvider();
+
+            // инициализация БД
+            Database.SetInitializer(new DB.DbInitializer());
+        }
 
         static void ApplyMigrations()
         {
