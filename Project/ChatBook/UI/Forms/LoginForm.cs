@@ -29,15 +29,22 @@ namespace ChatBook.UI.Forms
 
             if (userDto != null)
             {
-                var user = new User
+                var existingUser = _userService.GetUserByNickname(nickname);
+
+                if (existingUser == null)
                 {
-                    Nickname = nickname,
-                    Password = password
-                };
+                    var newUser = new User
+                    {
+                        Nickname = nickname,
+                        Password = password
+                    };
+                    _userService.Register(newUser);
+                    existingUser = newUser;
+                }
 
-                AppSession.SetLoggedUser(user);
+                AppSession.SetLoggedUser(existingUser);
 
-                MainForm mainForm = new MainForm(user, _userService); ;
+                MainForm mainForm = new MainForm(existingUser, _userService);
                 this.Hide();
                 mainForm.Show();
             }
@@ -53,8 +60,17 @@ namespace ChatBook.UI.Forms
             string password = txtPassword.Text.Trim();
 
             var success = await _apiClient.RegisterAsync(nickname, password);
+
             if (success)
             {
+                var user = new User
+                {
+                    Nickname = nickname,
+                    Password = password
+                };
+
+                _userService.Register(user);
+
                 MessageBox.Show("Регистрация прошла успешно!", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
@@ -80,14 +96,11 @@ namespace ChatBook.UI.Forms
 
             if (!response.IsSuccessStatusCode)
             {
-                // Логируем ошибку
                 Console.WriteLine($"Login failed: {response.StatusCode}");
                 return null;
             }
 
             var responseBody = await response.Content.ReadAsStringAsync();
-
-            // Логируем тело ответа
             Console.WriteLine($"Response: {responseBody}");
 
             return JsonSerializer.Deserialize<UserDto>(responseBody);
@@ -100,7 +113,6 @@ namespace ChatBook.UI.Forms
                 Username = username,
                 Password = password
             }), Encoding.UTF8, "application/json");
-
 
             var response = await _client.PostAsync("http://localhost:52695/api/auth/register", content);
             return response.IsSuccessStatusCode;
