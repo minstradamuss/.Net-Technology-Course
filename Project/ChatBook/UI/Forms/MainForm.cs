@@ -5,6 +5,8 @@ using System.IO;
 using System.Windows.Forms;
 using ChatBook.Entities;
 using ChatBook.Services;
+using ChatBook.UI.Windows;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ChatBook.UI.Forms
 {
@@ -181,35 +183,44 @@ namespace ChatBook.UI.Forms
         {
             if (sender is PictureBox bookCover && bookCover.Tag is Book book)
             {
-                bool isProfileViewOnly = (_logged.Nickname != _currentUser.Nickname);
-                
-                AddBookForm viewBookForm = new AddBookForm(_currentUser, _userService, isProfileViewOnly, book);
+                bool isReadOnly = (_logged.Nickname != _currentUser.Nickname);
 
-                viewBookForm.ToggleSaveButton(!isProfileViewOnly);
-
-                viewBookForm.BookUpdated += (updatedBook) =>
+                var thread = new System.Threading.Thread(() =>
                 {
-                    if (_userBooks.ContainsKey(book))
-                    {
-                        flowLayoutPanelBooks.Controls.Remove(_userBooks[book]);
-                        _userBooks.Remove(book);
-                    }
-                    _userService.UpdateBook(updatedBook);
-                    AddBookForm_BookAdded(updatedBook);
-                };
+                    var window = new AddBookWindow(_userService, _currentUser, book, isReadOnly);
+                    var result = window.ShowDialog();
 
-                viewBookForm.Show();
+                    if (result == true)
+                    {
+                        this.Invoke(new Action(() =>
+                        {
+                            LoadUserBooks();
+                        }));
+                    }
+                });
+
+                thread.SetApartmentState(System.Threading.ApartmentState.STA);
+                thread.Start();
             }
         }
 
 
 
 
+
         private void btnSearchBooks_Click(object sender, EventArgs e)
         {
-            SearchForm searchForm = new SearchForm();
-            searchForm.Show();
+            var thread = new System.Threading.Thread(() =>
+            {
+                var window = Program.ServiceProvider.GetRequiredService<BookSearchWindow>();
+                window.ShowDialog(); // ✅ вместо Application.Run(window)
+            });
+
+            thread.SetApartmentState(System.Threading.ApartmentState.STA);
+            thread.Start();
         }
+
+
 
         private ChatForm _chatForm;
 
@@ -248,26 +259,21 @@ namespace ChatBook.UI.Forms
 
         private void btnAddBook_Click(object sender, EventArgs e)
         {
-            AddBookForm addBookForm = new AddBookForm(_logged, _userService, isProfileViewOnly: true);
-
-
-            addBookForm.BookAdded += (newBook) =>
+            var thread = new System.Threading.Thread(() =>
             {
-                bool isAdded = _userService.AddBook(newBook, _currentUser.Nickname);
-                if (isAdded)
-                {
-                    LoadUserBooks();
-                }
-                else
-                {
-                    MessageBox.Show("Ошибка при добавлении книги в базу данных.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            };
+                var window = new AddBookWindow(_userService, _logged, null, false); // можно редактировать
+                var result = window.ShowDialog();
 
+                if (result == true)
+                {
+                    // Вернуться на основной UI-поток WinForms
+                    this.Invoke(new Action(() => LoadUserBooks()));
+                }
+            });
 
-            addBookForm.ShowDialog();
+            thread.SetApartmentState(System.Threading.ApartmentState.STA);
+            thread.Start();
         }
-
 
         private void LoadUserBooks()
         {

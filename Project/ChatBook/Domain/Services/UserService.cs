@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Data.Entity;
+using System.Runtime.Remoting.Contexts;
 
 namespace ChatBook.Services
 {
@@ -227,6 +228,27 @@ namespace ChatBook.Services
             _dbContext.Messages.Add(message);
             _dbContext.SaveChanges();
         }
+
+        public List<BookWithReview> SearchBooksWithReviews(string titleQuery)
+        {
+            return _dbContext.Books
+                .Include(b => b.User) // Подгружаем связанного пользователя
+                .Where(b =>
+                    b.Status == "Read" && // или "Read", в зависимости от языка
+                    b.Title.ToLower().Contains(titleQuery.ToLower()))
+                .Select(b => new BookWithReview
+                {
+                    Book = b,
+                    ReviewerNickname = b.User.Nickname,
+                    Review = b.Review
+                })
+                .ToList();
+        }
+
+
+
+
+
 
         public List<User> GetAllChatPartners(string userNickname)
         {

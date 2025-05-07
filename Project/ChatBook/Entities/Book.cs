@@ -26,5 +26,6 @@ namespace ChatBook.Entities
         public string Genre { get; set; }
         public string Author { get; set; }
 
+        public virtual User User { get; set; }
     }
 }

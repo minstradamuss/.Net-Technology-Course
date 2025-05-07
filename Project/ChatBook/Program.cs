@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using ChatBook.DataAccess;
 using ChatBook.Migrations;
 using ChatBook.UI.Forms;
+using ChatBook.UI.Windows;
 
 namespace ChatBook
 {
@@ -40,8 +41,10 @@ namespace ChatBook
             services.AddTransient<MainForm>();
             services.AddTransient<FriendsForm>();
             services.AddTransient<EditProfileForm>();
-            services.AddTransient<AddBookForm>();
+            //services.AddTransient<AddBookForm>();
             services.AddTransient<ChatForm>();
+            services.AddTransient<BookSearchWindow>();
+            services.AddTransient<AddBookWindow>();
 
             ServiceProvider = services.BuildServiceProvider();
 
