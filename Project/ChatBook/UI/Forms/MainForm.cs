@@ -92,14 +92,19 @@ namespace ChatBook.UI.Forms
 
         private void btnEditProfile_Click(object sender, EventArgs e)
         {
-            EditProfileForm editProfileForm = new EditProfileForm(_currentUser, _userService);
-            editProfileForm.ProfileUpdated += (updatedUser) =>
+            var editProfileWindow = new EditProfileWindow(_currentUser, _userService);
+
+            editProfileWindow.ProfileUpdated += (updatedUser) =>
             {
-                _userService.UpdateProfile(updatedUser);
-                UpdateProfileInfo(updatedUser);
+                _currentUser = updatedUser; // обязательно обнови ссылку
+                UpdateProfileInfo(_currentUser); // обнови отображение
             };
-            editProfileForm.ShowDialog();
+
+            editProfileWindow.ShowDialog();
         }
+
+
+
 
 
 
@@ -109,13 +114,18 @@ namespace ChatBook.UI.Forms
 
             _currentUser = updatedUser;
             lblFullName.Text = $"{_currentUser.FirstName} {_currentUser.LastName}";
-
             if (_currentUser.Avatar != null && _currentUser.Avatar.Length > 0)
             {
-                pictureBoxAvatar.Image = ConvertByteArrayToImage(_currentUser.Avatar);
+                using (var ms = new MemoryStream(_currentUser.Avatar))
+                {
+                    var img = Image.FromStream(ms);
+                    pictureBoxAvatar.Image?.Dispose(); // очистить старую
+                    pictureBoxAvatar.Image = new Bitmap(img); // обновить
+                }
             }
             else
             {
+                pictureBoxAvatar.Image?.Dispose();
                 pictureBoxAvatar.Image = null;
             }
         }

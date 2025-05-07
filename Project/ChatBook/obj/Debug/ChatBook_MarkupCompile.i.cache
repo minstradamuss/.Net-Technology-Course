@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 
-2935567383
+32001497005
 11673271131
-51318096775
+50-714138164
 2211162777165
-UI\Forms\AddBookWindow.xaml;UI\Forms\BookSearchWindow.xaml;
+UI\Forms\AddBookWindow.xaml;UI\Forms\BookSearchWindow.xaml;UI\Forms\EditProfileWindow.xaml;
 
 False
 

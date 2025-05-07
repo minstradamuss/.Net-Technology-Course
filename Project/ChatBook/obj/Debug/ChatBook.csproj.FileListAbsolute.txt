@@ -378,11 +378,9 @@ C:\Users\User\source\repos\B\Project\ChatBook\bin\Debug\zh-Hant\Microsoft.Visual
 C:\Users\User\source\repos\B\Project\ChatBook\obj\Debug\ChatBook.csproj.AssemblyReference.cache
 C:\Users\User\source\repos\B\Project\ChatBook\obj\Debug\ChatBook.csproj.SuggestedBindingRedirects.cache
 C:\Users\User\source\repos\B\Project\ChatBook\obj\Debug\ChatBook.Properties.Resources.resources
-C:\Users\User\source\repos\B\Project\ChatBook\obj\Debug\ChatBook.UI.Forms.EditProfileForm.resources
 C:\Users\User\source\repos\B\Project\ChatBook\obj\Debug\ChatBook.UI.Forms.FriendsForm.resources
 C:\Users\User\source\repos\B\Project\ChatBook\obj\Debug\ChatBook.UI.Forms.ChatForm.resources
 C:\Users\User\source\repos\B\Project\ChatBook\obj\Debug\ChatBook.UI.Forms.LoginForm.resources
-C:\Users\User\source\repos\B\Project\ChatBook\obj\Debug\ChatBook.UI.Forms.AddBookForm.resources
 C:\Users\User\source\repos\B\Project\ChatBook\obj\Debug\ChatBook.UI.Forms.MainForm.resources
 C:\Users\User\source\repos\B\Project\ChatBook\obj\Debug\ChatBook.csproj.GenerateResource.cache
 C:\Users\User\source\repos\B\Project\ChatBook\obj\Debug\ChatBook.gentestingplatformentrypointinputcache.cache
@@ -468,3 +466,5 @@ C:\Users\User\source\repos\B\Project\ChatBook\bin\Debug\System.Threading.AccessC
 C:\Users\User\source\repos\B\Project\ChatBook\bin\Debug\System.Web.Services.Description.pdb
 C:\Users\User\source\repos\B\Project\ChatBook\obj\Debug\UI\Forms\AddBookWindow.baml
 C:\Users\User\source\repos\B\Project\ChatBook\obj\Debug\UI\Forms\AddBookWindow.g.cs
+C:\Users\User\source\repos\B\Project\ChatBook\obj\Debug\UI\Forms\EditProfileWindow.baml
+C:\Users\User\source\repos\B\Project\ChatBook\obj\Debug\UI\Forms\EditProfileWindow.g.cs

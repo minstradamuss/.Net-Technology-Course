@@ -18,6 +18,7 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
@@ -414,11 +415,8 @@
     <Compile Include="UI\Forms\BookSearchWindow.xaml.cs">
       <DependentUpon>BookSearchWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Forms\EditProfileForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Forms\EditProfileForm.Designer.cs">
-      <DependentUpon>EditProfileForm.cs</DependentUpon>
+    <Compile Include="UI\Forms\EditProfileWindow.xaml.cs">
+      <DependentUpon>EditProfileWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Forms\FriendsForm.cs">
       <SubType>Form</SubType>
@@ -431,10 +429,6 @@
     </Compile>
     <Compile Include="UI\Forms\ChatForm.Designer.cs">
       <DependentUpon>ChatForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Forms\AddBookForm.cs" />
-    <Compile Include="UI\Forms\AddBookForm.Designer.cs">
-      <DependentUpon>AddBookForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Forms\MainForm.cs">
       <SubType>Form</SubType>
@@ -457,9 +451,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="UI\Forms\EditProfileForm.resx">
-      <DependentUpon>EditProfileForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\FriendsForm.resx">
       <DependentUpon>FriendsForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -468,9 +459,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Forms\AddBookForm.resx">
-      <DependentUpon>AddBookForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -503,6 +491,9 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Forms\BookSearchWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Forms\EditProfileWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

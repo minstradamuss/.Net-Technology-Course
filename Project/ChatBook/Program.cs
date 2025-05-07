@@ -40,8 +40,7 @@ namespace ChatBook
             services.AddTransient<LoginForm>();
             services.AddTransient<MainForm>();
             services.AddTransient<FriendsForm>();
-            services.AddTransient<EditProfileForm>();
-            //services.AddTransient<AddBookForm>();
+            services.AddTransient<EditProfileWindow>();
             services.AddTransient<ChatForm>();
             services.AddTransient<BookSearchWindow>();
             services.AddTransient<AddBookWindow>();
