@@ -154,7 +154,7 @@ namespace ChatBook.UI.Forms
             this.buttonSearchFriends.Name = "buttonSearchFriends";
             this.buttonSearchFriends.Size = new System.Drawing.Size(120, 30);
             this.buttonSearchFriends.TabIndex = 8;
-            this.buttonSearchFriends.Text = "Друзья";
+            this.buttonSearchFriends.Text = "Подписки";
             this.buttonSearchFriends.Click += new System.EventHandler(this.button2_Click);
             // 
             // btnRemoveFriend

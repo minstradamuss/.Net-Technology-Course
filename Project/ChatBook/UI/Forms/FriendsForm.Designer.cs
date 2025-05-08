@@ -59,7 +59,7 @@
             this.btnShowFriends.Name = "btnShowFriends";
             this.btnShowFriends.Size = new System.Drawing.Size(120, 26);
             this.btnShowFriends.TabIndex = 3;
-            this.btnShowFriends.Text = "Мои друзья";
+            this.btnShowFriends.Text = "Мои подписки";
             this.btnShowFriends.UseVisualStyleBackColor = false;
             this.btnShowFriends.Click += new System.EventHandler(this.btnShowFriends_Click);
             // 
