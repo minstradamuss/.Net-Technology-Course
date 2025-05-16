@@ -103,8 +103,16 @@ namespace ChatBook.UI.Forms
             var responseBody = await response.Content.ReadAsStringAsync();
             Console.WriteLine($"Response: {responseBody}");
 
-            return JsonSerializer.Deserialize<UserDto>(responseBody);
+            string token;
+            using (JsonDocument doc = JsonDocument.Parse(responseBody))
+            {
+                token = doc.RootElement.GetProperty("token").GetString();
+            }
+
+            return new UserDto { Token = token };
         }
+
+
 
         public async Task<bool> RegisterAsync(string username, string password)
         {
@@ -121,7 +129,7 @@ namespace ChatBook.UI.Forms
 
     public class UserDto
     {
-        public string Username { get; set; }
-        public string Password { get; set; }
+        public string Token { get; set; }
     }
+
 }
