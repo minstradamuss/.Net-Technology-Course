@@ -1,4 +1,3 @@
-
 using Microsoft.AspNetCore.Mvc;
 using AuthService.Models;
 using AuthService.Services;
@@ -10,10 +9,12 @@ namespace AuthService.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly ITokenService _tokenService;
 
-        public AuthController(IUserService userService)
+        public AuthController(IUserService userService, ITokenService tokenService)
         {
             _userService = userService;
+            _tokenService = tokenService;
         }
 
         [HttpPost("login")]
@@ -23,7 +24,8 @@ namespace AuthService.Controllers
             if (user == null)
                 return Unauthorized();
 
-            return Ok(user);
+            var token = _tokenService.GenerateToken(user.Username);
+            return Ok(new { token });
         }
 
         [HttpPost("register")]
