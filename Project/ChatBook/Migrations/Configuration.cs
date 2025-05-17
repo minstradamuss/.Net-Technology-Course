@@ -15,10 +15,5 @@ namespace ChatBook.Migrations
             SetSqlGenerator("System.Data.SQLite", new SQLiteMigrationSqlGenerator());
         }
 
-
-        protected override void Seed(ApplicationDbContext context)
-        {
-            // seed data if needed
-        }
     }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ChatBook.Entities;
 using ChatBook.Services;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ChatBook.UI.Forms
 {
@@ -44,7 +45,12 @@ namespace ChatBook.UI.Forms
 
                 AppSession.SetLoggedUser(existingUser);
 
-                MainForm mainForm = new MainForm(existingUser, _userService);
+                // ✅ Получаем MainForm из DI-контейнера
+                var mainForm = Program.ServiceProvider.GetRequiredService<MainForm>();
+
+                // ✅ Устанавливаем текущего пользователя после создания
+                mainForm.SetCurrentUser(existingUser);
+
                 this.Hide();
                 mainForm.Show();
             }
@@ -53,6 +59,7 @@ namespace ChatBook.UI.Forms
                 MessageBox.Show("Неверный логин или пароль!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private async void btnRegister_Click(object sender, EventArgs e)
         {

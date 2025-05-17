@@ -4,6 +4,7 @@ using System.IO;
 using System.Windows.Forms;
 using ChatBook.Entities;
 using ChatBook.Services;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ChatBook.UI.Forms
 {
@@ -131,7 +132,8 @@ namespace ChatBook.UI.Forms
 
             this.Hide();
 
-            MainForm mainForm = new MainForm(user, _userService, isProfileViewOnly: true);
+            var mainForm = Program.ServiceProvider.GetRequiredService<MainForm>();
+            mainForm.SetCurrentUser(user, isViewOnly: true);
             mainForm.FormClosed += (s, args) => this.Show();
             mainForm.Show();
         }
@@ -199,5 +201,23 @@ namespace ChatBook.UI.Forms
                 return null;
             }
         }
+
+        private void btnShowFollowers_Click(object sender, EventArgs e)
+        {
+            flowLayoutPanelFriends.Controls.Clear();
+            var followers = _userService.GetFollowers(_currentUserNickname);
+
+            if (followers.Count == 0)
+            {
+                MessageBox.Show("У вас пока нет подписчиков.", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            foreach (var user in followers)
+            {
+                flowLayoutPanelFriends.Controls.Add(CreateFriendPanel(user, isSearchResult: false));
+            }
+        }
+
     }
 }

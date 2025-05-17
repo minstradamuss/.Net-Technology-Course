@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.IO;
+using System.Windows.Media;
 
 namespace ChatBook.UI.Windows
 {
@@ -14,13 +15,30 @@ namespace ChatBook.UI.Windows
 
         public BookSearchWindow(UserService userService)
         {
-            InitializeComponent();
+            InitializeComponent(); // Обязательно вызывает генерацию полей txtSearch, BooksPanel
             _userService = userService;
         }
 
         private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
-            // Для поиска по мере ввода (опционально)
+        }
+
+        private void txtSearch_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (txtSearch.Text == "Введите название...")
+            {
+                txtSearch.Text = "";
+                txtSearch.Foreground = Brushes.Black;
+            }
+        }
+
+        private void txtSearch_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtSearch.Text))
+            {
+                txtSearch.Text = "Введите название...";
+                txtSearch.Foreground = Brushes.Gray;
+            }
         }
 
 

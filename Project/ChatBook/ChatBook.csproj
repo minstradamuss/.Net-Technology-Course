@@ -373,6 +373,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+  <ProjectReference Include="..\ChatService\ChatService.csproj" />
+</ItemGroup>
+  <ItemGroup>
     <Compile Include="DataAccess\Repositories\BookRepository.cs" />
     <Compile Include="DataAccess\Repositories\ChatRepository.cs" />
     <Compile Include="Entities\AdminUser.cs" />

@@ -6,6 +6,8 @@ using System.Windows.Forms;
 using ChatBook.Entities;
 using ChatBook.Services;
 using ChatBook.UI.Windows;
+using ChatService.Interfaces;
+using ChatService.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ChatBook.UI.Forms
@@ -18,16 +20,26 @@ namespace ChatBook.UI.Forms
         private readonly UserService _userService;
         private User _logged;
         private Button btnSendMessage;
-
+        private readonly IChatService _chatService;
         public string CurrentUserNickname { get; private set; }
+        private bool _isProfileViewOnly = false;
 
-        public MainForm(User user, UserService userService, bool isProfileViewOnly = false)
+        public MainForm(UserService userService, IChatService chatService)
+
         {
             InitializeComponent();
             _userService = userService ?? throw new ArgumentNullException(nameof(userService));
-            _currentUser = user ?? throw new ArgumentNullException(nameof(user));
-
+            _chatService = chatService ?? throw new ArgumentNullException(nameof(chatService));
             _logged = AppSession.LoggedUser;
+
+            InitializeFlowLayoutPanel();
+        }
+
+        public void SetCurrentUser(User user, bool isViewOnly = false)
+        {
+            _currentUser = user ?? throw new ArgumentNullException(nameof(user));
+            _logged = AppSession.LoggedUser;
+            _isProfileViewOnly = isViewOnly;
 
             CurrentUserNickname = _currentUser.Nickname;
 
@@ -40,10 +52,10 @@ namespace ChatBook.UI.Forms
 
             UpdateProfileInfo(_currentUser);
             lblNickname.Text = _currentUser.Nickname;
-            InitializeFlowLayoutPanel();
+
             LoadUserBooks();
 
-            if (isProfileViewOnly)
+            if (_isProfileViewOnly)
             {
                 btnAddBook.Visible = false;
                 btnEditProfile.Visible = false;
@@ -51,25 +63,16 @@ namespace ChatBook.UI.Forms
                 btnSearchBooks.Visible = false;
                 buttonSearchFriends.Visible = false;
                 btnRemoveFriend.Visible = true;
-                btnRefreshBooks.Visible = false;
+                
                 InitializeSendMessageButton();
             }
-            LoadUserBooks();
-            InitializeRefreshButton();
         }
+
 
         private void btnRefreshBooks_Click(object sender, EventArgs e)
         {
             LoadUserBooks();
         }
-
-        private void InitializeRefreshButton()
-        {
-            btnRefreshBooks.FlatAppearance.BorderSize = 0;
-            btnRefreshBooks.Click += btnRefreshBooks_Click;
-            Controls.Add(btnRefreshBooks);
-        }
-
 
         private void InitializeFlowLayoutPanel()
         {
@@ -102,7 +105,6 @@ namespace ChatBook.UI.Forms
 
             editProfileWindow.ShowDialog();
         }
-
 
 
 
@@ -236,7 +238,7 @@ namespace ChatBook.UI.Forms
 
         private void buttonChats_Click(object sender, EventArgs e)
         {
-            ChatForm chatForm = new ChatForm(_logged.Nickname, _userService, _currentUser.Nickname);
+            ChatForm chatForm = new ChatForm(_logged.Nickname, _userService, _chatService, _currentUser.Nickname);
             chatForm.Show();
         }
 
@@ -381,7 +383,8 @@ namespace ChatBook.UI.Forms
         {
             var existingChat = _userService.GetChatMessages(_logged.Nickname, _currentUser.Nickname);
 
-            ChatForm chatForm = new ChatForm(_logged.Nickname, _userService, _currentUser.Nickname);
+            ChatForm chatForm = new ChatForm(_logged.Nickname, _userService, _chatService, _currentUser.Nickname);
+
             chatForm.Show();
         }
     }

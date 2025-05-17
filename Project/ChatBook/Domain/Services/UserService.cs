@@ -74,12 +74,14 @@ namespace ChatBook.Services
             var user = _dbContext.Users.FirstOrDefault(u => u.Nickname == username);
             if (user == null) return new List<User>();
 
-            var friendIds = _dbContext.Friendships
-                .Where(f => f.User1Id == user.Id || f.User2Id == user.Id)
-                .Select(f => f.User1Id == user.Id ? f.User2Id : f.User1Id)
+            var subscribedToIds = _dbContext.Friendships
+                .Where(f => f.User1Id == user.Id) // ← только те, на кого Я подписана
+                .Select(f => f.User2Id)
                 .ToList();
 
-            return _dbContext.Users.Where(u => friendIds.Contains(u.Id)).ToList();
+            return _dbContext.Users
+                .Where(u => subscribedToIds.Contains(u.Id))
+                .ToList();
         }
 
 
@@ -232,9 +234,9 @@ namespace ChatBook.Services
         public List<BookWithReview> SearchBooksWithReviews(string titleQuery)
         {
             return _dbContext.Books
-                .Include(b => b.User) // Подгружаем связанного пользователя
+                .Include(b => b.User) 
                 .Where(b =>
-                    b.Status == "Read" && // или "Read", в зависимости от языка
+                    b.Status == "Read" && 
                     b.Title.ToLower().Contains(titleQuery.ToLower()))
                 .Select(b => new BookWithReview
                 {
@@ -245,6 +247,21 @@ namespace ChatBook.Services
                 .ToList();
         }
 
+
+        public List<User> GetFollowers(string username)
+        {
+            var user = _dbContext.Users.FirstOrDefault(u => u.Nickname == username);
+            if (user == null) return new List<User>();
+
+            var followerIds = _dbContext.Friendships
+                .Where(f => f.User2Id == user.Id) // ← те, кто подписан на меня
+                .Select(f => f.User1Id)
+                .ToList();
+
+            return _dbContext.Users
+                .Where(u => followerIds.Contains(u.Id))
+                .ToList();
+        }
 
 
 

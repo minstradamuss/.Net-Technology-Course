@@ -1,13 +1,16 @@
-﻿using ChatBook.Services;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Data.Entity;
-using System.Data.Entity.Migrations;
-using System.Windows.Forms;
-using ChatBook.DataAccess;
+﻿using ChatBook.DataAccess;
 using ChatBook.Migrations;
 using ChatBook.UI.Forms;
 using ChatBook.UI.Windows;
+using ChatBook.Domain.Interfaces;
+using ChatBook.Services;
+using System;
+using System.Data.Entity;
+using System.Data.Entity.Migrations;
+using ChatService.Repositories;
+using Microsoft.Extensions.DependencyInjection;
+using System.Windows.Forms;
+using ChatService.Interfaces;
 
 namespace ChatBook
 {
@@ -36,7 +39,11 @@ namespace ChatBook
             services.AddSingleton<ApplicationDbContext>();
             services.AddSingleton<UserService>();
 
-            // Регистрируем формы
+            // Регистрация Чат-сервиса
+            services.AddSingleton<IChatRepository, ChatRepository>();
+            services.AddSingleton<IChatService, ChatService.Services.ChatService>();
+
+            // Формы
             services.AddTransient<LoginForm>();
             services.AddTransient<MainForm>();
             services.AddTransient<FriendsForm>();
@@ -47,9 +54,9 @@ namespace ChatBook
 
             ServiceProvider = services.BuildServiceProvider();
 
-            // инициализация БД
             Database.SetInitializer(new DB.DbInitializer());
         }
+
 
         static void ApplyMigrations()
         {

@@ -18,7 +18,6 @@ namespace ChatBook.UI.Forms
         private System.Windows.Forms.Button btnSaveReview;
         private System.Windows.Forms.ComboBox cmbStatus;
         private System.Windows.Forms.Button btnRemoveFriend;
-        private System.Windows.Forms.Button btnRefreshBooks;
         private System.Windows.Forms.TextBox txtSearchBooks;
 
 
@@ -50,7 +49,6 @@ namespace ChatBook.UI.Forms
             this.buttonSearchFriends = new System.Windows.Forms.Button();
             this.btnRemoveFriend = new System.Windows.Forms.Button();
             this.btnAddBook = new System.Windows.Forms.Button();
-            this.btnRefreshBooks = new System.Windows.Forms.Button();
             this.txtSearchBooks = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAvatar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericRating)).BeginInit();
@@ -58,6 +56,7 @@ namespace ChatBook.UI.Forms
             // 
             // pictureBoxAvatar
             // 
+            this.pictureBoxAvatar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.pictureBoxAvatar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBoxAvatar.Location = new System.Drawing.Point(20, 20);
             this.pictureBoxAvatar.Name = "pictureBoxAvatar";
@@ -69,6 +68,7 @@ namespace ChatBook.UI.Forms
             // lblNickname
             // 
             this.lblNickname.AutoSize = true;
+            this.lblNickname.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.lblNickname.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
             this.lblNickname.Location = new System.Drawing.Point(163, 26);
             this.lblNickname.Name = "lblNickname";
@@ -79,6 +79,7 @@ namespace ChatBook.UI.Forms
             // lblFullName
             // 
             this.lblFullName.AutoSize = true;
+            this.lblFullName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.lblFullName.Font = new System.Drawing.Font("Arial", 10F);
             this.lblFullName.Location = new System.Drawing.Point(163, 63);
             this.lblFullName.Name = "lblFullName";
@@ -88,20 +89,24 @@ namespace ChatBook.UI.Forms
             // 
             // btnEditProfile
             // 
+            this.btnEditProfile.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.btnEditProfile.Location = new System.Drawing.Point(400, 20);
             this.btnEditProfile.Name = "btnEditProfile";
             this.btnEditProfile.Size = new System.Drawing.Size(198, 30);
             this.btnEditProfile.TabIndex = 4;
             this.btnEditProfile.Text = "Редактировать профиль";
+            this.btnEditProfile.UseVisualStyleBackColor = false;
             this.btnEditProfile.Click += new System.EventHandler(this.btnEditProfile_Click);
             // 
             // btnSearchBooks
             // 
+            this.btnSearchBooks.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.btnSearchBooks.Location = new System.Drawing.Point(400, 79);
             this.btnSearchBooks.Name = "btnSearchBooks";
             this.btnSearchBooks.Size = new System.Drawing.Size(120, 30);
             this.btnSearchBooks.TabIndex = 6;
             this.btnSearchBooks.Text = "Поиск книг";
+            this.btnSearchBooks.UseVisualStyleBackColor = false;
             this.btnSearchBooks.Click += new System.EventHandler(this.btnSearchBooks_Click);
             // 
             // comboBoxStatus
@@ -141,25 +146,30 @@ namespace ChatBook.UI.Forms
             // 
             // buttonChats
             // 
+            this.buttonChats.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.buttonChats.Location = new System.Drawing.Point(526, 79);
             this.buttonChats.Name = "buttonChats";
             this.buttonChats.Size = new System.Drawing.Size(120, 30);
             this.buttonChats.TabIndex = 7;
             this.buttonChats.Text = "Чаты";
+            this.buttonChats.UseVisualStyleBackColor = false;
             this.buttonChats.Click += new System.EventHandler(this.buttonChats_Click);
             // 
             // buttonSearchFriends
             // 
+            this.buttonSearchFriends.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.buttonSearchFriends.Location = new System.Drawing.Point(652, 79);
             this.buttonSearchFriends.Name = "buttonSearchFriends";
             this.buttonSearchFriends.Size = new System.Drawing.Size(120, 30);
             this.buttonSearchFriends.TabIndex = 8;
             this.buttonSearchFriends.Text = "Подписки";
+            this.buttonSearchFriends.UseVisualStyleBackColor = false;
             this.buttonSearchFriends.Click += new System.EventHandler(this.button2_Click);
             // 
             // btnRemoveFriend
             // 
-            this.btnRemoveFriend.BackColor = System.Drawing.Color.Coral;
+            this.btnRemoveFriend.BackColor = System.Drawing.Color.Maroon;
+            this.btnRemoveFriend.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnRemoveFriend.Location = new System.Drawing.Point(600, 20);
             this.btnRemoveFriend.Name = "btnRemoveFriend";
             this.btnRemoveFriend.Size = new System.Drawing.Size(160, 30);
@@ -171,28 +181,18 @@ namespace ChatBook.UI.Forms
             // 
             // btnAddBook
             // 
+            this.btnAddBook.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.btnAddBook.Location = new System.Drawing.Point(12, 166);
             this.btnAddBook.Name = "btnAddBook";
             this.btnAddBook.Size = new System.Drawing.Size(198, 30);
             this.btnAddBook.TabIndex = 9;
             this.btnAddBook.Text = "Добавить книгу";
+            this.btnAddBook.UseVisualStyleBackColor = false;
             this.btnAddBook.Click += new System.EventHandler(this.btnAddBook_Click);
-            // 
-            // btnRefreshBooks
-            // 
-            this.btnRefreshBooks.FlatAppearance.BorderSize = 0;
-            this.btnRefreshBooks.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRefreshBooks.Font = new System.Drawing.Font("Arial", 16F, System.Drawing.FontStyle.Bold);
-            this.btnRefreshBooks.ForeColor = System.Drawing.Color.Black;
-            this.btnRefreshBooks.Location = new System.Drawing.Point(422, 161);
-            this.btnRefreshBooks.Name = "btnRefreshBooks";
-            this.btnRefreshBooks.Size = new System.Drawing.Size(35, 37);
-            this.btnRefreshBooks.TabIndex = 0;
-            this.btnRefreshBooks.Text = "↻";
-            this.btnRefreshBooks.Click += new System.EventHandler(this.btnRefreshBooks_Click);
             // 
             // txtSearchBooks
             // 
+            this.txtSearchBooks.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.txtSearchBooks.Font = new System.Drawing.Font("Arial", 12F);
             this.txtSearchBooks.ForeColor = System.Drawing.Color.Gray;
             this.txtSearchBooks.Location = new System.Drawing.Point(216, 166);
@@ -210,7 +210,6 @@ namespace ChatBook.UI.Forms
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(782, 553);
             this.Controls.Add(this.txtSearchBooks);
-            this.Controls.Add(this.btnRefreshBooks);
             this.Controls.Add(this.btnAddBook);
             this.Controls.Add(this.buttonSearchFriends);
             this.Controls.Add(this.buttonChats);

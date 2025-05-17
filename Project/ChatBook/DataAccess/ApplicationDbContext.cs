@@ -1,5 +1,4 @@
-﻿using System.Data.Entity;  // Для EF 6.x
-using ChatBook.Entities;
+﻿using System.Data.Entity;
 using ChatBook.Entities;
 
 namespace ChatBook.DataAccess

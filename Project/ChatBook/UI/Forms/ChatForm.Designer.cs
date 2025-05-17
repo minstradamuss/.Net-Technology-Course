@@ -29,7 +29,7 @@
             // 
             // listBoxMessages
             // 
-            this.listBoxMessages.BackColor = System.Drawing.Color.Moccasin;
+            this.listBoxMessages.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.listBoxMessages.ItemHeight = 16;
             this.listBoxMessages.Location = new System.Drawing.Point(251, 12);
             this.listBoxMessages.Name = "listBoxMessages";
@@ -38,15 +38,15 @@
             // 
             // txtMessage
             // 
-            this.txtMessage.Location = new System.Drawing.Point(214, 370);
+            this.txtMessage.Location = new System.Drawing.Point(251, 370);
             this.txtMessage.Name = "txtMessage";
-            this.txtMessage.Size = new System.Drawing.Size(512, 22);
+            this.txtMessage.Size = new System.Drawing.Size(475, 22);
             this.txtMessage.TabIndex = 2;
             this.txtMessage.TextChanged += new System.EventHandler(this.txtMessage_TextChanged);
             // 
             // btnSend
             // 
-            this.btnSend.BackColor = System.Drawing.Color.Moccasin;
+            this.btnSend.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.btnSend.Location = new System.Drawing.Point(732, 368);
             this.btnSend.Name = "btnSend";
             this.btnSend.Size = new System.Drawing.Size(95, 26);
@@ -57,7 +57,7 @@
             // 
             // listBoxChats
             // 
-            this.listBoxChats.BackColor = System.Drawing.Color.Moccasin;
+            this.listBoxChats.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.listBoxChats.ItemHeight = 16;
             this.listBoxChats.Location = new System.Drawing.Point(12, 12);
             this.listBoxChats.Name = "listBoxChats";
@@ -67,7 +67,7 @@
             // 
             // ChatForm
             // 
-            this.BackColor = System.Drawing.Color.OldLace;
+            this.BackColor = System.Drawing.Color.Linen;
             this.ClientSize = new System.Drawing.Size(839, 410);
             this.Controls.Add(this.listBoxChats);
             this.Controls.Add(this.listBoxMessages);
