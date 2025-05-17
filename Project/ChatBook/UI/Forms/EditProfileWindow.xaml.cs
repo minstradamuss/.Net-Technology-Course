@@ -25,20 +25,33 @@ namespace ChatBook.UI.Windows
             txtFirstName.Text = _currentUser.FirstName;
             txtLastName.Text = _currentUser.LastName;
             txtPhoneNumber.Text = _currentUser.PhoneNumber;
-
             if (_currentUser.Avatar != null)
             {
                 _avatarBytes = _currentUser.Avatar;
-                using (var ms = new MemoryStream(_avatarBytes))
+
+                try
                 {
-                    var bitmap = new BitmapImage();
-                    bitmap.BeginInit();
-                    bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                    bitmap.StreamSource = ms;
-                    bitmap.EndInit();
+                    BitmapImage bitmap = new BitmapImage();
+                    using (var ms = new MemoryStream(_avatarBytes))
+                    {
+                        bitmap.BeginInit();
+                        bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                        bitmap.CreateOptions = BitmapCreateOptions.IgnoreColorProfile; 
+                        bitmap.StreamSource = ms;
+                        bitmap.EndInit();
+                        bitmap.Freeze(); 
+                    }
+
                     imgAvatar.Source = bitmap;
                 }
+                catch (Exception ex)
+                {
+                    imgAvatar.Source = null; 
+                }
             }
+
+
+
         }
 
         private void btnUploadAvatar_Click(object sender, RoutedEventArgs e)

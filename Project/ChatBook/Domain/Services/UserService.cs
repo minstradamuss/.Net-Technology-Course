@@ -234,10 +234,11 @@ namespace ChatBook.Services
         public List<BookWithReview> SearchBooksWithReviews(string titleQuery)
         {
             return _dbContext.Books
-                .Include(b => b.User) 
+                .Include(b => b.User)
                 .Where(b =>
-                    b.Status == "Read" && 
+                    b.Status == "Прочитано" &&
                     b.Title.ToLower().Contains(titleQuery.ToLower()))
+                .OrderByDescending(b => b.Rating)
                 .Select(b => new BookWithReview
                 {
                     Book = b,
@@ -246,6 +247,7 @@ namespace ChatBook.Services
                 })
                 .ToList();
         }
+
 
 
         public List<User> GetFollowers(string username)

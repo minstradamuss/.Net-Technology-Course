@@ -91,7 +91,7 @@
             this.Name = "FriendsForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Друзья";
+            this.Text = "Подписки";
             this.ResumeLayout(false);
             this.PerformLayout();
 

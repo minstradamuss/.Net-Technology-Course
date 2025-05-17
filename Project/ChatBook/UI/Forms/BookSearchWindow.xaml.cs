@@ -25,21 +25,23 @@ namespace ChatBook.UI.Windows
 
         private void txtSearch_GotFocus(object sender, RoutedEventArgs e)
         {
-            if (txtSearch.Text == "Введите название...")
+            if (txtSearch.Text == "Введите название книги...")
             {
                 txtSearch.Text = "";
                 txtSearch.Foreground = Brushes.Black;
             }
         }
 
+
         private void txtSearch_LostFocus(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtSearch.Text))
             {
-                txtSearch.Text = "Введите название...";
+                txtSearch.Text = "Введите название книги...";
                 txtSearch.Foreground = Brushes.Gray;
             }
         }
+
 
 
         private void Search_Click(object sender, RoutedEventArgs e)
@@ -82,7 +84,6 @@ namespace ChatBook.UI.Windows
                 stack.Children.Add(new TextBlock { Text = item.Book.Title, FontWeight = FontWeights.Bold, TextAlignment = TextAlignment.Center, TextWrapping = TextWrapping.Wrap });
                 stack.Children.Add(new TextBlock { Text = $"Author: {item.Book.Author}", FontSize = 12 });
                 stack.Children.Add(new TextBlock { Text = $"Rating: {item.Book.Rating}/5", FontSize = 12 });
-                //stack.Children.Add(new TextBlock { Text = $"Review: {item.Book.Review}", FontSize = 12, TextWrapping = TextWrapping.Wrap });
                 stack.Children.Add(new TextBlock { Text = $"User: {item.ReviewerNickname}", FontSize = 12, FontStyle = FontStyles.Italic });
 
                 border.Child = stack;
