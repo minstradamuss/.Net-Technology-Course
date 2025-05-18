@@ -45,11 +45,23 @@
     <Reference Include="Castle.Core, Version=5.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>packages\Castle.Core.5.1.1\lib\net462\Castle.Core.dll</HintPath>
     </Reference>
+    <Reference Include="CommonServiceLocator, Version=2.0.2.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>packages\CommonServiceLocator.2.0.2\lib\net47\CommonServiceLocator.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>packages\EntityFramework.6.5.1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>packages\EntityFramework.6.5.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight, Version=5.4.1.0, Culture=neutral, PublicKeyToken=e7570ab207bcb616, processorArchitecture=MSIL">
+      <HintPath>packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Extras, Version=5.4.1.0, Culture=neutral, PublicKeyToken=669f0b5e8f868abf, processorArchitecture=MSIL">
+      <HintPath>packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.Extras.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Platform, Version=5.4.1.0, Culture=neutral, PublicKeyToken=5f873c45e98af8a1, processorArchitecture=MSIL">
+      <HintPath>packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ApplicationInsights, Version=2.22.0.997, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.ApplicationInsights.2.22.0\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
@@ -349,6 +361,9 @@
     <Reference Include="System.Web.Services.Description, Version=4.10.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>packages\System.Web.Services.Description.4.10.0\lib\net461\System.Web.Services.Description.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\MvvmLightLibs.5.4.1.1\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -365,6 +380,7 @@
     <Reference Include="Twilio, Version=7.9.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Twilio.7.9.0\lib\net462\Twilio.dll</HintPath>
     </Reference>
+    <Reference Include="WindowsFormsIntegration" />
     <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <HintPath>packages\xunit.abstractions.2.0.3\lib\net35\xunit.abstractions.dll</HintPath>
     </Reference>
@@ -373,30 +389,30 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-  <ProjectReference Include="..\ChatService\ChatService.csproj" />
-</ItemGroup>
+    <ProjectReference Include="..\ChatService\ChatService.csproj" />
+  </ItemGroup>
   <ItemGroup>
     <Compile Include="DataAccess\Repositories\BookRepository.cs" />
     <Compile Include="DataAccess\Repositories\ChatRepository.cs" />
-    <Compile Include="Entities\AdminUser.cs" />
+    <Compile Include="Models\AdminUser.cs" />
     <Compile Include="AppSession.cs" />
     <Compile Include="DataAccess\Repositories\UserRepository.cs" />
     <Compile Include="DataAccess\ApplicationDbContext.cs" />
     <Compile Include="Domain\Interfaces\IChatService.cs" />
     <Compile Include="Domain\Interfaces\IReviewService.cs" />
     <Compile Include="Domain\Interfaces\IUserService.cs" />
-    <Compile Include="Entities\BaseUser.cs" />
-    <Compile Include="Entities\BookWithReview.cs" />
-    <Compile Include="Entities\Message.cs" />
-    <Compile Include="Entities\Review.cs" />
-    <Compile Include="Domain\Services\BookService.cs" />
+    <Compile Include="Models\BaseUser.cs" />
+    <Compile Include="Models\BookWithReview.cs" />
+    <Compile Include="Models\Message.cs" />
+    <Compile Include="Models\Review.cs" />
+    <Compile Include="Services\BookService.cs" />
     <Compile Include="Domain\Interfaces\IBookService.cs" />
-    <Compile Include="Domain\Services\ImageService.cs" />
-    <Compile Include="Domain\Services\UserService.cs" />
-    <Compile Include="Entities\Book.cs" />
-    <Compile Include="Entities\Friendship.cs" />
-    <Compile Include="Entities\Profile.cs" />
-    <Compile Include="Entities\User.cs" />
+    <Compile Include="Services\ImageService.cs" />
+    <Compile Include="Services\UserService.cs" />
+    <Compile Include="Models\Book.cs" />
+    <Compile Include="Models\Friendship.cs" />
+    <Compile Include="Models\Profile.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Migrations\20250323154600_InitialCreate.cs" />
     <Compile Include="Migrations\20250323160000_AddGenreToBook.cs" />
     <Compile Include="Migrations\20250323160000_AddGenreToBook.Designer.cs">
@@ -412,39 +428,45 @@
     <Compile Include="Tests\DBTests\Tests.cs" />
     <Compile Include="Tests\MainFormTests.cs" />
     <Compile Include="Tests\UserServiceTests.cs" />
-    <Compile Include="UI\Forms\AddBookWindow.xaml.cs">
+    <Compile Include="ViewModels\AddBookViewModel.cs" />
+    <Compile Include="ViewModels\FriendsViewModel.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\RelayCommand.cs" />
+    <Compile Include="Views\AddBookWindow.xaml.cs">
       <DependentUpon>AddBookWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Forms\BookSearchWindow.xaml.cs">
+    <Compile Include="Views\BookSearchWindow.xaml.cs">
       <DependentUpon>BookSearchWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Forms\EditProfileWindow.xaml.cs">
+    <Compile Include="Views\EditProfileWindow.xaml.cs">
       <DependentUpon>EditProfileWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Forms\FriendsForm.cs">
+    <Compile Include="Views\FriendsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Forms\FriendsForm.Designer.cs">
+    <Compile Include="Views\FriendsForm.Designer.cs">
       <DependentUpon>FriendsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Forms\ChatForm.cs">
+    <Compile Include="Views\ChatForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Forms\ChatForm.Designer.cs">
+    <Compile Include="Views\ChatForm.Designer.cs">
       <DependentUpon>ChatForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Forms\MainForm.cs">
+    <Compile Include="Views\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Forms\MainForm.Designer.cs">
+    <Compile Include="Views\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Forms\LoginForm.cs">
+    <Compile Include="Views\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Forms\LoginForm.Designer.cs">
+    <Compile Include="Views\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\ChatViewModel.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -454,16 +476,16 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="UI\Forms\FriendsForm.resx">
+    <EmbeddedResource Include="Views\FriendsForm.resx">
       <DependentUpon>FriendsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Forms\ChatForm.resx">
+    <EmbeddedResource Include="Views\ChatForm.resx">
       <DependentUpon>ChatForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Forms\LoginForm.resx">
+    <EmbeddedResource Include="Views\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Forms\MainForm.resx">
+    <EmbeddedResource Include="Views\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="DB\ChatBook.db" />
@@ -490,13 +512,13 @@
     <Content Include="Tests\7177ef3957443bccd96662169c6f0b2a.png" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="UI\Forms\AddBookWindow.xaml">
+    <Page Include="Views\AddBookWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Forms\BookSearchWindow.xaml">
+    <Page Include="Views\BookSearchWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Forms\EditProfileWindow.xaml">
+    <Page Include="Views\EditProfileWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
