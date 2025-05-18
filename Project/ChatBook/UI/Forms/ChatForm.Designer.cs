@@ -1,4 +1,6 @@
-﻿namespace ChatBook.UI.Forms
+﻿using System.Drawing;
+
+namespace ChatBook.UI.Forms
 {
     partial class ChatForm
     {
@@ -66,7 +68,11 @@
             this.listBoxChats.DoubleClick += new System.EventHandler(this.listBoxChats_DoubleClick);
             // 
             // ChatForm
-            // 
+            //
+            this.listBoxMessages.Font = new Font("Arial", 11);
+            this.txtMessage.Font = new Font("Arial", 11);
+            this.listBoxChats.Font = new Font("Arial", 11);
+           
             this.BackColor = System.Drawing.Color.Linen;
             this.ClientSize = new System.Drawing.Size(839, 410);
             this.Controls.Add(this.listBoxChats);

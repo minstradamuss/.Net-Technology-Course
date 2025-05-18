@@ -39,6 +39,29 @@ namespace ChatBook.UI.Forms
             listBoxChats.DoubleClick += listBoxChats_DoubleClick;
         }
 
+        private List<string> WrapMessage(string message, int maxLineLength)
+        {
+            var words = message.Split(' ');
+            var lines = new List<string>();
+            string currentLine = "";
+
+            foreach (var word in words)
+            {
+                if ((currentLine + word).Length > maxLineLength)
+                {
+                    lines.Add(currentLine.TrimEnd());
+                    currentLine = "";
+                }
+                currentLine += word + " ";
+            }
+
+            if (!string.IsNullOrWhiteSpace(currentLine))
+                lines.Add(currentLine.TrimEnd());
+
+            return lines;
+        }
+
+
         public void LoadChatMessages(string chatPartnerNickname)
         {
             listBoxMessages.Items.Clear();
@@ -48,10 +71,19 @@ namespace ChatBook.UI.Forms
 
             foreach (var msg in chatMessagesFromDb)
             {
-                string sender = msg.SenderId == _userService.GetUserByNickname(_currentUserNickname).Id ? "Вы" : chatPartnerNickname;
-                listBoxMessages.Items.Add($"({msg.Timestamp:T}) {sender}: {msg.Content}");
+                bool isOwnMessage = msg.SenderId == _userService.GetUserByNickname(_currentUserNickname).Id;
+                string senderLabel = isOwnMessage ? "Вы" : chatPartnerNickname;
+
+                var wrappedLines = WrapMessage(msg.Content, 60); // 60 — количество символов в строке
+
+                for (int i = 0; i < wrappedLines.Count; i++)
+                {
+                    string prefix = (i == 0) ? $"{senderLabel}: " : "        "; // отступ только на первых строках
+                    listBoxMessages.Items.Add(prefix + wrappedLines[i]);
+                }
             }
         }
+
 
 
         private void LoadFriendsAndChats()
@@ -112,7 +144,13 @@ namespace ChatBook.UI.Forms
                 }
 
                 chatMessages[selectedChat].Add(newMessage);
-                listBoxMessages.Items.Add($"Вы: {newMessage.Content}");
+                var lines = WrapMessage(newMessage.Content, 60); // 60 символов максимум в строке
+                for (int i = 0; i < lines.Count; i++)
+                {
+                    string prefix = i == 0 ? "Вы: " : "     ";
+                    listBoxMessages.Items.Add(prefix + lines[i]);
+                }
+
                 txtMessage.Clear();
             }
         }
