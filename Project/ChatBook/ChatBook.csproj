@@ -448,6 +448,7 @@
     <Compile Include="UI\Models\UserMapper.cs" />
     <Compile Include="UI\Models\UserModel.cs" />
     <Compile Include="UI\ViewModel\LoginViewModel.cs" />
+    <Compile Include="UI\ViewModel\MainViewModel.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

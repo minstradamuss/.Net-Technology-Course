@@ -4,6 +4,7 @@ using System.IO;
 using System.Windows.Forms;
 using ChatBook.Entities;
 using ChatBook.Services;
+using ChatBook.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ChatBook.UI.Forms
@@ -12,12 +13,13 @@ namespace ChatBook.UI.Forms
     {
         private readonly UserService _userService;
         private readonly string _currentUserNickname;
+        private readonly MainViewModel _viewModel;
 
-        public FriendsForm(string currentUserNickname, UserService userService)
+        public FriendsForm(string currentUserNickname, MainViewModel userService)
         {
             InitializeComponent();
             _currentUserNickname = currentUserNickname ?? throw new ArgumentNullException(nameof(currentUserNickname));
-            _userService = userService ?? throw new ArgumentNullException(nameof(userService));
+            _viewModel = userService ?? throw new ArgumentNullException(nameof(userService));
             LoadFriends();
         }
 

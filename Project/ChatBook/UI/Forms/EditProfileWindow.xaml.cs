@@ -1,5 +1,6 @@
 ﻿using ChatBook.Entities;
 using ChatBook.Services;
+using ChatBook.ViewModels;
 using Microsoft.Win32;
 using System;
 using System.IO;
@@ -13,14 +14,15 @@ namespace ChatBook.UI.Windows
         private User _currentUser;
         private readonly UserService _userService;
         private byte[] _avatarBytes;
+        private readonly MainViewModel _viewModel;
 
         public event Action<User> ProfileUpdated;
 
-        public EditProfileWindow(User user, UserService userService)
+        public EditProfileWindow(User user, MainViewModel userService)
         {
             InitializeComponent();
             _currentUser = user ?? throw new ArgumentNullException(nameof(user));
-            _userService = userService ?? throw new ArgumentNullException(nameof(userService));
+            _viewModel = userService;
 
             txtFirstName.Text = _currentUser.FirstName;
             txtLastName.Text = _currentUser.LastName;

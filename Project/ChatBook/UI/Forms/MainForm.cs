@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using ChatBook.Entities;
 using ChatBook.Services;
 using ChatBook.UI.Windows;
+using ChatBook.ViewModels;
 using ChatService.Interfaces;
 using ChatService.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,10 +18,11 @@ namespace ChatBook.UI.Forms
         private User _currentUser;
         private Dictionary<Book, Panel> _userBooks = new Dictionary<Book, Panel>();
         private FlowLayoutPanel flowLayoutPanelBooks;
-        private readonly UserService _userService;
+        //private readonly UserService _userService;
         private User _logged;
         private Button btnSendMessage;
         private readonly IChatService _chatService;
+        private readonly MainViewModel _viewModel;
         public string CurrentUserNickname { get; private set; }
         private bool _isProfileViewOnly = false;
 
@@ -28,8 +30,8 @@ namespace ChatBook.UI.Forms
 
         {
             InitializeComponent();
-            _userService = userService ?? throw new ArgumentNullException(nameof(userService));
             _chatService = chatService ?? throw new ArgumentNullException(nameof(chatService));
+            _viewModel = new MainViewModel(userService);
             _logged = AppSession.LoggedUser;
 
             InitializeFlowLayoutPanel();
@@ -95,7 +97,7 @@ namespace ChatBook.UI.Forms
 
         private void btnEditProfile_Click(object sender, EventArgs e)
         {
-            var editProfileWindow = new EditProfileWindow(_currentUser, _userService);
+            var editProfileWindow = new EditProfileWindow(_currentUser, _viewModel);
 
             editProfileWindow.ProfileUpdated += (updatedUser) =>
             {
@@ -132,12 +134,12 @@ namespace ChatBook.UI.Forms
             }
         }
 
-        private void btnLogout_Click(object sender, EventArgs e)
-        {
-            this.Close();
-            LoginForm loginForm = new LoginForm(_userService);
-            loginForm.Show();
-        }
+        //private void btnLogout_Click(object sender, EventArgs e)
+        //{
+        //    this.Close();
+        //    LoginForm loginForm = new LoginForm(_viewModel);
+        //    loginForm.Show();
+        //}
 
         private void AddBookForm_BookAdded(Book newBook)
         {
@@ -199,7 +201,7 @@ namespace ChatBook.UI.Forms
 
                 var thread = new System.Threading.Thread(() =>
                 {
-                    var window = new AddBookWindow(_userService, _currentUser, book, isReadOnly);
+                    var window = new AddBookWindow(_viewModel, _currentUser, book, isReadOnly);
                     var result = window.ShowDialog();
 
                     if (result == true)
@@ -238,7 +240,7 @@ namespace ChatBook.UI.Forms
 
         private void buttonChats_Click(object sender, EventArgs e)
         {
-            ChatForm chatForm = new ChatForm(_logged.Nickname, _userService, _chatService, _currentUser.Nickname);
+            ChatForm chatForm = new ChatForm(_logged.Nickname, _viewModel, _chatService, _currentUser.Nickname);
             chatForm.Show();
         }
 
@@ -246,7 +248,7 @@ namespace ChatBook.UI.Forms
 
         private void button2_Click(object sender, EventArgs e)
         {
-            FriendsForm friendsForm = new FriendsForm(_currentUser.Nickname, _userService);
+            FriendsForm friendsForm = new FriendsForm(_currentUser.Nickname, _viewModel);
             friendsForm.Show();
         }
 
@@ -273,7 +275,7 @@ namespace ChatBook.UI.Forms
         {
             var thread = new System.Threading.Thread(() =>
             {
-                var window = new AddBookWindow(_userService, _logged, null, false); // можно редактировать
+                var window = new AddBookWindow(_viewModel, _logged, null, false); // можно редактировать
                 var result = window.ShowDialog();
 
                 if (result == true)
@@ -292,7 +294,7 @@ namespace ChatBook.UI.Forms
             flowLayoutPanelBooks.Controls.Clear();
             _userBooks.Clear();
 
-            var books = _userService.GetUserBooks(_currentUser.Nickname);
+            var books = _viewModel.GetUserBooks(_currentUser.Nickname);
 
             foreach (var book in books)
             {
@@ -330,7 +332,7 @@ namespace ChatBook.UI.Forms
 
             if (confirmResult == DialogResult.Yes)
             {
-                bool success = _userService.RemoveFriend(_logged.Nickname, _currentUser.Nickname);
+                bool success = _viewModel.RemoveFriend(_logged.Nickname, _currentUser.Nickname);
 
                 if (success)
                 {
@@ -381,9 +383,9 @@ namespace ChatBook.UI.Forms
 
         private void btnSendMessage_Click(object sender, EventArgs e)
         {
-            var existingChat = _userService.GetChatMessages(_logged.Nickname, _currentUser.Nickname);
+            var existingChat = _viewModel.GetChatMessages(_logged.Nickname, _currentUser.Nickname);
 
-            ChatForm chatForm = new ChatForm(_logged.Nickname, _userService, _chatService, _currentUser.Nickname);
+            ChatForm chatForm = new ChatForm(_logged.Nickname, _viewModel, _chatService, _currentUser.Nickname);
 
             chatForm.Show();
         }

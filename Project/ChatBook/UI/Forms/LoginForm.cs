@@ -12,6 +12,7 @@ namespace ChatBook.UI.Forms
     {
         private readonly LoginViewModel _viewModel;
 
+
         public LoginForm(UserService userService)
         {
             InitializeComponent();

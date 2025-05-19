@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using ChatBook.Domain.Interfaces;
 using ChatBook.Entities;
 using ChatBook.Services;
+using ChatBook.ViewModels;
 using ChatService.Interfaces;
 
 namespace ChatBook.UI.Forms
@@ -18,11 +19,12 @@ namespace ChatBook.UI.Forms
         private string selectedChat = null;
         private readonly string _chatPartnerNickname;
         private readonly IChatService _chatService;
+        private readonly MainViewModel _viewModel;
 
-        public ChatForm(string currentUserNickname, UserService userService, IChatService chatService, string chatPartnerNickname = null)
+        public ChatForm(string currentUserNickname, MainViewModel userService, IChatService chatService, string chatPartnerNickname = null)
         {
             InitializeComponent();
-            _userService = userService ?? throw new ArgumentNullException(nameof(userService));
+            _viewModel = userService ?? throw new ArgumentNullException(nameof(userService));
             _chatService = chatService ?? throw new ArgumentNullException(nameof(chatService));
             _currentUserNickname = currentUserNickname ?? throw new ArgumentNullException(nameof(currentUserNickname));
 

@@ -1,5 +1,6 @@
 ﻿using ChatBook.Entities;
 using ChatBook.Services;
+using ChatBook.ViewModels;
 using Microsoft.Win32;
 using System;
 using System.IO;
@@ -18,11 +19,12 @@ namespace ChatBook.UI.Windows
         private User _user;
         private bool _isReadOnly;
         private int _selectedRating = 0;
+        private readonly MainViewModel _viewModel;
 
-        public AddBookWindow(UserService userService, User user, Book book = null, bool isReadOnly = false)
+        public AddBookWindow(MainViewModel userService, User user, Book book = null, bool isReadOnly = false)
         {
             InitializeComponent();
-            _userService = userService;
+            _viewModel = userService;
             _user = user;
             _book = book ?? new Book();
             _isReadOnly = isReadOnly;
@@ -40,18 +42,6 @@ namespace ChatBook.UI.Windows
                 DisableEditing();
             else
                 ShowButtons();
-        }
-
-        public AddBookWindow(UserService userService)
-        {
-            InitializeComponent();
-            _userService = userService;
-
-            btnSave.Click += BtnSave_Click;
-            btnUploadCover.Click += BtnUploadCover_Click;
-            btnDelete.Click += BtnDelete_Click;
-
-            InitializeStars();
         }
 
         public void Initialize(User user, Book book = null, bool isReadOnly = false)
@@ -149,9 +139,9 @@ namespace ChatBook.UI.Windows
             try
             {
                 if (_book.Id == 0)
-                    _userService.AddBook(_book, _user.Nickname);
+                    _viewModel.AddBook(_book, _user.Nickname);
                 else
-                    _userService.UpdateBook(_book);
+                    _viewModel.UpdateBook(_book);
 
                 this.DialogResult = true;
                 this.Close();
@@ -170,7 +160,7 @@ namespace ChatBook.UI.Windows
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
             if (_book.Id != 0)
-                _userService.DeleteBook(_book.Id);
+                _viewModel.DeleteBook(_book.Id);
 
             this.DialogResult = true;
             this.Close();

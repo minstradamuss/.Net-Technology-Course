@@ -6,12 +6,14 @@ using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.IO;
 using System.Windows.Media;
+using ChatBook.ViewModels;
 
 namespace ChatBook.UI.Windows
 {
     public partial class BookSearchWindow : Window
     {
         private readonly UserService _userService;
+        private readonly MainViewModel _viewModel;
 
         public BookSearchWindow(UserService userService)
         {
@@ -94,7 +96,7 @@ namespace ChatBook.UI.Windows
 
                     var thread = new System.Threading.Thread(() =>
                     {
-                        var window = new AddBookWindow(_userService, user, item.Book, isReadOnly: true);
+                        var window = new AddBookWindow(_viewModel, user, item.Book, isReadOnly: true);
                         window.ShowDialog();
                     });
 
