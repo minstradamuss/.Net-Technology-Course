@@ -204,7 +204,12 @@ namespace ChatBook.UI.Forms
 
                 var thread = new System.Threading.Thread(() =>
                 {
-                    var window = new AddBookWindow(_viewModel, _currentUser, book, isReadOnly);
+                    var window = new AddBookWindow(
+                        Program.ServiceProvider.GetRequiredService<AddBookViewModel>(),
+                        _currentUser,
+                        book,
+                        isReadOnly
+                    );
                     var result = window.ShowDialog();
 
                     if (result == true)
@@ -279,7 +284,7 @@ namespace ChatBook.UI.Forms
         {
             var thread = new System.Threading.Thread(() =>
             {
-                var window = new AddBookWindow(_viewModel, _logged, null, false); // можно редактировать
+                var window = new AddBookWindow(Program.ServiceProvider.GetRequiredService<AddBookViewModel>(), _currentUser, null, false); // можно редактировать
                 var result = window.ShowDialog();
 
                 if (result == true)

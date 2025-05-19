@@ -99,7 +99,7 @@ namespace ChatBook.UI.Windows
                     var thread = new System.Threading.Thread(() =>
                     {
                         var mainVm = Program.ServiceProvider.GetRequiredService<MainViewModel>();
-                        var window = new AddBookWindow(mainVm, user, item.Book, isReadOnly: true);
+                        var window = new AddBookWindow(Program.ServiceProvider.GetRequiredService<AddBookViewModel>(), user, item.Book, isReadOnly: true);
                         window.ShowDialog();
                     });
 

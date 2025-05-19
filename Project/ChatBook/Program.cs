@@ -45,6 +45,8 @@ namespace ChatBook
             services.AddSingleton<IChatRepository, ChatRepository>();
             services.AddSingleton<IChatService, ChatService.Services.ChatService>();
 
+            services.AddSingleton<AddBookViewModel>();
+
             services.AddSingleton<MainViewModel>();
             services.AddSingleton<BookSearchViewModel>();
             services.AddSingleton<BookViewModel>();

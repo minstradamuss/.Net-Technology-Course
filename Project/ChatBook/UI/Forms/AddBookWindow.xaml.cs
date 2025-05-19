@@ -19,12 +19,11 @@ namespace ChatBook.UI.Windows
         private User _user;
         private bool _isReadOnly;
         private int _selectedRating = 0;
-        private readonly MainViewModel _viewModel;
-
-        public AddBookWindow(MainViewModel userService, User user, Book book = null, bool isReadOnly = false)
+        private readonly AddBookViewModel _viewModel;
+        public AddBookWindow(AddBookViewModel viewModel, User user, Book book = null, bool isReadOnly = false)
         {
             InitializeComponent();
-            _viewModel = userService;
+            _viewModel = viewModel;
             _user = user;
             _book = book ?? new Book();
             _isReadOnly = isReadOnly;
