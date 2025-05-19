@@ -11,90 +11,59 @@ namespace ChatBook.UI.Windows
 {
     public partial class EditProfileWindow : Window
     {
-        private User _currentUser;
+        private readonly ProfileViewModel _viewModel;
         private byte[] _avatarBytes;
-        private readonly MainViewModel _viewModel;
 
         public event Action<User> ProfileUpdated;
 
         public EditProfileWindow(User user, MainViewModel userService)
+
         {
             InitializeComponent();
-            _currentUser = user ?? throw new ArgumentNullException(nameof(user));
-            _viewModel = userService;
+            _viewModel = new ProfileViewModel(user, userService);
 
-            txtFirstName.Text = _currentUser.FirstName;
-            txtLastName.Text = _currentUser.LastName;
-            txtPhoneNumber.Text = _currentUser.PhoneNumber;
-            if (_currentUser.Avatar != null)
+            this.DataContext = _viewModel;
+
+            if (user.Avatar != null)
             {
-                _avatarBytes = _currentUser.Avatar;
-
-                try
+                _avatarBytes = user.Avatar;
+                using (var ms = new MemoryStream(_avatarBytes))
                 {
-                    BitmapImage bitmap = new BitmapImage();
-                    using (var ms = new MemoryStream(_avatarBytes))
-                    {
-                        bitmap.BeginInit();
-                        bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                        bitmap.CreateOptions = BitmapCreateOptions.IgnoreColorProfile; 
-                        bitmap.StreamSource = ms;
-                        bitmap.EndInit();
-                        bitmap.Freeze(); 
-                    }
-
+                    var bitmap = new BitmapImage();
+                    bitmap.BeginInit();
+                    bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmap.StreamSource = ms;
+                    bitmap.EndInit();
+                    bitmap.Freeze();
                     imgAvatar.Source = bitmap;
                 }
-                catch (Exception ex)
-                {
-                    imgAvatar.Source = null; 
-                }
             }
-
-
-
         }
 
         private void btnUploadAvatar_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new OpenFileDialog
-            {
-                Filter = "Images|*.jpg;*.jpeg;*.png;*.bmp;*.gif"
-            };
-
+            var dialog = new OpenFileDialog { Filter = "Images|*.jpg;*.jpeg;*.png;*.bmp" };
             if (dialog.ShowDialog() == true)
             {
-                try
-                {
-                    _avatarBytes = File.ReadAllBytes(dialog.FileName);
-                    imgAvatar.Source = new BitmapImage(new Uri(dialog.FileName));
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Ошибка загрузки изображения: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                _avatarBytes = File.ReadAllBytes(dialog.FileName);
+                imgAvatar.Source = new BitmapImage(new Uri(dialog.FileName));
+                _viewModel.CurrentUser.Avatar = _avatarBytes;
             }
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            _currentUser.FirstName = txtFirstName.Text;
-            _currentUser.LastName = txtLastName.Text;
-            _currentUser.PhoneNumber = txtPhoneNumber.Text;
-            _currentUser.Avatar = _avatarBytes;
-
-            bool isUpdated = _viewModel.UpdateProfile(_currentUser);
-
-
-            if (isUpdated)
+            if (_viewModel.UpdateProfile())
             {
-                ProfileUpdated?.Invoke(_currentUser);
+                ProfileUpdated?.Invoke(_viewModel.CurrentUser);
                 this.Close();
             }
             else
             {
-                MessageBox.Show("Ошибка при обновлении профиля.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Ошибка при обновлении профиля", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }
+
+
 }
