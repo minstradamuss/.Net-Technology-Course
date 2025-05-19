@@ -32,6 +32,12 @@
         <Label Content="Телефон:" Grid.Row="3" VerticalAlignment="Center" />
         <TextBox x:Name="txtPhoneNumber" Grid.Row="3" Margin="100,0,0,0" Height="25" />
 
-        <Button x:Name="btnSave" Content="Сохранить" Grid.Row="5" Width="320" Height="30" Background="#FFE0C0" Click="btnSave_Click" Margin="30,66,30,0" />
+        <Button x:Name="btnSave" Content="Сохранить"
+        Grid.Row="5" Width="320" Height="30"
+        Background="#FFE0C0"
+        Click="btnSave_Click"
+        HorizontalAlignment="Center" />
+
+
     </Grid>
 </Window>

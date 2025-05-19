@@ -12,7 +12,6 @@ namespace ChatBook.UI.Windows
     public partial class EditProfileWindow : Window
     {
         private User _currentUser;
-        private readonly UserService _userService;
         private byte[] _avatarBytes;
         private readonly MainViewModel _viewModel;
 
@@ -84,7 +83,8 @@ namespace ChatBook.UI.Windows
             _currentUser.PhoneNumber = txtPhoneNumber.Text;
             _currentUser.Avatar = _avatarBytes;
 
-            bool isUpdated = _userService.UpdateProfile(_currentUser);
+            bool isUpdated = _viewModel.UpdateProfile(_currentUser);
+
 
             if (isUpdated)
             {

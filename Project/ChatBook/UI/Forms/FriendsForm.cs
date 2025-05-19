@@ -11,22 +11,21 @@ namespace ChatBook.UI.Forms
 {
     public partial class FriendsForm : Form
     {
-        private readonly UserService _userService;
         private readonly string _currentUserNickname;
-        private readonly MainViewModel _viewModel;
+        private readonly FriendsViewModel _viewModel;
 
-        public FriendsForm(string currentUserNickname, MainViewModel userService)
+        public FriendsForm(string currentUserNickname, FriendsViewModel viewModel)
         {
             InitializeComponent();
-            _currentUserNickname = currentUserNickname ?? throw new ArgumentNullException(nameof(currentUserNickname));
-            _viewModel = userService ?? throw new ArgumentNullException(nameof(userService));
+            _currentUserNickname = currentUserNickname;
+            _viewModel = viewModel;
             LoadFriends();
         }
 
         private void LoadFriends()
         {
             flowLayoutPanelFriends.Controls.Clear();
-            var friends = _userService.GetFriends(_currentUserNickname);
+            var friends = _viewModel.GetFriends(_currentUserNickname);
 
             foreach (var friend in friends)
             {
@@ -87,7 +86,7 @@ namespace ChatBook.UI.Forms
 
             Button btnAddFriend = null;
 
-            if (isSearchResult && !_userService.AreFriends(_currentUserNickname, user.Nickname))
+            if (isSearchResult && !_viewModel.AreFriends(_currentUserNickname, user.Nickname))
             {
                 btnAddFriend = new Button
                 {
@@ -150,7 +149,7 @@ namespace ChatBook.UI.Forms
                 return;
             }
 
-            var foundUsers = _userService.SearchUsers(searchNickname);
+            var foundUsers = _viewModel.SearchUsers(searchNickname);
 
             flowLayoutPanelFriends.Controls.Clear();
 
@@ -173,7 +172,7 @@ namespace ChatBook.UI.Forms
 
         private void AddFriend(User user, Panel panel, Button btnAddFriend)
         {
-            bool success = _userService.AddFriend(_currentUserNickname, user.Nickname);
+            bool success = _viewModel.AddFriend(_currentUserNickname, user.Nickname);
             if (success)
             {
                 //MessageBox.Show($"{user.Nickname} добавлен в друзья!", "Успешно", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -207,7 +206,7 @@ namespace ChatBook.UI.Forms
         private void btnShowFollowers_Click(object sender, EventArgs e)
         {
             flowLayoutPanelFriends.Controls.Clear();
-            var followers = _userService.GetFollowers(_currentUserNickname);
+            var followers = _viewModel.GetFollowers(_currentUserNickname);
 
             if (followers.Count == 0)
             {

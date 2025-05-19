@@ -13,15 +13,14 @@ namespace ChatBook.UI.Forms
 {
     public partial class ChatForm : Form
     {
-        private readonly UserService _userService;
         private readonly string _currentUserNickname;
         private Dictionary<string, List<Entities.Message>> chatMessages = new Dictionary<string, List<Entities.Message>>();
         private string selectedChat = null;
         private readonly string _chatPartnerNickname;
         private readonly IChatService _chatService;
-        private readonly MainViewModel _viewModel;
+        private readonly ChatViewModel _viewModel;
 
-        public ChatForm(string currentUserNickname, MainViewModel userService, IChatService chatService, string chatPartnerNickname = null)
+        public ChatForm(string currentUserNickname, ChatViewModel userService, IChatService chatService, string chatPartnerNickname = null)
         {
             InitializeComponent();
             _viewModel = userService ?? throw new ArgumentNullException(nameof(userService));
@@ -67,13 +66,16 @@ namespace ChatBook.UI.Forms
         public void LoadChatMessages(string chatPartnerNickname)
         {
             listBoxMessages.Items.Clear();
-            var chatMessagesFromDb = _userService.GetChatMessages(_currentUserNickname, chatPartnerNickname);
+            var chatMessagesFromDb = _viewModel.GetChatMessages(_currentUserNickname, chatPartnerNickname);
 
             chatMessages[chatPartnerNickname] = chatMessagesFromDb;
 
             foreach (var msg in chatMessagesFromDb)
             {
-                bool isOwnMessage = msg.SenderId == _userService.GetUserByNickname(_currentUserNickname).Id;
+                var user = _viewModel.GetUserByNickname(_currentUserNickname) as User;
+                if (user == null) return; // или обработка ошибки
+
+                bool isOwnMessage = msg.SenderId == user.Id;
                 string senderLabel = isOwnMessage ? "Вы" : chatPartnerNickname;
 
                 var wrappedLines = WrapMessage(msg.Content, 60); // 60 — количество символов в строке
@@ -91,8 +93,8 @@ namespace ChatBook.UI.Forms
         private void LoadFriendsAndChats()
         {
             listBoxChats.Items.Clear();
-            var friends = _userService.GetFriends(_currentUserNickname);
-            var chatPartners = _userService.GetAllChatPartners(_currentUserNickname);
+            var friends = _viewModel.GetFriends(_currentUserNickname);
+            var chatPartners = _viewModel.GetAllChatPartners(_currentUserNickname);
 
             HashSet<string> uniqueUsers = new HashSet<string>();
 
@@ -122,7 +124,7 @@ namespace ChatBook.UI.Forms
             {
                 string receiverNickname = selectedChat.Split('-')[0].Trim();
 
-                var receiver = _userService.GetUserByNickname(receiverNickname);
+                var receiver = _viewModel.GetUserByNickname(receiverNickname);
                 if (receiver == null)
                 {
                     MessageBox.Show("Ошибка: получатель не найден!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -131,13 +133,13 @@ namespace ChatBook.UI.Forms
 
                 var newMessage = new Entities.Message
                 {
-                    SenderId = _userService.GetUserByNickname(_currentUserNickname).Id,
+                    SenderId = _viewModel.GetUserByNickname(_currentUserNickname).Id,
                     ReceiverId = receiver.Id,
                     Content = txtMessage.Text,
                     Timestamp = DateTime.UtcNow
                 };
 
-                _userService.SaveMessage(newMessage);
+                _viewModel.SaveMessage(newMessage);
 
                 if (!chatMessages.ContainsKey(selectedChat))
                 {

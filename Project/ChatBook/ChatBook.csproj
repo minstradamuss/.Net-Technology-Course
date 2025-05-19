@@ -447,6 +447,8 @@
     </Compile>
     <Compile Include="UI\Models\UserMapper.cs" />
     <Compile Include="UI\Models\UserModel.cs" />
+    <Compile Include="UI\ViewModel\ChatViewModel.cs" />
+    <Compile Include="UI\ViewModel\FriendsViewModel.cs" />
     <Compile Include="UI\ViewModel\LoginViewModel.cs" />
     <Compile Include="UI\ViewModel\MainViewModel.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">

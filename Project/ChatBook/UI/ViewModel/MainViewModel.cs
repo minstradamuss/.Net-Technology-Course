@@ -1,5 +1,4 @@
-﻿// ViewModels/MainViewModel.cs
-using ChatBook.Entities;
+﻿using ChatBook.Entities;
 using ChatBook.Services;
 using System;
 using System.Collections.Generic;
@@ -40,19 +39,27 @@ namespace ChatBook.ViewModels
             return _userService.GetChatMessages(nickname1, nickname2);
         }
 
-        internal void AddBook(Book book, string nickname)
+        public void AddBook(Book book, string nickname)
         {
             _userService.AddBook(book, nickname);
         }
 
-        internal void UpdateBook(Book book)
+        public void UpdateBook(Book book)
         {
             _userService.UpdateBook(book);
         }
 
-        internal void DeleteBook(int id)
+        public void DeleteBook(int id)
         {
             _userService.DeleteBook(id);
+        }
+
+        public bool UpdateProfile(User user)
+        {
+            if (user == null)
+                return false;
+
+            return _userService.UpdateProfile(user);
         }
     }
 }

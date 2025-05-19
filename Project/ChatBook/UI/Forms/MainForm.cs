@@ -18,11 +18,11 @@ namespace ChatBook.UI.Forms
         private User _currentUser;
         private Dictionary<Book, Panel> _userBooks = new Dictionary<Book, Panel>();
         private FlowLayoutPanel flowLayoutPanelBooks;
-        //private readonly UserService _userService;
+        private readonly IChatService _chatService;
         private User _logged;
         private Button btnSendMessage;
-        private readonly IChatService _chatService;
         private readonly MainViewModel _viewModel;
+        private readonly ChatViewModel _chatviewModel;
         public string CurrentUserNickname { get; private set; }
         private bool _isProfileViewOnly = false;
 
@@ -97,12 +97,15 @@ namespace ChatBook.UI.Forms
 
         private void btnEditProfile_Click(object sender, EventArgs e)
         {
-            var editProfileWindow = new EditProfileWindow(_currentUser, _viewModel);
+            // Загрузить пользователя с актуальными данными из БД
+            var freshUser = _viewModel.GetUser(_currentUser.Nickname);
+
+            var editProfileWindow = new EditProfileWindow(freshUser, _viewModel);
 
             editProfileWindow.ProfileUpdated += (updatedUser) =>
             {
-                _currentUser = updatedUser; // обязательно обнови ссылку
-                UpdateProfileInfo(_currentUser); // обнови отображение
+                _currentUser = updatedUser;
+                UpdateProfileInfo(_currentUser);
             };
 
             editProfileWindow.ShowDialog();
@@ -240,7 +243,8 @@ namespace ChatBook.UI.Forms
 
         private void buttonChats_Click(object sender, EventArgs e)
         {
-            ChatForm chatForm = new ChatForm(_logged.Nickname, _viewModel, _chatService, _currentUser.Nickname);
+            ChatForm chatForm = new ChatForm(CurrentUserNickname, Program.ServiceProvider.GetRequiredService<ChatViewModel>(), _chatService);
+
             chatForm.Show();
         }
 
@@ -248,7 +252,7 @@ namespace ChatBook.UI.Forms
 
         private void button2_Click(object sender, EventArgs e)
         {
-            FriendsForm friendsForm = new FriendsForm(_currentUser.Nickname, _viewModel);
+            var friendsForm = new FriendsForm(CurrentUserNickname, Program.ServiceProvider.GetRequiredService<FriendsViewModel>());
             friendsForm.Show();
         }
 
@@ -383,10 +387,9 @@ namespace ChatBook.UI.Forms
 
         private void btnSendMessage_Click(object sender, EventArgs e)
         {
-            var existingChat = _viewModel.GetChatMessages(_logged.Nickname, _currentUser.Nickname);
+            var chatViewModel = Program.ServiceProvider.GetRequiredService<ChatViewModel>();
 
-            ChatForm chatForm = new ChatForm(_logged.Nickname, _viewModel, _chatService, _currentUser.Nickname);
-
+            ChatForm chatForm = new ChatForm(_logged.Nickname, chatViewModel, _chatService, _currentUser.Nickname);
             chatForm.Show();
         }
     }
