@@ -17,14 +17,32 @@ namespace ChatBook.Services
             _dbContext = dbContext;
         }
 
+        private string HashPassword(string password)
+        {
+            using (var sha256 = System.Security.Cryptography.SHA256.Create())
+            {
+                var bytes = System.Text.Encoding.UTF8.GetBytes(password);
+                var hash = sha256.ComputeHash(bytes);
+                return Convert.ToBase64String(hash);
+            }
+        }
+
         public bool Register(User user)
         {
             var existingUser = _dbContext.Users.FirstOrDefault(u => u.Nickname == user.Nickname);
             if (existingUser != null) return false;
 
+            user.Password = HashPassword(user.Password);
+
             _dbContext.Users.Add(user);
             _dbContext.SaveChanges();
             return true;
+        }
+
+        public User Login(string nickname, string password)
+        {
+            string hashed = HashPassword(password);
+            return _dbContext.Users.FirstOrDefault(u => u.Nickname == nickname && u.Password == hashed);
         }
 
         public User GetUserByNickname(string nickname)

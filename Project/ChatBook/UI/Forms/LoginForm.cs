@@ -30,7 +30,7 @@ namespace ChatBook.UI.Forms
 
             if (userDto != null)
             {
-                var existingUser = _userService.GetUserByNickname(nickname);
+                var existingUser = _userService.Login(nickname, password);
 
                 if (existingUser == null)
                 {
