@@ -448,6 +448,7 @@
     <Compile Include="UI\Models\BookModel.cs" />
     <Compile Include="UI\Models\UserMapper.cs" />
     <Compile Include="UI\Models\UserModel.cs" />
+    <Compile Include="UI\ViewModel\BookSearchViewModel.cs" />
     <Compile Include="UI\ViewModel\BookViewModel.cs" />
     <Compile Include="UI\ViewModel\ChatViewModel.cs" />
     <Compile Include="UI\ViewModel\FriendsViewModel.cs" />

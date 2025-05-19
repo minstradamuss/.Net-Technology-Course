@@ -7,18 +7,19 @@ using System.Windows.Media.Imaging;
 using System.IO;
 using System.Windows.Media;
 using ChatBook.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ChatBook.UI.Windows
 {
     public partial class BookSearchWindow : Window
     {
         private readonly UserService _userService;
-        private readonly MainViewModel _viewModel;
+        private readonly BookSearchViewModel _viewModel;
 
-        public BookSearchWindow(UserService userService)
+        public BookSearchWindow(BookSearchViewModel viewModel)
         {
-            InitializeComponent(); // Обязательно вызывает генерацию полей txtSearch, BooksPanel
-            _userService = userService;
+            InitializeComponent();
+            _viewModel = viewModel;
         }
 
         private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
@@ -53,13 +54,14 @@ namespace ChatBook.UI.Windows
 
             BooksPanel.Children.Clear();
 
-            var booksWithReviews = _userService.SearchBooksWithReviews(query);
-            foreach (var item in booksWithReviews)
+            var results = _viewModel.Search(query);
+
+            foreach (var item in results)
             {
                 var border = new Border
                 {
                     BorderThickness = new Thickness(1),
-                    BorderBrush = System.Windows.Media.Brushes.Gray,
+                    BorderBrush = Brushes.Gray,
                     Margin = new Thickness(10),
                     Padding = new Thickness(5),
                     Width = 160,
@@ -92,11 +94,12 @@ namespace ChatBook.UI.Windows
 
                 border.MouseLeftButtonUp += (s, ev) =>
                 {
-                    var user = _userService.GetUserByNickname(item.ReviewerNickname);
+                    var user = _viewModel.GetReviewer(item.ReviewerNickname);
 
                     var thread = new System.Threading.Thread(() =>
                     {
-                        var window = new AddBookWindow(_viewModel, user, item.Book, isReadOnly: true);
+                        var mainVm = Program.ServiceProvider.GetRequiredService<MainViewModel>();
+                        var window = new AddBookWindow(mainVm, user, item.Book, isReadOnly: true);
                         window.ShowDialog();
                     });
 
@@ -107,6 +110,7 @@ namespace ChatBook.UI.Windows
                 BooksPanel.Children.Add(border);
             }
         }
+
 
     }
 }
