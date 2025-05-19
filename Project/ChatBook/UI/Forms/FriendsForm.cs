@@ -90,7 +90,7 @@ namespace ChatBook.UI.Forms
             {
                 btnAddFriend = new Button
                 {
-                    Text = "Добавить в друзья",
+                    Text = "Подписаться",
                     Location = new Point(30, 190),
                     Width = 150,
                     Height = 20,

@@ -21,8 +21,7 @@ namespace ChatBook.DataAccess
         public DbSet<Profile> Profiles { get; set; }
         public DbSet<Message> Messages { get; set; }
 
-        public DbSet<BaseUser> BaseUsers { get; set; }
-        public DbSet<AdminUser> AdminUsers { get; set; }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -33,10 +32,6 @@ namespace ChatBook.DataAccess
             modelBuilder.Entity<Friendship>()
                 .HasKey(f => new { f.User1Id, f.User2Id });
 
-
-
-            modelBuilder.Entity<BaseUser>().ToTable("BaseUsers");
-            modelBuilder.Entity<AdminUser>().ToTable("AdminUsers");
 
             base.OnModelCreating(modelBuilder);
         }

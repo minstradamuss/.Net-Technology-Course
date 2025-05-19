@@ -17,20 +17,11 @@ namespace ChatBook.DB
             };
 
             context.Users.Add(user);
-            context.SaveChanges();
+            context.SaveChanges(); // ✅ чтобы user.Id появился
 
-            context.Books.Add(new Book
-            {
-                Title = "Seed Book",
-                Status = "Прочитано",
-                Rating = 5,
-                Review = "Отличная книга!",
-                UserId = user.Id
-            });
-
-            context.SaveChanges();
 
             base.Seed(context);
         }
+
     }
 }

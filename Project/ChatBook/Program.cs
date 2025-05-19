@@ -13,6 +13,9 @@ using System.Windows.Forms;
 using ChatService.Interfaces;
 using ChatBook.ViewModels;
 using ChatBook.UI.ViewModel;
+using System.Runtime.Remoting.Contexts;
+using ChatBook.DB;
+using System.IO;
 
 namespace ChatBook
 {
@@ -23,7 +26,7 @@ namespace ChatBook
         [STAThread]
         static void Main()
         {
-            ApplyMigrations();
+            //ApplyMigrations();
             ConfigureServices();
 
             Application.EnableVisualStyles();
@@ -63,7 +66,10 @@ namespace ChatBook
 
             ServiceProvider = services.BuildServiceProvider();
 
-            Database.SetInitializer(new DB.DbInitializer());
+            
+            Database.SetInitializer(new DbInitializer());
+
+
         }
 
 
