@@ -373,8 +373,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-  <ProjectReference Include="..\ChatService\ChatService.csproj" />
-</ItemGroup>
+    <ProjectReference Include="..\ChatService\ChatService.csproj" />
+  </ItemGroup>
   <ItemGroup>
     <Compile Include="DataAccess\Repositories\BookRepository.cs" />
     <Compile Include="DataAccess\Repositories\ChatRepository.cs" />
@@ -445,6 +445,9 @@
     <Compile Include="UI\Forms\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Models\UserMapper.cs" />
+    <Compile Include="UI\Models\UserModel.cs" />
+    <Compile Include="UI\ViewModel\LoginViewModel.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -500,6 +503,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

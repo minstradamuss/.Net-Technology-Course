@@ -202,7 +202,7 @@ namespace ChatBook.Services
             return true;
         }
 
-       
+
 
 
         public List<ChatBook.Entities.Message> GetChatMessages(int userId, int friendId)
