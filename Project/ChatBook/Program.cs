@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Windows.Forms;
 using ChatService.Interfaces;
 using ChatBook.ViewModels;
+using ChatBook.UI.ViewModel;
 
 namespace ChatBook
 {
@@ -44,6 +45,8 @@ namespace ChatBook
             services.AddSingleton<IChatRepository, ChatRepository>();
             services.AddSingleton<IChatService, ChatService.Services.ChatService>();
 
+            services.AddSingleton<BookViewModel>();
+            services.AddSingleton<ProfileViewModel>();
             services.AddTransient<ChatViewModel>();
             services.AddSingleton<FriendsViewModel>();
             services.AddTransient<LoginForm>();
