@@ -1,9 +1,9 @@
-
+using AuthService.Domain;
 using AuthService.Models;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AuthService.Services
+namespace AuthService.Infrastructure
 {
     public class UserService : IUserService
     {

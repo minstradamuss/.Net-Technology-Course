@@ -1,7 +1,6 @@
-
 using AuthService.Models;
 
-namespace AuthService.Services
+namespace AuthService.Domain
 {
     public interface IUserService
     {
