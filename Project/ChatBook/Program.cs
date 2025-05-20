@@ -10,12 +10,12 @@ using System.Data.Entity.Migrations;
 using ChatService.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows.Forms;
-using ChatService.Interfaces;
 using ChatBook.ViewModels;
 using ChatBook.UI.ViewModel;
 using System.Runtime.Remoting.Contexts;
 using ChatBook.DB;
 using System.IO;
+using ChatService.Domain;
 
 namespace ChatBook
 {

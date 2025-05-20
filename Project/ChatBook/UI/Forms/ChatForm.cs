@@ -7,7 +7,7 @@ using ChatBook.Domain.Interfaces;
 using ChatBook.Entities;
 using ChatBook.Services;
 using ChatBook.ViewModels;
-using ChatService.Interfaces;
+using ChatService.Domain;
 
 namespace ChatBook.UI.Forms
 {

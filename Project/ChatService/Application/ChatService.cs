@@ -1,5 +1,5 @@
+using ChatService.Domain;
 using ChatService.Entities;
-using ChatService.Interfaces;
 using ChatService.Repositories;
 using System;
 using System.Collections.Generic;

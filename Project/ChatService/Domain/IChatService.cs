@@ -1,7 +1,7 @@
 using ChatService.Entities;
 using System.Collections.Generic;
 
-namespace ChatService.Interfaces
+namespace ChatService.Domain
 {
     public interface IChatService
     {

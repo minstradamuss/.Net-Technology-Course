@@ -7,7 +7,7 @@ using ChatBook.Entities;
 using ChatBook.Services;
 using ChatBook.UI.Windows;
 using ChatBook.ViewModels;
-using ChatService.Interfaces;
+using ChatService.Domain;
 using ChatService.Services;
 using Microsoft.Extensions.DependencyInjection;
 
