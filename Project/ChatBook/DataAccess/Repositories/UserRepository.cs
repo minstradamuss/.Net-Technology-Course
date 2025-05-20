@@ -1,65 +1,115 @@
-﻿//using System;
-//using System.Data.SQLite;
-//using ChatBook.Entities;
+﻿
+using ChatBook.Domain.Interfaces;
+using ChatBook.Entities;
+using System.Collections.Generic;
+using System.Linq;
+using System.Data.Entity;
 
-//public class UserRepository
-//{
-//    private string _connectionString = "Data Source=C:\\Users\\User\\source\\repos\\.Net-Technology-Course\\Project\\ChatBook\\ChatBook.db;";
+namespace ChatBook.DataAccess.Repositories
+{
+    public class UserRepository : IUserRepository
+    {
+        private readonly ApplicationDbContext _context;
 
-//    public void UpdateUser(User user)
-//    {
-//        using (var connection = new SQLiteConnection(_connectionString))
-//        {
-//            connection.Open();
+        public UserRepository(ApplicationDbContext context)
+        {
+            _context = context;
+        }
 
-//            using (var command = new SQLiteCommand(connection))
-//            {
-//                command.CommandText = @"
-//                    UPDATE Users 
-//                    SET FirstName = @FirstName, 
-//                        LastName = @LastName, 
-//                        PhoneNumber = @PhoneNumber, 
-//                        Avatar = @Avatar
-//                    WHERE Id = @Id";
+        public bool AddFriend(string userNickname, string friendNickname)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.Nickname == userNickname);
+            var friend = _context.Users.FirstOrDefault(u => u.Nickname == friendNickname);
 
-//                command.Parameters.AddWithValue("@FirstName", user.FirstName);
-//                command.Parameters.AddWithValue("@LastName", user.LastName);
-//                command.Parameters.AddWithValue("@PhoneNumber", user.PhoneNumber);
-//                command.Parameters.AddWithValue("@Avatar", user.Avatar ?? new byte[0]);
-//                command.Parameters.AddWithValue("@Id", user.Id);
+            if (user == null || friend == null || AreFriends(userNickname, friendNickname))
+                return false;
 
-//                command.ExecuteNonQuery();
-//            }
-//        }
-//    }
+            _context.Friendships.Add(new Friendship { User1Id = user.Id, User2Id = friend.Id });
+            _context.SaveChanges();
+            return true;
+        }
 
-//    public User GetUserById(int id)
-//    {
-//        using (var connection = new SQLiteConnection(_connectionString))
-//        {
-//            connection.Open();
+        public bool AreFriends(string user1, string user2)
+        {
+            var u1 = _context.Users.FirstOrDefault(u => u.Nickname == user1);
+            var u2 = _context.Users.FirstOrDefault(u => u.Nickname == user2);
 
-//            using (var command = new SQLiteCommand("SELECT * FROM Users WHERE Id = @Id", connection))
-//            {
-//                command.Parameters.AddWithValue("@Id", id);
+            return u1 != null && u2 != null &&
+                   _context.Friendships.Any(f =>
+                       (f.User1Id == u1.Id && f.User2Id == u2.Id) ||
+                       (f.User1Id == u2.Id && f.User2Id == u1.Id));
+        }
 
-//                using (var reader = command.ExecuteReader())
-//                {
-//                    if (reader.Read())
-//                    {
-//                        return new User
-//                        {
-//                            Id = Convert.ToInt32(reader["Id"]),
-//                            Nickname = reader["Nickname"].ToString(),
-//                            FirstName = reader["FirstName"].ToString(),
-//                            LastName = reader["LastName"].ToString(),
-//                            PhoneNumber = reader["PhoneNumber"].ToString(),
-//                            Avatar = reader["Avatar"] as byte[]
-//                        };
-//                    }
-//                }
-//            }
-//        }
-//        return null;
-//    }
-//}
+        public List<User> GetFollowers(string username)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.Nickname == username);
+            if (user == null) return new List<User>();
+
+            var followerIds = _context.Friendships.Where(f => f.User2Id == user.Id).Select(f => f.User1Id).ToList();
+            return _context.Users.Where(u => followerIds.Contains(u.Id)).ToList();
+        }
+
+        public List<User> GetFriends(string nickname)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.Nickname == nickname);
+            if (user == null) return new List<User>();
+
+            var friendIds = _context.Friendships.Where(f => f.User1Id == user.Id).Select(f => f.User2Id).ToList();
+            return _context.Users.Where(u => friendIds.Contains(u.Id)).ToList();
+        }
+
+        public User GetByNickname(string nickname)
+        {
+            return _context.Users.Include(u => u.Profile).FirstOrDefault(u => u.Nickname == nickname);
+        }
+
+        public bool Register(User user)
+        {
+            if (_context.Users.Any(u => u.Nickname == user.Nickname))
+                return false;
+
+            _context.Users.Add(user);
+            _context.SaveChanges();
+            return true;
+        }
+
+        public bool RemoveFriend(string userNickname, string friendNickname)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.Nickname == userNickname);
+            var friend = _context.Users.FirstOrDefault(u => u.Nickname == friendNickname);
+
+            if (user == null || friend == null) return false;
+
+            var friendship = _context.Friendships.FirstOrDefault(f =>
+                (f.User1Id == user.Id && f.User2Id == friend.Id) ||
+                (f.User1Id == friend.Id && f.User2Id == user.Id));
+
+            if (friendship == null) return false;
+
+            _context.Friendships.Remove(friendship);
+            _context.SaveChanges();
+            return true;
+        }
+
+        public List<User> SearchUsers(string nickname)
+        {
+            return _context.Users.Where(u => u.Nickname.ToLower().Contains(nickname.ToLower())).ToList();
+        }
+
+        public bool UpdateProfile(User user)
+        {
+            var existing = _context.Users.FirstOrDefault(u => u.Id == user.Id);
+            if (existing == null) return false;
+
+            existing.FirstName = user.FirstName;
+            existing.LastName = user.LastName;
+            existing.PhoneNumber = user.PhoneNumber;
+            existing.Avatar = user.Avatar;
+            _context.SaveChanges();
+
+            return true;
+        }
+    }
+
+    
+}

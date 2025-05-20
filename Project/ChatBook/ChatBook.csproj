@@ -377,19 +377,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataAccess\Repositories\BookRepository.cs" />
-    <Compile Include="DataAccess\Repositories\ChatRepository.cs" />
+    <Compile Include="DataAccess\Repositories\MessageRepository.cs" />
     <Compile Include="AppSession.cs" />
     <Compile Include="DataAccess\Repositories\UserRepository.cs" />
     <Compile Include="DataAccess\ApplicationDbContext.cs" />
-    <Compile Include="Domain\Interfaces\IChatService.cs" />
-    <Compile Include="Domain\Interfaces\IReviewService.cs" />
-    <Compile Include="Domain\Interfaces\IUserService.cs" />
+    <Compile Include="Domain\Interfaces\IBookRepository.cs" />
+    <Compile Include="Domain\Interfaces\IMessageRepository.cs" />
+    <Compile Include="Domain\Interfaces\IUserRepository.cs" />
     <Compile Include="Entities\BookWithReview.cs" />
     <Compile Include="Entities\Message.cs" />
     <Compile Include="Entities\Review.cs" />
-    <Compile Include="Domain\Services\BookService.cs" />
-    <Compile Include="Domain\Interfaces\IBookService.cs" />
-    <Compile Include="Domain\Services\ImageService.cs" />
     <Compile Include="Domain\Services\UserService.cs" />
     <Compile Include="Entities\Book.cs" />
     <Compile Include="Entities\Friendship.cs" />

@@ -174,7 +174,7 @@ namespace ChatBook.UI.Forms
             this.btnRemoveFriend.Name = "btnRemoveFriend";
             this.btnRemoveFriend.Size = new System.Drawing.Size(160, 30);
             this.btnRemoveFriend.TabIndex = 10;
-            this.btnRemoveFriend.Text = "Удалить из друзей";
+            this.btnRemoveFriend.Text = "Отписаться";
             this.btnRemoveFriend.UseVisualStyleBackColor = false;
             this.btnRemoveFriend.Visible = false;
             this.btnRemoveFriend.Click += new System.EventHandler(this.btnRemoveFriend_Click);

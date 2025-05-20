@@ -1,5 +1,5 @@
-﻿using ChatBook.Entities;
-using ChatBook.Services;
+﻿using ChatBook.Domain.Services;
+using ChatBook.Entities;
 
 namespace ChatBook.ViewModels
 {

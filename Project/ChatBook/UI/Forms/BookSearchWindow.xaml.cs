@@ -1,5 +1,4 @@
 ﻿using ChatBook.Entities;
-using ChatBook.Services;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -8,6 +7,7 @@ using System.IO;
 using System.Windows.Media;
 using ChatBook.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
+using ChatBook.Domain.Services;
 
 namespace ChatBook.UI.Windows
 {

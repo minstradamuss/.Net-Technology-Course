@@ -1,10 +1,10 @@
 ﻿using ChatBook.Entities;
-using ChatBook.Services;
 using ChatBook.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows.Forms;
 using ChatBook.Models;
+using ChatBook.Domain.Services;
 
 namespace ChatBook.UI.Forms
 {

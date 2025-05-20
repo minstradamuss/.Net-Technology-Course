@@ -1,11 +1,10 @@
 ﻿using ChatBook.Entities;
-using ChatBook.Services;
-using System;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using ChatBook.Models;
+using ChatBook.Domain.Services;
 
 namespace ChatBook.ViewModels
 {

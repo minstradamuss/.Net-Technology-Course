@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using ChatBook.Domain.Services;
 using ChatBook.Entities;
-using ChatBook.Services;
 
 namespace ChatBook.ViewModels
 {

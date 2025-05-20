@@ -1,6 +1,4 @@
 ﻿using ChatBook.Entities;
-using ChatBook.Services;
-using System;
 
 namespace ChatBook.ViewModels
 {

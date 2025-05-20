@@ -1,6 +1,5 @@
-﻿using ChatBook.Entities;
-using ChatBook.Services;
-using System;
+﻿using ChatBook.Domain.Services;
+using ChatBook.Entities;
 using System.Collections.Generic;
 
 namespace ChatBook.ViewModels
