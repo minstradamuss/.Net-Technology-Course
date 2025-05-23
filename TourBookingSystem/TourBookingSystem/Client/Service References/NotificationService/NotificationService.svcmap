@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>true</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8000/NotificationService?wsdl" Protocol="http" SourceId="1" />
+  </MetadataSources>
+</ReferenceGroup>

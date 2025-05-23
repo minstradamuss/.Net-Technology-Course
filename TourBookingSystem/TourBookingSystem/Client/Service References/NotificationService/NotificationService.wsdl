@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             name="NotificationService"
+             targetNamespace="http://tempuri.org/">
+  <wsdl:portType name="INotificationService">
+    <wsdl:operation name="Operation">
+      <wsdl:input message="tns:NotificationServiceRequest" />
+      <wsdl:output message="tns:NotificationServiceResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+</definitions>
