@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using AuthService.Models;
 using AuthService.Domain;
-using AuthService.Infrastructure;
+using Microsoft.Extensions.Logging;
 
 namespace AuthService.Controllers
 {
@@ -11,11 +11,26 @@ namespace AuthService.Controllers
     {
         private readonly IUserService _userService;
         private readonly ITokenService _tokenService;
+        private readonly ILogger<AuthController> _logger;
 
-        public AuthController(IUserService userService, ITokenService tokenService)
+        public AuthController(IUserService userService, ITokenService tokenService, ILogger<AuthController> logger)
         {
             _userService = userService;
             _tokenService = tokenService;
+            _logger = logger;
+
+            _logger.LogInformation("AuthController создан");
+        }
+
+        [HttpGet("status")]
+        public IActionResult Status()
+        {
+            return Ok(new
+            {
+                Service = "AuthService",
+                Status = "Running",
+                Timestamp = DateTime.UtcNow
+            });
         }
 
         [HttpPost("login")]
@@ -23,20 +38,36 @@ namespace AuthService.Controllers
         {
             var user = _userService.Authenticate(request.Username, request.Password);
             if (user == null)
-                return Unauthorized();
+            {
+                return Unauthorized(new GenericResponse
+                {
+                    Success = false,
+                    Error = "Invalid credentials"
+                });
+            }
 
             var token = _tokenService.GenerateToken(user.Username);
-            return Ok(new { token });
+            return Ok(new LoginResponse { Token = token });
         }
 
         [HttpPost("register")]
         public IActionResult Register([FromBody] RegisterRequest request)
         {
-            var result = _userService.Register(request.Username, request.Password);
-            if (!result)
-                return BadRequest("User already exists");
+            var success = _userService.Register(request.Username, request.Password);
 
-            return Ok();
+            if (!success)
+            {
+                return BadRequest(new GenericResponse
+                {
+                    Success = false,
+                    Error = "User already exists"
+                });
+            }
+
+            return Ok(new GenericResponse
+            {
+                Success = true
+            });
         }
     }
 }

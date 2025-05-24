@@ -16,6 +16,7 @@ using ChatBook.DB;
 using System.IO;
 using ChatService.Domain;
 using ChatBook.DataAccess.Repositories;
+using ChatBook.DataAccess.Decorators;
 
 namespace ChatBook
 {
@@ -46,7 +47,11 @@ namespace ChatBook
 
             // === Репозитории ===
             services.AddSingleton<IUserRepository, UserRepository>();
-            services.AddSingleton<IBookRepository, BookRepository>();
+            services.AddScoped<IBookRepository>(sp =>
+            {
+                var baseRepo = new BookRepository(sp.GetRequiredService<ApplicationDbContext>());
+                return new LoggingBookRepository(baseRepo);
+            });
             services.AddSingleton<IMessageRepository, MessageRepository>();
 
             // === Доменные сервисы ===

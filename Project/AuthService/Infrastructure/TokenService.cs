@@ -1,44 +1,19 @@
-﻿using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
+﻿using AuthService.Domain;
 
 namespace AuthService.Infrastructure
 {
-    public interface ITokenService
-    {
-        string GenerateToken(string username);
-    }
-
     public class TokenService : ITokenService
     {
-        private readonly IConfiguration _configuration;
+        private readonly ITokenStrategy _strategy;
 
-        public TokenService(IConfiguration configuration)
+        public TokenService(ITokenStrategy strategy)
         {
-            _configuration = configuration;
+            _strategy = strategy;
         }
 
         public string GenerateToken(string username)
         {
-            var claims = new[]
-            {
-                new Claim(ClaimTypes.Name, username)
-            };
-
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            var token = new JwtSecurityToken(
-                issuer: _configuration["Jwt:Issuer"],
-                audience: _configuration["Jwt:Audience"],
-                claims: claims,
-                expires: DateTime.Now.AddHours(1),
-                signingCredentials: creds);
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            return _strategy.Generate(username);
         }
     }
 }

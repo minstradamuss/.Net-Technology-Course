@@ -2,6 +2,7 @@
 using ChatBook.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace ChatBook.Domain.Services
 {

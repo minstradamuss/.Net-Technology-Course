@@ -5,6 +5,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using ChatBook.Models;
 using ChatBook.Domain.Services;
+using System;
 
 namespace ChatBook.ViewModels
 {
@@ -27,12 +28,39 @@ namespace ChatBook.ViewModels
             }), Encoding.UTF8, "application/json");
 
             var response = await _httpClient.PostAsync("http://localhost:52695/api/auth/login", content);
-            if (!response.IsSuccessStatusCode)
-                return null;
 
+            var raw = await response.Content.ReadAsStringAsync();
+
+            if (!response.IsSuccessStatusCode)
+            {
+                Console.WriteLine($"Ошибка логина: {response.StatusCode}, ответ: {raw}");
+                return null;
+            }
+
+            var payload = JsonSerializer.Deserialize<LoginResponse>(raw, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            });
+
+            if (payload is null || string.IsNullOrEmpty(payload.Token))
+            {
+                Console.WriteLine("Ответ без токена.");
+                return null;
+            }
+
+            // ищем или создаем пользователя локально
             var existingUser = _userService.GetUserByNickname(nickname);
+            if (existingUser == null)
+            {
+                var newUser = new User { Nickname = nickname, Password = password };
+                _userService.Register(newUser);
+                existingUser = _userService.GetUserByNickname(nickname);
+            }
+
             return existingUser != null ? UserMapper.ToModel(existingUser) : null;
         }
+
+
 
         public async Task<bool> RegisterAsync(string nickname, string password)
         {
@@ -43,8 +71,13 @@ namespace ChatBook.ViewModels
             }), Encoding.UTF8, "application/json");
 
             var response = await _httpClient.PostAsync("http://localhost:52695/api/auth/register", content);
+
             if (!response.IsSuccessStatusCode)
+            {
+                var error = await response.Content.ReadAsStringAsync();
+                Console.WriteLine($"Регистрация не удалась: {error}");
                 return false;
+            }
 
             var user = new User
             {
@@ -54,5 +87,6 @@ namespace ChatBook.ViewModels
 
             return _userService.Register(user);
         }
+
     }
 }

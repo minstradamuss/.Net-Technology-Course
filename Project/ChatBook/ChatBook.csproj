@@ -376,11 +376,16 @@
     <ProjectReference Include="..\ChatService\ChatService.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataAccess\Decorators\LoggingBookRepository.cs" />
     <Compile Include="DataAccess\Repositories\BookRepository.cs" />
     <Compile Include="DataAccess\Repositories\MessageRepository.cs" />
     <Compile Include="AppSession.cs" />
     <Compile Include="DataAccess\Repositories\UserRepository.cs" />
     <Compile Include="DataAccess\ApplicationDbContext.cs" />
+    <Compile Include="Domain\Commands\AddBookCommand.cs" />
+    <Compile Include="Domain\Commands\DeleteBookCommand.cs" />
+    <Compile Include="Domain\Commands\ICommand.cs" />
+    <Compile Include="Domain\Factories\BookFactory.cs" />
     <Compile Include="Domain\Interfaces\IBookRepository.cs" />
     <Compile Include="Domain\Interfaces\IMessageRepository.cs" />
     <Compile Include="Domain\Interfaces\IUserRepository.cs" />
@@ -441,6 +446,7 @@
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Models\BookModel.cs" />
+    <Compile Include="UI\Models\LoginResponse.cs" />
     <Compile Include="UI\Models\UserMapper.cs" />
     <Compile Include="UI\Models\UserModel.cs" />
     <Compile Include="UI\ViewModel\AddBookViewModel.cs" />
