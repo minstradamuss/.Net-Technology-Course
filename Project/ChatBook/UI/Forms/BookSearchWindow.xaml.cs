@@ -8,6 +8,7 @@ using System.Windows.Media;
 using ChatBook.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using ChatBook.Domain.Services;
+using ChatBook.Domain.Factories;
 
 namespace ChatBook.UI.Windows
 {
@@ -99,7 +100,14 @@ namespace ChatBook.UI.Windows
                     var thread = new System.Threading.Thread(() =>
                     {
                         var mainVm = Program.ServiceProvider.GetRequiredService<MainViewModel>();
-                        var window = new AddBookWindow(Program.ServiceProvider.GetRequiredService<AddBookViewModel>(), user, item.Book, isReadOnly: true);
+                        var window = new AddBookWindow(
+                                    Program.ServiceProvider.GetRequiredService<AddBookViewModel>(),
+                                    user,
+                                    Program.ServiceProvider.GetRequiredService<IBookFactory>(),
+                                    item.Book,
+                                    isReadOnly: true
+                                );
+
                         window.ShowDialog();
                     });
 

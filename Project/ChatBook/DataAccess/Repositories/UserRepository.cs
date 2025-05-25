@@ -109,7 +109,47 @@ namespace ChatBook.DataAccess.Repositories
 
             return true;
         }
+
+        public bool DeleteUser(string nickname)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.Nickname == nickname);
+            if (user == null) return false;
+
+            using (var transaction = _context.Database.BeginTransaction())
+            {
+                try
+                {
+                    // Удаляем связанные данные
+                    var books = _context.Books.Where(b => b.UserId == user.Id);
+                    _context.Books.RemoveRange(books);
+
+                    var messages = _context.Messages
+                        .Where(m => m.SenderId == user.Id || m.ReceiverId == user.Id);
+                    _context.Messages.RemoveRange(messages);
+
+                    var friendships = _context.Friendships
+                        .Where(f => f.User1Id == user.Id || f.User2Id == user.Id);
+                    _context.Friendships.RemoveRange(friendships);
+
+                    var profile = _context.Profiles.FirstOrDefault(p => p.UserId == user.Id);
+                    if (profile != null)
+                        _context.Profiles.Remove(profile);
+
+                    _context.Users.Remove(user);
+
+                    _context.SaveChanges();
+                    transaction.Commit();
+                    return true;
+                }
+                catch
+                {
+                    transaction.Rollback();
+                    return false;
+                }
+            }
+        }
+
     }
 
-    
+
 }

@@ -382,9 +382,6 @@
     <Compile Include="AppSession.cs" />
     <Compile Include="DataAccess\Repositories\UserRepository.cs" />
     <Compile Include="DataAccess\ApplicationDbContext.cs" />
-    <Compile Include="Domain\Commands\AddBookCommand.cs" />
-    <Compile Include="Domain\Commands\DeleteBookCommand.cs" />
-    <Compile Include="Domain\Commands\ICommand.cs" />
     <Compile Include="Domain\Factories\BookFactory.cs" />
     <Compile Include="Domain\Interfaces\IBookRepository.cs" />
     <Compile Include="Domain\Interfaces\IMessageRepository.cs" />

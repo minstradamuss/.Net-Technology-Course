@@ -1,4 +1,5 @@
-﻿using ChatBook.Domain.Services;
+﻿using ChatBook.Domain.Factories;
+using ChatBook.Domain.Services;
 using ChatBook.Entities;
 using ChatBook.ViewModels;
 using Microsoft.Win32;
@@ -20,10 +21,12 @@ namespace ChatBook.UI.Windows
         private bool _isReadOnly;
         private int _selectedRating = 0;
         private readonly AddBookViewModel _viewModel;
-        public AddBookWindow(AddBookViewModel viewModel, User user, Book book = null, bool isReadOnly = false)
+        private readonly IBookFactory _bookFactory;
+        public AddBookWindow(AddBookViewModel viewModel, User user, IBookFactory bookFactory, Book book = null, bool isReadOnly = false)
         {
             InitializeComponent();
             _viewModel = viewModel;
+            _bookFactory = bookFactory;
             _user = user;
             _book = book ?? new Book();
             _isReadOnly = isReadOnly;
@@ -137,10 +140,33 @@ namespace ChatBook.UI.Windows
 
             try
             {
-                if (_book.Id == 0)
-                    _viewModel.AddBook(_book, _user.Nickname);
+                if (_book.Id == 0) // новая книга
+                {
+                    var newBook = _bookFactory.Create(
+                        txtTitle.Text,
+                        txtAuthor.Text,
+                        genre: "", // если есть отдельное поле жанра — используй его
+                        cmbStatus.Text,
+                        _selectedRating,
+                        txtReview.Text,
+                        _coverBytes,
+                        _user.Id
+                    );
+
+                    _viewModel.AddBook(newBook, _user.Nickname);
+                }
                 else
+                {
+                    // редактирование
+                    _book.Title = txtTitle.Text;
+                    _book.Author = txtAuthor.Text;
+                    _book.Status = cmbStatus.Text;
+                    _book.Review = txtReview.Text;
+                    _book.CoverImage = _coverBytes;
+                    _book.Rating = _selectedRating;
+
                     _viewModel.UpdateBook(_book);
+                }
 
                 this.DialogResult = true;
                 this.Close();

@@ -17,6 +17,7 @@ using System.IO;
 using ChatService.Domain;
 using ChatBook.DataAccess.Repositories;
 using ChatBook.DataAccess.Decorators;
+using ChatBook.Domain.Factories;
 
 namespace ChatBook
 {
@@ -73,6 +74,8 @@ namespace ChatBook
             services.AddTransient<EditProfileWindow>();
             services.AddTransient<ChatForm>();
             services.AddTransient<BookSearchWindow>();
+            services.AddSingleton<IBookFactory, BookFactory>();
+
             services.AddTransient<AddBookWindow>();
 
             // === Сервисы чата ===

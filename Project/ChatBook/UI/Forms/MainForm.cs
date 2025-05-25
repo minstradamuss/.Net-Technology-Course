@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using ChatBook.Domain.Factories;
 using ChatBook.Domain.Services;
 using ChatBook.Entities;
 using ChatBook.UI.Windows;
@@ -205,11 +206,13 @@ namespace ChatBook.UI.Forms
                 var thread = new System.Threading.Thread(() =>
                 {
                     var window = new AddBookWindow(
-                        Program.ServiceProvider.GetRequiredService<AddBookViewModel>(),
-                        _currentUser,
-                        book,
-                        isReadOnly
-                    );
+                            Program.ServiceProvider.GetRequiredService<AddBookViewModel>(),
+                            _currentUser,
+                            Program.ServiceProvider.GetRequiredService<IBookFactory>(),
+                            book,
+                            isReadOnly
+                        );
+
                     var result = window.ShowDialog();
 
                     if (result == true)
@@ -284,7 +287,14 @@ namespace ChatBook.UI.Forms
         {
             var thread = new System.Threading.Thread(() =>
             {
-                var window = new AddBookWindow(Program.ServiceProvider.GetRequiredService<AddBookViewModel>(), _currentUser, null, false); // можно редактировать
+                var window = new AddBookWindow(
+                    Program.ServiceProvider.GetRequiredService<AddBookViewModel>(),
+                    _currentUser,
+                    Program.ServiceProvider.GetRequiredService<IBookFactory>(), // 3-й аргумент
+                    null,  // 4-й — Book
+                    false  // 5-й — isReadOnly
+                );
+
                 var result = window.ShowDialog();
 
                 if (result == true)
