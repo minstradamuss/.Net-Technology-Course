@@ -376,7 +376,6 @@
     <ProjectReference Include="..\ChatService\ChatService.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataAccess\Decorators\LoggingBookRepository.cs" />
     <Compile Include="DataAccess\Repositories\BookRepository.cs" />
     <Compile Include="DataAccess\Repositories\MessageRepository.cs" />
     <Compile Include="AppSession.cs" />
