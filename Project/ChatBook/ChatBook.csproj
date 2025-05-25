@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\xunit.core.2.9.3\build\xunit.core.props" Condition="Exists('packages\xunit.core.2.9.3\build\xunit.core.props')" />
   <Import Project="packages\EntityFramework.6.5.1\build\EntityFramework.props" Condition="Exists('packages\EntityFramework.6.5.1\build\EntityFramework.props')" />
   <Import Project="packages\Microsoft.Testing.Extensions.Telemetry.1.6.2\build\netstandard2.0\Microsoft.Testing.Extensions.Telemetry.props" Condition="Exists('packages\Microsoft.Testing.Extensions.Telemetry.1.6.2\build\netstandard2.0\Microsoft.Testing.Extensions.Telemetry.props')" />
   <Import Project="packages\Microsoft.Testing.Platform.MSBuild.1.6.2\build\Microsoft.Testing.Platform.MSBuild.props" Condition="Exists('packages\Microsoft.Testing.Platform.MSBuild.1.6.2\build\Microsoft.Testing.Platform.MSBuild.props')" />
@@ -60,6 +61,9 @@
     <Reference Include="Microsoft.Bcl.Cryptography, Version=9.0.0.4, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Bcl.Cryptography.9.0.4\lib\net462\Microsoft.Bcl.Cryptography.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Bcl.HashCode, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Bcl.HashCode.1.1.1\lib\net461\Microsoft.Bcl.HashCode.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Bcl.Memory, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Bcl.Memory.9.0.0\lib\net462\Microsoft.Bcl.Memory.dll</HintPath>
     </Reference>
@@ -69,11 +73,26 @@
     <Reference Include="Microsoft.Data.Sqlite, Version=9.0.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Data.Sqlite.Core.9.0.3\lib\netstandard2.0\Microsoft.Data.Sqlite.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.EntityFrameworkCore, Version=3.1.32.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.EntityFrameworkCore.3.1.32\lib\netstandard2.0\Microsoft.EntityFrameworkCore.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.EntityFrameworkCore.Abstractions, Version=3.1.32.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.EntityFrameworkCore.Abstractions.3.1.32\lib\netstandard2.0\Microsoft.EntityFrameworkCore.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Caching.Abstractions, Version=3.1.32.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Caching.Abstractions.3.1.32\lib\netstandard2.0\Microsoft.Extensions.Caching.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Caching.Memory, Version=3.1.32.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Caching.Memory.3.1.32\lib\netstandard2.0\Microsoft.Extensions.Caching.Memory.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Extensions.Configuration, Version=9.0.0.3, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Extensions.Configuration.9.0.3\lib\net462\Microsoft.Extensions.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=9.0.0.3, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Extensions.Configuration.Abstractions.9.0.3\lib\net462\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Binder, Version=3.1.32.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Configuration.Binder.3.1.32\lib\netstandard2.0\Microsoft.Extensions.Configuration.Binder.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Extensions.DependencyInjection, Version=9.0.0.3, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Extensions.DependencyInjection.9.0.3\lib\net462\Microsoft.Extensions.DependencyInjection.dll</HintPath>
@@ -81,8 +100,14 @@
     <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=9.0.0.3, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Extensions.DependencyInjection.Abstractions.9.0.3\lib\net462\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.Extensions.Logging.Abstractions.2.1.0\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    <Reference Include="Microsoft.Extensions.Logging, Version=3.1.32.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Logging.3.1.32\lib\netstandard2.0\Microsoft.Extensions.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=3.1.32.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Logging.Abstractions.3.1.32\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=3.1.32.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Options.3.1.32\lib\netstandard2.0\Microsoft.Extensions.Options.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Extensions.Primitives, Version=9.0.0.3, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Extensions.Primitives.9.0.3\lib\net462\Microsoft.Extensions.Primitives.dll</HintPath>
@@ -162,8 +187,8 @@
     <Reference Include="System.CodeDom, Version=9.0.0.4, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\System.CodeDom.9.0.4\lib\net462\System.CodeDom.dll</HintPath>
     </Reference>
-    <Reference Include="System.Collections.Immutable, Version=1.2.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>packages\System.Collections.Immutable.1.5.0\lib\netstandard2.0\System.Collections.Immutable.dll</HintPath>
+    <Reference Include="System.Collections.Immutable, Version=1.2.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Collections.Immutable.1.7.1\lib\net461\System.Collections.Immutable.dll</HintPath>
     </Reference>
     <Reference Include="System.Collections.Specialized, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>packages\System.Collections.Specialized.4.3.0\lib\net46\System.Collections.Specialized.dll</HintPath>
@@ -368,8 +393,14 @@
     <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <HintPath>packages\xunit.abstractions.2.0.3\lib\net35\xunit.abstractions.dll</HintPath>
     </Reference>
+    <Reference Include="xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>packages\xunit.assert.2.9.3\lib\netstandard1.1\xunit.assert.dll</HintPath>
+    </Reference>
     <Reference Include="xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <HintPath>packages\xunit.extensibility.core.2.9.3\lib\net452\xunit.core.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.execution.desktop, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>packages\xunit.extensibility.execution.2.9.3\lib\net452\xunit.execution.desktop.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -402,11 +433,10 @@
     <Compile Include="Migrations\MigrationHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tests\AddBookFormTests.cs" />
-    <Compile Include="Tests\DBTests\DbInitializer.cs" />
-    <Compile Include="Tests\DBTests\TestDbContext.cs" />
-    <Compile Include="Tests\DBTests\Tests.cs" />
-    <Compile Include="Tests\MainFormTests.cs" />
+    <Compile Include="Tests\DbInitializer.cs" />
+    <Compile Include="Tests\DbTests.cs" />
+    <Compile Include="Tests\UserRepositoryMoreTests.cs" />
+    <Compile Include="Tests\UserRepositoryTests.cs" />
     <Compile Include="Tests\UserServiceTests.cs" />
     <Compile Include="UI\Forms\AddBookWindow.xaml.cs">
       <DependentUpon>AddBookWindow.xaml</DependentUpon>
@@ -484,7 +514,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="Tests\DBTests\ChatBook_Test.db" />
+    <None Include="Tests\ChatBook_Test.db" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -492,9 +522,8 @@
   <ItemGroup>
     <Analyzer Include="packages\MSTest.Analyzers.3.8.2\analyzers\dotnet\cs\MSTest.Analyzers.CodeFixes.dll" />
     <Analyzer Include="packages\MSTest.Analyzers.3.8.2\analyzers\dotnet\cs\MSTest.Analyzers.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Tests\7177ef3957443bccd96662169c6f0b2a.png" />
+    <Analyzer Include="packages\xunit.analyzers.1.18.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
+    <Analyzer Include="packages\xunit.analyzers.1.18.0\analyzers\dotnet\cs\xunit.analyzers.fixes.dll" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="UI\Forms\AddBookWindow.xaml">
@@ -523,8 +552,11 @@
     <Error Condition="!Exists('packages\EntityFramework.6.5.1\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.5.1\build\EntityFramework.props'))" />
     <Error Condition="!Exists('packages\EntityFramework.6.5.1\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.5.1\build\EntityFramework.targets'))" />
     <Error Condition="!Exists('packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.119.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.119.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets'))" />
+    <Error Condition="!Exists('packages\xunit.core.2.9.3\build\xunit.core.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\xunit.core.2.9.3\build\xunit.core.props'))" />
+    <Error Condition="!Exists('packages\xunit.core.2.9.3\build\xunit.core.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\xunit.core.2.9.3\build\xunit.core.targets'))" />
   </Target>
   <Import Project="packages\Microsoft.Testing.Platform.MSBuild.1.6.2\build\Microsoft.Testing.Platform.MSBuild.targets" Condition="Exists('packages\Microsoft.Testing.Platform.MSBuild.1.6.2\build\Microsoft.Testing.Platform.MSBuild.targets')" />
   <Import Project="packages\EntityFramework.6.5.1\build\EntityFramework.targets" Condition="Exists('packages\EntityFramework.6.5.1\build\EntityFramework.targets')" />
   <Import Project="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.119.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.119.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
+  <Import Project="packages\xunit.core.2.9.3\build\xunit.core.targets" Condition="Exists('packages\xunit.core.2.9.3\build\xunit.core.targets')" />
 </Project>
