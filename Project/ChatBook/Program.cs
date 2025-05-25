@@ -6,17 +6,15 @@ using ChatBook.Domain.Interfaces;
 using System;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
-using ChatService.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows.Forms;
 using ChatBook.ViewModels;
 using ChatBook.UI.ViewModel;
-using System.Runtime.Remoting.Contexts;
 using ChatBook.DB;
-using System.IO;
-using ChatService.Domain;
 using ChatBook.DataAccess.Repositories;
 using ChatBook.Domain.Factories;
+using ChatService.Repositories;
+using ChatService.Domain;
 
 namespace ChatBook
 {

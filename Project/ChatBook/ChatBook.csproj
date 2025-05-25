@@ -404,7 +404,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ChatService\ChatService.csproj" />
+    <ProjectReference Include="C:\Users\User\source\repos\.Net-Technology-Course\Project\ChatService\ChatService.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataAccess\Repositories\BookRepository.cs" />

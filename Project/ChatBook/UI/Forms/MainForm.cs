@@ -9,7 +9,6 @@ using ChatBook.Entities;
 using ChatBook.UI.Windows;
 using ChatBook.ViewModels;
 using ChatService.Domain;
-using ChatService.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ChatBook.UI.Forms
@@ -346,7 +345,7 @@ namespace ChatBook.UI.Forms
                 return;
             }
 
-            var confirmResult = MessageBox.Show($"Вы уверены, что хотите удалить {_currentUser.Nickname} из друзей?",
+            var confirmResult = MessageBox.Show($"Вы уверены, что хотите удалить {_currentUser.Nickname} из подписок?",
                                                 "Подтверждение", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
             if (confirmResult == DialogResult.Yes)
@@ -360,7 +359,7 @@ namespace ChatBook.UI.Forms
                 }
                 else
                 {
-                    MessageBox.Show("Ошибка при удалении друга.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Ошибка при удалении подписки.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
