@@ -1,7 +1,7 @@
-using ChatService.Entities;
 using System.Collections.Generic;
+using ChatService.Entities;
 
-namespace ChatService.Repositories
+namespace ChatService.Domain
 {
     public interface IChatRepository
     {

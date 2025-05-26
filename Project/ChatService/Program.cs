@@ -1,8 +1,7 @@
-﻿using ChatService.Entities;
-using ChatService.Repositories;
-using ChatService.Services;
-using System;
+﻿using System;
 using System.Threading;
+using ChatService.Entities;
+using ChatService.Services;
 
 namespace ChatService.ConsoleApp
 {
@@ -12,8 +11,9 @@ namespace ChatService.ConsoleApp
         {
             Console.WriteLine("=== ChatService Имитация переписки ===");
 
-            var chatRepo = new ChatRepository();
+            var chatRepo = new InMemoryChatRepository(); // <-- in-memory версия
             var chatService = new ChatService.Services.ChatService(chatRepo);
+
 
             string user1 = "Alice";
             string user2 = "Bob";

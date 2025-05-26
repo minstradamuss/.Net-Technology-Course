@@ -250,8 +250,8 @@ namespace ChatBook.UI.Forms
 
         private void buttonChats_Click(object sender, EventArgs e)
         {
-            ChatForm chatForm = new ChatForm(CurrentUserNickname, Program.ServiceProvider.GetRequiredService<ChatViewModel>(), _chatService);
-
+            var chatViewModel = Program.ServiceProvider.GetRequiredService<ChatViewModel>();
+            ChatForm chatForm = new ChatForm(CurrentUserNickname, chatViewModel);
             chatForm.Show();
         }
 
@@ -402,8 +402,7 @@ namespace ChatBook.UI.Forms
         private void btnSendMessage_Click(object sender, EventArgs e)
         {
             var chatViewModel = Program.ServiceProvider.GetRequiredService<ChatViewModel>();
-
-            ChatForm chatForm = new ChatForm(_logged.Nickname, chatViewModel, _chatService, _currentUser.Nickname);
+            ChatForm chatForm = new ChatForm(_logged.Nickname, chatViewModel, _currentUser.Nickname);
             chatForm.Show();
         }
     }

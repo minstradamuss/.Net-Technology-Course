@@ -408,6 +408,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataAccess\Repositories\BookRepository.cs" />
+    <Compile Include="DataAccess\Repositories\ChatRepositoryEF.cs" />
     <Compile Include="DataAccess\Repositories\MessageRepository.cs" />
     <Compile Include="AppSession.cs" />
     <Compile Include="DataAccess\Repositories\UserRepository.cs" />

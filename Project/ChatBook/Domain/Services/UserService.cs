@@ -62,5 +62,7 @@ namespace ChatBook.Domain.Services
         public void SaveMessage(Message msg) => _messageRepo.SaveMessage(msg);
         public List<Message> GetChatMessages(string from, string to) => _messageRepo.GetMessages(from, to);
         public List<User> GetAllChatPartners(string nickname) => _messageRepo.GetChatPartners(nickname);
+
+        public User GetUserById(int id) => _userRepo.GetById(id);
     }
 }

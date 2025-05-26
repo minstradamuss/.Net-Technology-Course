@@ -20,5 +20,6 @@ namespace ChatBook.Domain.Interfaces
         bool AddFriend(string userNickname, string friendNickname);
         bool RemoveFriend(string userNickname, string friendNickname);
         bool AreFriends(string user1, string user2);
+        User GetById(int id);
     }
 }

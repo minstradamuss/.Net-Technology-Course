@@ -13,7 +13,6 @@ using ChatBook.UI.ViewModel;
 using ChatBook.DB;
 using ChatBook.DataAccess.Repositories;
 using ChatBook.Domain.Factories;
-using ChatService.Repositories;
 using ChatService.Domain;
 
 namespace ChatBook
@@ -72,7 +71,8 @@ namespace ChatBook
             services.AddTransient<AddBookWindow>();
 
             // === Сервисы чата ===
-            services.AddSingleton<IChatRepository, ChatRepository>();
+            services.AddSingleton<IChatRepository, ChatRepositoryEF>();
+
             services.AddSingleton<IChatService, ChatService.Services.ChatService>();
 
             // БД инициализатор

@@ -1,16 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using ChatBook.Domain.Services;
+﻿using ChatService.Domain;
+using ChatService.Entities;
 using ChatBook.Entities;
+using ChatBook.Domain.Services;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ChatBook.ViewModels
 {
     public class ChatViewModel
     {
+        private readonly IChatService _chatService;
         private readonly UserService _userService;
 
-        public ChatViewModel(UserService userService)
+        public ChatViewModel(IChatService chatService, UserService userService)
         {
+            _chatService = chatService ?? throw new ArgumentNullException(nameof(chatService));
             _userService = userService ?? throw new ArgumentNullException(nameof(userService));
         }
 
@@ -24,20 +29,16 @@ namespace ChatBook.ViewModels
             return _userService.GetAllChatPartners(nickname);
         }
 
-        public List<Message> GetChatMessages(string fromNickname, string toNickname)
+        public void SendMessage(string from, string to, string text)
         {
-            return _userService.GetChatMessages(fromNickname, toNickname);
+            _chatService.SendMessage(from, to, text);
         }
 
-        public User GetUser(string nickname)
+        public List<ChatService.Entities.Message> GetChatMessages(string from, string to)
         {
-            return _userService.GetUserByNickname(nickname);
+            return _chatService.GetChatHistory(from, to);
         }
 
-        public void SaveMessage(Message message)
-        {
-            _userService.SaveMessage(message);
-        }
 
         public User GetUserByNickname(string nickname)
         {
