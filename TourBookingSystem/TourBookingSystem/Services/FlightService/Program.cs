@@ -1,18 +1,21 @@
 
 using System;
 using System.ServiceModel;
-using Services.FlightService;
+using Contracts;
+using Services;
 
-namespace FlightServiceHost
+namespace FlightService
 {
     class Program
     {
         static void Main(string[] args)
         {
-            using var host = new ServiceHost(typeof(FlightService));
-            host.Open();
-            Console.WriteLine("FlightService is running at http://localhost:8001/FlightService");
-            Console.ReadLine();
+            using (ServiceHost host = new ServiceHost(typeof(FlightService)))
+            {
+                host.Open();
+                Console.WriteLine("FlightService is running...");
+                Console.ReadLine();
+            }
         }
     }
 }

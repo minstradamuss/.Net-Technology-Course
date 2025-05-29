@@ -1,5 +1,6 @@
-
 using System;
+using System.ServiceModel;
+using System.Transactions;
 using Contracts;
 using Client.FlightService;
 using Client.HotelService;
@@ -19,15 +20,20 @@ namespace Client
 
             try
             {
-                var flightClient = new FlightServiceClient("FlightServiceEndpoint");
-                var hotelClient = new HotelServiceClient("HotelServiceEndpoint");
-                var paymentClient = new PaymentServiceClient("PaymentServiceEndpoint");
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Required))
+                {
+                    var flightClient = new FlightServiceClient("FlightServiceEndpoint");
+                    var hotelClient = new HotelServiceClient("HotelServiceEndpoint");
+                    var paymentClient = new PaymentServiceClient("PaymentServiceEndpoint");
 
-                Console.WriteLine("Booking started...");
+                    Console.WriteLine("Booking started...");
 
-                flightClient.BookFlight(info);
-                hotelClient.BookHotel(info);
-                paymentClient.MakePayment(info);
+                    flightClient.BookFlight(info);
+                    hotelClient.BookHotel(info);
+                    paymentClient.MakePayment(info);
+
+                    scope.Complete(); 
+                }
 
                 Console.WriteLine("Tour successfully booked.");
             }

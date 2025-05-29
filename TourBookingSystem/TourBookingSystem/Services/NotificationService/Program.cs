@@ -1,18 +1,21 @@
 
 using System;
 using System.ServiceModel;
-using Services.NotificationService;
+using Contracts;
+using Services;
 
-namespace NotificationServiceHost
+namespace NotificationService
 {
     class Program
     {
         static void Main(string[] args)
         {
-            using var host = new ServiceHost(typeof(NotificationService));
-            host.Open();
-            Console.WriteLine("NotificationService is running at http://localhost:8004/NotificationService");
-            Console.ReadLine();
+            using (ServiceHost host = new ServiceHost(typeof(NotificationService)))
+            {
+                host.Open();
+                Console.WriteLine("NotificationService is running...");
+                Console.ReadLine();
+            }
         }
     }
 }
