@@ -1,14 +1,8 @@
-﻿using System;
+﻿using ChatBook.Entities;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ChatBook.Domain.Interfaces
 {
-    using ChatBook.Entities;
-    using System.Collections.Generic;
-
     public interface IUserRepository
     {
         User GetByNickname(string nickname);

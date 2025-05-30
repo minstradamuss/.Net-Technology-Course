@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using ChatBook.Entities;
 
 namespace ChatBook.Domain.Interfaces
 {
-    using ChatBook.Entities;
-    using System.Collections.Generic;
-
     public interface IMessageRepository
     {
         List<Message> GetMessages(string senderNickname, string receiverNickname);

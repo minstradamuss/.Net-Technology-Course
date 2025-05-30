@@ -1,5 +1,4 @@
-﻿
-using ChatBook.Domain.Interfaces;
+﻿using ChatBook.Domain.Interfaces;
 using ChatBook.Entities;
 using System.Collections.Generic;
 using System.Linq;
@@ -119,7 +118,6 @@ namespace ChatBook.DataAccess.Repositories
             {
                 try
                 {
-                    // Удаляем связанные данные
                     var books = _context.Books.Where(b => b.UserId == user.Id);
                     _context.Books.RemoveRange(books);
 

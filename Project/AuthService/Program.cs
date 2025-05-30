@@ -7,10 +7,9 @@ using AuthService.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Controllers
 builder.Services.AddControllers();
 
-// Swagger + Bearer auth
+// Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -42,7 +41,6 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-// CORS
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
@@ -72,20 +70,18 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-// DI: Token + User services
 builder.Services.AddScoped<ITokenStrategy, JwtTokenStrategy>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
 
-// Middleware (порядок важен!)
 app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
-app.UseCors(); // обязательно ДО Auth & Controllers
+app.UseCors();
 
 app.UseAuthentication();
 app.UseAuthorization();

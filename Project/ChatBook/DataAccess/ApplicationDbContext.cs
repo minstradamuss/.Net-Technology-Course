@@ -21,8 +21,6 @@ namespace ChatBook.DataAccess
         public DbSet<Profile> Profiles { get; set; }
         public DbSet<Message> Messages { get; set; }
 
-
-
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>()
@@ -31,7 +29,6 @@ namespace ChatBook.DataAccess
 
             modelBuilder.Entity<Friendship>()
                 .HasKey(f => new { f.User1Id, f.User2Id });
-
 
             base.OnModelCreating(modelBuilder);
         }

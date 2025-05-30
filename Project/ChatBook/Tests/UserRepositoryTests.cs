@@ -22,12 +22,10 @@ namespace ChatBook.Tests.Database
         [Fact]
         public void DeleteUser_ShouldRemoveUserAndRelatedData()
         {
-            // Arrange
             var user = new User { Nickname = "delete_me", Password = "1234" };
             _context.Users.Add(user);
             _context.SaveChanges();
 
-            // Добавим связанные сущности
             var book = new Book { Title = "Book", UserId = user.Id };
             var profile = new Profile { UserId = user.Id };
             var friend = new User { Nickname = "other", Password = "123" };
@@ -43,10 +41,8 @@ namespace ChatBook.Tests.Database
             _context.Messages.Add(msg);
             _context.SaveChanges();
 
-            // Act
             var result = _repo.DeleteUser("delete_me");
 
-            // Assert
             Assert.True(result);
             Assert.Null(_context.Users.FirstOrDefault(u => u.Nickname == "delete_me"));
             Assert.Empty(_context.Books.Where(b => b.UserId == user.Id));

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using ChatBook.Entities;
 using ChatBook.ViewModels;
 
 namespace ChatBook.UI.Forms

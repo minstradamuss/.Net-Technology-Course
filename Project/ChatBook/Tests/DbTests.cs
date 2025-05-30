@@ -7,28 +7,23 @@ namespace ChatBook.Tests.Database
 {
     public class DbTests
     {
-        // Используем контекст, указанный в App.config (TestDbContext)
         private readonly ApplicationDbContext _context;
 
         public DbTests()
         {
             _context = new ApplicationDbContext("name=TestDbContext");
 
-            // Простейшая инициализация для SQLite EF6
             _context.Database.CreateIfNotExists();
         }
 
         [Fact]
         public void CanInsertUserIntoDatabase()
         {
-            // Arrange
             var user = new User { Nickname = "testuser", Password = "1234" };
 
-            // Act
             _context.Users.Add(user);
             _context.SaveChanges();
 
-            // Assert
             var found = _context.Users.FirstOrDefault(u => u.Nickname == "testuser");
             Assert.NotNull(found);
             Assert.Equal("testuser", found.Nickname);
@@ -37,7 +32,6 @@ namespace ChatBook.Tests.Database
         [Fact]
         public void CanAddBookToUser()
         {
-            // Arrange
             var user = _context.Users.FirstOrDefault(u => u.Nickname == "testuser");
 
             if (user == null)
@@ -55,11 +49,9 @@ namespace ChatBook.Tests.Database
                 Status = "Прочитано"
             };
 
-            // Act
             _context.Books.Add(book);
             _context.SaveChanges();
 
-            // Assert
             var saved = _context.Books.FirstOrDefault(b => b.Title == "Test Book");
             Assert.NotNull(saved);
             Assert.Equal("Test Book", saved.Title);

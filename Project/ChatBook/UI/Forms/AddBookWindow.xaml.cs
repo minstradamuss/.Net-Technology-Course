@@ -136,16 +136,16 @@ namespace ChatBook.UI.Windows
             _book.Status = cmbStatus.Text;
             _book.Review = txtReview.Text;
             _book.CoverImage = _coverBytes;
-            _book.Rating = _selectedRating; // если используешь рейтинг
+            _book.Rating = _selectedRating; 
 
             try
             {
-                if (_book.Id == 0) // новая книга
+                if (_book.Id == 0) 
                 {
                     var newBook = _bookFactory.Create(
                         txtTitle.Text,
                         txtAuthor.Text,
-                        genre: "", // если есть отдельное поле жанра — используй его
+                        genre: "", 
                         cmbStatus.Text,
                         _selectedRating,
                         txtReview.Text,
@@ -157,7 +157,6 @@ namespace ChatBook.UI.Windows
                 }
                 else
                 {
-                    // редактирование
                     _book.Title = txtTitle.Text;
                     _book.Author = txtAuthor.Text;
                     _book.Status = cmbStatus.Text;

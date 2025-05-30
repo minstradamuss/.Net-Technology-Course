@@ -6,11 +6,11 @@ using System.Linq;
 
 namespace ChatBook.DataAccess.Repositories
 {
-    public class ChatRepositoryEF : IChatRepository
+    public class ChatRepository : IChatRepository
     {
         private readonly ApplicationDbContext _context;
 
-        public ChatRepositoryEF(ApplicationDbContext context)
+        public ChatRepository(ApplicationDbContext context)
         {
             _context = context;
         }

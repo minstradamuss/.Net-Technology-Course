@@ -13,7 +13,7 @@ namespace ChatBook.ViewModels
     {
         private readonly UserService _userService;
         private readonly HttpClient _httpClient = new HttpClient();
-
+        public static string JwtToken { get; private set; }
         public LoginViewModel(UserService userService)
         {
             _userService = userService;
@@ -41,6 +41,8 @@ namespace ChatBook.ViewModels
             {
                 PropertyNameCaseInsensitive = true
             });
+            JwtToken = payload?.Token;
+            AppSession.SetJwtToken(JwtToken);
 
             if (payload is null || string.IsNullOrEmpty(payload.Token))
             {
@@ -48,7 +50,6 @@ namespace ChatBook.ViewModels
                 return null;
             }
 
-            // ищем или создаем пользователя локально
             var existingUser = _userService.GetUserByNickname(nickname);
             if (existingUser == null)
             {
@@ -59,8 +60,6 @@ namespace ChatBook.ViewModels
 
             return existingUser != null ? UserMapper.ToModel(existingUser) : null;
         }
-
-
 
         public async Task<bool> RegisterAsync(string nickname, string password)
         {

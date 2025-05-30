@@ -174,7 +174,6 @@ namespace ChatBook.UI.Forms
             bool success = _viewModel.AddFriend(_currentUserNickname, user.Nickname);
             if (success)
             {
-                //MessageBox.Show($"{user.Nickname} добавлен в друзья!", "Успешно", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 btnAddFriend.Enabled = false;
             }
             else

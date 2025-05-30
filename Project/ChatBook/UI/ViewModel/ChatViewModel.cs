@@ -38,11 +38,5 @@ namespace ChatBook.ViewModels
         {
             return _chatService.GetChatHistory(from, to);
         }
-
-
-        public User GetUserByNickname(string nickname)
-        {
-            return _userService.GetUserByNickname(nickname);
-        }
     }
 }

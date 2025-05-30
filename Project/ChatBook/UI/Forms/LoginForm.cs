@@ -1,5 +1,4 @@
-﻿using ChatBook.Entities;
-using ChatBook.ViewModels;
+﻿using ChatBook.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows.Forms;

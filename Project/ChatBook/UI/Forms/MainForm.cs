@@ -89,15 +89,8 @@ namespace ChatBook.UI.Forms
             Controls.Add(flowLayoutPanelBooks);
         }
 
-        private void InitializeAddBookButton()
-        {
-            btnAddBook.Click += btnAddBook_Click;
-            Controls.Add(btnAddBook);
-        }
-
         private void btnEditProfile_Click(object sender, EventArgs e)
         {
-            // Загрузить пользователя с актуальными данными из БД
             var freshUser = _viewModel.GetUser(_currentUser.Nickname);
 
             var editProfileWindow = new EditProfileWindow(freshUser, _viewModel);
@@ -111,10 +104,6 @@ namespace ChatBook.UI.Forms
             editProfileWindow.ShowDialog();
         }
 
-
-
-
-
         private void UpdateProfileInfo(User updatedUser)
         {
             if (updatedUser == null) return;
@@ -126,8 +115,8 @@ namespace ChatBook.UI.Forms
                 using (var ms = new MemoryStream(_currentUser.Avatar))
                 {
                     var img = Image.FromStream(ms);
-                    pictureBoxAvatar.Image?.Dispose(); // очистить старую
-                    pictureBoxAvatar.Image = new Bitmap(img); // обновить
+                    pictureBoxAvatar.Image?.Dispose();
+                    pictureBoxAvatar.Image = new Bitmap(img);
                 }
             }
             else
@@ -136,13 +125,6 @@ namespace ChatBook.UI.Forms
                 pictureBoxAvatar.Image = null;
             }
         }
-
-        //private void btnLogout_Click(object sender, EventArgs e)
-        //{
-        //    this.Close();
-        //    LoginForm loginForm = new LoginForm(_viewModel);
-        //    loginForm.Show();
-        //}
 
         private void AddBookForm_BookAdded(Book newBook)
         {
@@ -228,22 +210,17 @@ namespace ChatBook.UI.Forms
             }
         }
 
-
-
-
-
         private void btnSearchBooks_Click(object sender, EventArgs e)
         {
             var thread = new System.Threading.Thread(() =>
             {
                 var window = Program.ServiceProvider.GetRequiredService<BookSearchWindow>();
-                window.ShowDialog(); // ✅ вместо Application.Run(window)
+                window.ShowDialog();
             });
 
             thread.SetApartmentState(System.Threading.ApartmentState.STA);
             thread.Start();
         }
-
 
 
         private ChatForm _chatForm;
@@ -254,8 +231,6 @@ namespace ChatBook.UI.Forms
             ChatForm chatForm = new ChatForm(CurrentUserNickname, chatViewModel);
             chatForm.Show();
         }
-
-
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -290,15 +265,14 @@ namespace ChatBook.UI.Forms
                     Program.ServiceProvider.GetRequiredService<AddBookViewModel>(),
                     _currentUser,
                     Program.ServiceProvider.GetRequiredService<IBookFactory>(), // 3-й аргумент
-                    null,  // 4-й — Book
-                    false  // 5-й — isReadOnly
+                    null,
+                    false
                 );
 
                 var result = window.ShowDialog();
 
                 if (result == true)
                 {
-                    // Вернуться на основной UI-поток WinForms
                     this.Invoke(new Action(() => LoadUserBooks()));
                 }
             });
@@ -334,7 +308,6 @@ namespace ChatBook.UI.Forms
                 bookPanel.Value.Visible = match;
             }
         }
-
 
         private void btnRemoveFriend_Click(object sender, EventArgs e)
         {

@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using AuthService.Models;
 using AuthService.Domain;
-using Microsoft.Extensions.Logging;
 
 namespace AuthService.Controllers
 {

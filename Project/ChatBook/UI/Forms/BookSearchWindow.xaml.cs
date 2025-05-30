@@ -1,20 +1,16 @@
-﻿using ChatBook.Entities;
-using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.IO;
 using System.Windows.Media;
 using ChatBook.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
-using ChatBook.Domain.Services;
 using ChatBook.Domain.Factories;
 
 namespace ChatBook.UI.Windows
 {
     public partial class BookSearchWindow : Window
     {
-        private readonly UserService _userService;
         private readonly BookSearchViewModel _viewModel;
 
         public BookSearchWindow(BookSearchViewModel viewModel)
@@ -36,7 +32,6 @@ namespace ChatBook.UI.Windows
             }
         }
 
-
         private void txtSearch_LostFocus(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtSearch.Text))
@@ -45,8 +40,6 @@ namespace ChatBook.UI.Windows
                 txtSearch.Foreground = Brushes.Gray;
             }
         }
-
-
 
         private void Search_Click(object sender, RoutedEventArgs e)
         {

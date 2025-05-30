@@ -14,11 +14,6 @@ namespace ChatBook.ViewModels
 
         public User CurrentUser { get; set; }
 
-        public bool Save()
-        {
-            return _mainViewModel.UpdateProfile(CurrentUser);
-        }
-
         internal bool UpdateProfile()
         {
             return _mainViewModel.UpdateProfile(CurrentUser);

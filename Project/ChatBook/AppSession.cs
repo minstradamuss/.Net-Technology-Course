@@ -13,5 +13,12 @@ namespace ChatBook
                 LoggedUser = user;
             }
         }
+
+        public static string JwtToken { get; private set; }
+
+        public static void SetJwtToken(string token)
+        {
+            JwtToken = token;
+        }
     }
 }

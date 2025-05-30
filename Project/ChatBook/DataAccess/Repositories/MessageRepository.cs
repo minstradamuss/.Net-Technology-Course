@@ -2,7 +2,6 @@
 using ChatBook.Entities;
 using System.Collections.Generic;
 using System.Linq;
-using System.Data.Entity;
 
 namespace ChatBook.DataAccess.Repositories
 {

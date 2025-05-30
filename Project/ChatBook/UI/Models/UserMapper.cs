@@ -13,14 +13,6 @@ namespace ChatBook.Models
             PhoneNumber = user.PhoneNumber
         };
 
-        public static void UpdateEntity(User user, UserModel model)
-        {
-            user.FirstName = model.FirstName;
-            user.LastName = model.LastName;
-            user.Avatar = model.Avatar;
-            user.PhoneNumber = model.PhoneNumber;
-        }
-
         public static User ToEntity(UserModel model)
         {
             return new User

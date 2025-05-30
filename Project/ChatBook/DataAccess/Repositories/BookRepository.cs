@@ -1,5 +1,4 @@
-﻿
-using ChatBook.Domain.Interfaces;
+﻿using ChatBook.Domain.Interfaces;
 using ChatBook.Entities;
 using System.Collections.Generic;
 using System.Linq;

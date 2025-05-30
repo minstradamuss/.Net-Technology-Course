@@ -11,7 +11,7 @@ namespace ChatService.ConsoleApp
         {
             Console.WriteLine("=== ChatService Имитация переписки ===");
 
-            var chatRepo = new InMemoryChatRepository(); // <-- in-memory версия
+            var chatRepo = new InMemoryChatRepository();
             var chatService = new ChatService.Services.ChatService(chatRepo);
 
 

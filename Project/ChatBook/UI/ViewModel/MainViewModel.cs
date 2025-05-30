@@ -28,31 +28,6 @@ namespace ChatBook.ViewModels
             return _userService.RemoveFriend(userNickname, friendNickname);
         }
 
-        public List<Entities.Message> GetMessages(string from, string to)
-        {
-            return _userService.GetChatMessages(from, to);
-        }
-
-        public List<Message> GetChatMessages(string nickname1, string nickname2)
-        {
-            return _userService.GetChatMessages(nickname1, nickname2);
-        }
-
-        public void AddBook(Book book, string nickname)
-        {
-            _userService.AddBook(book, nickname);
-        }
-
-        public void UpdateBook(Book book)
-        {
-            _userService.UpdateBook(book);
-        }
-
-        public void DeleteBook(int id)
-        {
-            _userService.DeleteBook(id);
-        }
-
         public bool UpdateProfile(User user)
         {
             if (user == null)

@@ -2,7 +2,6 @@
 using ChatBook.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace ChatBook.Domain.Services
 {
@@ -55,14 +54,9 @@ namespace ChatBook.Domain.Services
         public bool UpdateBook(Book book) => _bookRepo.UpdateBook(book);
         public bool DeleteBook(int id) => _bookRepo.DeleteBook(id);
         public List<Book> GetUserBooks(string nickname) => _bookRepo.GetUserBooks(nickname);
-        public List<Book> GetReadBooks(string nickname) => _bookRepo.GetReadBooks(nickname);
         public List<BookWithReview> SearchBooksWithReviews(string titleQuery) => _bookRepo.SearchBooksWithReviews(titleQuery);
-        public Book GetBookByUserAndTitle(int userId, string title) => _bookRepo.GetBookByUserAndTitle(userId, title);
-
         public void SaveMessage(Message msg) => _messageRepo.SaveMessage(msg);
         public List<Message> GetChatMessages(string from, string to) => _messageRepo.GetMessages(from, to);
         public List<User> GetAllChatPartners(string nickname) => _messageRepo.GetChatPartners(nickname);
-
-        public User GetUserById(int id) => _userRepo.GetById(id);
     }
 }
